@@ -64,6 +64,38 @@ Modifizierbarkeit |-|-|-|X|
 Stabilität |X|-|-|-|
 Prüfbarkeit |X|-|-|-|
 ## 2.4 Graphische Benutzerschnittstelle
+#### Übersicht
+![Mockup mit Graph](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/RouteGuideMockups.png)
+#### Login
+![Login](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/LoginScreen.png)
+Use Cases: 1, 2, 3
+#### Map
+![Map](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/Map.png)
+Use Cases: 5, 6, 7, 8
+#### Passwort vergessen
+![Passwort Vergessen](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/ForgotPasswort.png)
+Use Case: 1
+#### Neuer Nutzer, erste Seite
+![Neuer User 0](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/NewUser0.png)
+#### Neuer Nutzer, zweite Seite
+![Neuer User 1](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/NewUser1.png)
+Use Case: 4
+#### Route planen, erste Seite
+![Plan a Route 0](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/PlanARoute0.png)
+#### Route planen, zweite Seite
+![Plan a Route 1](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/PlanARoute1.png)
+Use Cases: 16, 17, 18, 19
+#### Profil, erste Seite
+![Profile 0](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/Profile0.png)
+Use Case: 10, 11, 12, 13, 14
+#### Profil, zweite Seite
+![Profile 1](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/Profile1.png)
+Use Cases: 15
+#### Community
+![Community](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/Community.png)
+Use Cases: 11, 14
+
+
 * GUI-Mockups passend zu User Stories
 * Screens mit Überschrift kennzeichnen, die im Inhaltsverzeichnis zu sehen ist
 * Unter den Screens darstellen (bzw. verlinken), welche User Stories mit dem Screen
@@ -76,21 +108,40 @@ abgehandelt werden
 * Optional: Name (oder ID) und Priorität ("Must", "Should", "Could", "Won't")
 * Strukturierung der User Stories in funktionale Gruppen
 * Sicherheit: Misuse-Stories formulieren
-### Schablone für User Stories
+
 | **Als** | **möchte ich** | **so dass** | **Akzeptanz** |
 | :------ | :----- | :------ | :-------- |
 | Wer | Was | Warum | Wann akzeptiert |
-### Beispiel 1
-| **Als** | **möchte ich** | **so dass** | **Akzeptanz** |
-| :------ | :----- | :------ | :-------- |
-| Benutzer | bei Fehleingabe die Lösung angezeigt bekommen | ich lernen kann | Lösung
-wird angezeigt |
-### Beispiel 2
-| **Name**| **In meiner Rolle als**...| ...**möchte ich**... | ..., **so dass**... |
-**Erfüllt, wenn**... | **Priorität** |
-|:-----|:----------:|:-------------------|:-------------|:---------|:----------------|
-| Lernen |Benutzer| bei Fehleingabe die Lösung angezeigt bekommen|ich lernen kann|
-Lösung wird angezeigt | Muss |
+1. | Benutzer | einen Button für das zurücksetzen des Passwort | ich mir ein neues Passwort geben lassen kann | Passwort wird durch neues ersetzt |
+2. | Benutzer | einen Button zum erstellen eines Profils | ich als neuer Nutzer ein neues Profil machen kann | Benutzer wird angelegt und beim Login erkannt |
+3. | Backend  | keine Fehlerhaften Anfragen | bei fehlerhafter Mail keine Anfrage geschickt wird | Falsche Email wird nicht angenommen |
+
+4. | Benutzer | den Grund für meine Anmeldung angeben | damit ich für mich passende Routen finde | User wird einer Gruppe zugeordnet |
+
+5. | Benutzer | eine simple Kartenansicht | damit ich mich auf das wesentliche konzentrieren kann | Simple Karten Ansicht |
+6. | Benutzer | bei einer Navigation eine sich mitbewegende Karte | damit ich immer genau weiß wo ich bin und lang will/muss | Mitbewegende Karte |
+7. | System | standortfreigabe vom Nutzer | damit die Karte und die geteilten Routen in etwa zu dem User passen | Standort des Users bekommen |
+8. | Benutzer | die Karte wieder auf den Nutzer zentrieren | damit man bei verschobener Karte sich wieder findet | Button der den Nutzer zentriert
+
+9. | Benutzer | zwischen den Hauptanwendungen leicht hin und her wechseln können | damit die App nicht überfordert | Navigationsleiste mit wesentlichen Anwendungen |
+
+10. | Benutzer | die Möglichkeit bereits gefasste Routen zu speichern | damit ich Routen wiederholen kann | Speichermöglichkeit für Routen |
+11. | Benutzer | die Möglichkeit gespeicherte Routen mit anderen zu teilen | damit ich Routen von anderen ausprobieren kann und eigene teilen kann | Teil Möglichkeit von gespiecherten Routen |
+12. | Benutzer | bereits gefasste Routen wieder entfernen kann | so das ich meine Routen auch wieder löschen kann | Gespeicherte und/oder geteilte Routen löschen |
+13. | Benutzer | routen die ich geliked habe wiederfinden | ich mir gefallende Routen öfters aufrufen kann | Gelikede Routen in meinem Profil wiederfinden |
+14. | System | routen sollen bewertet werden können | user gut bewertete Routen finden können | Ein User bestimmtes Bewertungssystem
+
+15. | Benutzer | mein Profil und meine Gruppe wechseln | um auch Routen zu erhalten die der User zuerst als unrelevant ansah | Eine Seite im Profil mit Tick Boxen |
+
+16. | Benutzer | eine Route bestehend aus vielen Stops erstellen | um eine Route mit Zwischenstops erstellen zu können | Route aus einer Liste von Routen erstellen |
+17. | Benutzer | Punkte auf der Kart anklicken um sie in die Routenplanung aufzunehmen | unabhängig von Straßen auch andere Wegpunkte setzen kann | Map Ansicht mit der Möglichkeit für Wegpunkte |
+18. | Benutzer | eine optimierte Route erstellen können | um aus mehreren Wegpunken eine Optimale Strecke zu erstellen | Erstellen einer optimierten Route mithilfe eines Buttons |
+19. | Benutzer | eine Route erstellen die nicht optimiert ist | um eine Route auch so zu haben wie der Nutzer es wollte | Erstellen einer unoptimierten Route mithilfe eines Buttons |
+
+x. | System | dauer der Route soll gespeichert werden | es eine Durschschnitt und Bestzeit gibt | Zeitmessung der Navigation |
+x. | System | listen sollen intuitiv scrollbar sein | so das es im Prinzip unendlich lange Listen gibt | Scrollbare Listen |
+
+
 # 3 Technische Beschreibung
 ## 3.1 Systemübersicht
 * Systemarchitekturdiagramm ("Box-And-Arrow" Diagramm)
@@ -129,7 +180,7 @@ Protokolle benutzt werden.
 QT als Crossplattform Framework.
   - QT Quick mit QML da vorrangig das Smartphone genutzt werden soll
   - Direkter vergleich von MAUI einem .NET Frameork, primär für Mobile Anwendung zeigten, QT ist perfomanter.
-  - [Openrouteservice]([https://link-url-here.org](https://openrouteservice.org/) Hilft beim erstellen von Routen  
+  - [Openrouteservice](https://openrouteservice.org/) Hilft beim erstellen von Routen  
   - [OpenstreetMap](https://www.openstreetmap.de/) Darstellen von der Karte
 ## 3.3 Schnittstellen
 * Schnittstellenbeschreibung (API)
@@ -193,27 +244,11 @@ Erweiterbarkeit)
 | Softwarebaustein | Person(en) |
 |----------|-----------|
 | Komponente A | Thomas Mustermann |
-### Rollen
-Überlegen Sie, ob es sinnvoll ist, wenn Sie die Rollen für
-Product-Owner und Scrum-Master vergeben, wobei Sie bedenken
-sollten, ob diese Rollen über den gesamten Projektzeitraum
-aktiv sein werden. Neben diesen Rollen können folgende Rollen
-sinnvoll sein:
-#### Softwarearchitekt
-Entwirft den Aufbau von Softwaresystemen und trifft Entscheidungen über das Zusammenspiel
-der Softwarebausteine.
-#### Frontend-Entwickler
-Entwickelt graphische oder andere Benutzerschnittstellen, insbesondere das Layout einer
-Anwendung.
-#### Backend-Entwickler
-Implementiert die funktionale Logik der Anwendung. Hierbei werden zudem diverse
-Datenquellen und externe Dienste integriert und für die Anwendung bereitgestellt.
-#### DevOps-Engineer
-Ist für die Repositories und das Deployment verantwortlich.
 ### Rollenzuordnung
 | Name | Rolle |
 |----------|-----------|
-| Thomas Mustermann | Frontend-Entwickler |
+| Malte Kanders | Frontend-Entwickler |
+| Clemens Maas | Backend-Entwickler |
 ## 4.3 Grober Projektplan
 - Meilensteine
 ### Meilensteine
