@@ -43,7 +43,7 @@ Eventuell Desktop oder Web Anwendung für die erweiterten Funktionalitäten.
 * Externe Qualitätsanforderungen (z.B. Performance, Sicherheit, Zuverlässigkeit,
 Benutzerfreundlichkeit)
 Qualitätsmerkmal | sehr gut | gut | normal | nicht relevant
----|---|---|---|---
+|---|---|---|---|---|
 **Zuverlässigkeit** | | | | |
 Fehlertoleranz |X|-|-|-|
 Wiederherstellbarkeit |X|-|-|-|
@@ -65,81 +65,66 @@ Stabilität |X|-|-|-|
 Prüfbarkeit |X|-|-|-|
 ## 2.4 Graphische Benutzerschnittstelle
 #### Übersicht
-![Mockup mit Graph](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/RouteGuideMockups.png)
+![Mockup mit Graph](https://github.com/BTBlueTiger/RouteGuide/blob/main/Pflichtenheft/GuiMockUps/RouteGuideMockups.png)
 #### Login
-![Login](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/LoginScreen.png)
+![Login](https://github.com/BTBlueTiger/RouteGuide/blob/main/Pflichtenheft/GuiMockUps/LoginScreen.png)
 Use Cases: 1, 2, 3
 #### Map
-![Map](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/Map.png)
+![Map](https://github.com/BTBlueTiger/RouteGuide/blob/main/Pflichtenheft/GuiMockUps/Map.png)
 Use Cases: 5, 6, 7, 8
 #### Passwort vergessen
-![Passwort Vergessen](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/ForgotPasswort.png)
+![Passwort Vergessen](https://github.com/BTBlueTiger/RouteGuide/blob/main/Pflichtenheft/GuiMockUps/ForgotPasswort.png)
 Use Case: 1
 #### Neuer Nutzer, erste Seite
-![Neuer User 0](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/NewUser0.png)
+![Neuer User 0](https://github.com/BTBlueTiger/RouteGuide/blob/main/Pflichtenheft/GuiMockUps/NewUser0.png)
 #### Neuer Nutzer, zweite Seite
-![Neuer User 1](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/NewUser1.png)
+![Neuer User 1](https://github.com/BTBlueTiger/RouteGuide/blob/main/Pflichtenheft/GuiMockUps/NewUser1.png)
 Use Case: 4
 #### Route planen, erste Seite
-![Plan a Route 0](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/PlanARoute0.png)
+![Plan a Route 0](https://github.com/BTBlueTiger/RouteGuide/blob/main/Pflichtenheft/GuiMockUps/PlanARoute0.png)
 #### Route planen, zweite Seite
-![Plan a Route 1](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/PlanARoute1.png)
+![Plan a Route 1](https://github.com/BTBlueTiger/RouteGuide/blob/main/Pflichtenheft/GuiMockUps/PlanARoute1.png)
 Use Cases: 16, 17, 18, 19
 #### Profil, erste Seite
-![Profile 0](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/Profile0.png)
+![Profile 0](https://github.com/BTBlueTiger/RouteGuide/blob/main/Pflichtenheft/GuiMockUps/Profile0.png)
 Use Case: 10, 11, 12, 13, 14
 #### Profil, zweite Seite
-![Profile 1](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/Profile1.png)
+![Profile 1](https://github.com/BTBlueTiger/RouteGuide/blob/main/Pflichtenheft/GuiMockUps/Profile1.png)
 Use Cases: 15
 #### Community
-![Community](https://github.com/BTBlueTiger/RouteGuide/blob/main/GuiMockUps/Community.png)
+![Community](https://github.com/BTBlueTiger/RouteGuide/blob/main/Pflichtenheft/GuiMockUps/Community.png)
 Use Cases: 11, 14
 
-
-* GUI-Mockups passend zu User Stories
-* Screens mit Überschrift kennzeichnen, die im Inhaltsverzeichnis zu sehen ist
-* Unter den Screens darstellen (bzw. verlinken), welche User Stories mit dem Screen
-abgehandelt werden
-* Modellierung der Navigation zwischen den Screens der GUI-Mockups als Zustandsdiagramm
 * Mockups für unterschiedliche Akteure
 * Mockups für unterschiedliche Frontends (Mobil, Web, Desktop)
 ## 2.5 Anforderungen im Detail
-* User Stories mit Akzeptanzkritierien
-* Optional: Name (oder ID) und Priorität ("Must", "Should", "Could", "Won't")
-* Strukturierung der User Stories in funktionale Gruppen
+
 * Sicherheit: Misuse-Stories formulieren
 
-| **Als** | **möchte ich** | **so dass** | **Akzeptanz** |
-| :------ | :----- | :------ | :-------- |
-| Wer | Was | Warum | Wann akzeptiert |
-1. | Benutzer | einen Button für das zurücksetzen des Passwort | ich mir ein neues Passwort geben lassen kann | Passwort wird durch neues ersetzt |
-2. | Benutzer | einen Button zum erstellen eines Profils | ich als neuer Nutzer ein neues Profil machen kann | Benutzer wird angelegt und beim Login erkannt |
-3. | Backend  | keine Fehlerhaften Anfragen | bei fehlerhafter Mail keine Anfrage geschickt wird | Falsche Email wird nicht angenommen |
-
-4. | Benutzer | den Grund für meine Anmeldung angeben | damit ich für mich passende Routen finde | User wird einer Gruppe zugeordnet |
-
-5. | Benutzer | eine simple Kartenansicht | damit ich mich auf das wesentliche konzentrieren kann | Simple Karten Ansicht |
-6. | Benutzer | bei einer Navigation eine sich mitbewegende Karte | damit ich immer genau weiß wo ich bin und lang will/muss | Mitbewegende Karte |
-7. | System | standortfreigabe vom Nutzer | damit die Karte und die geteilten Routen in etwa zu dem User passen | Standort des Users bekommen |
-8. | Benutzer | die Karte wieder auf den Nutzer zentrieren | damit man bei verschobener Karte sich wieder findet | Button der den Nutzer zentriert
-
-9. | Benutzer | zwischen den Hauptanwendungen leicht hin und her wechseln können | damit die App nicht überfordert | Navigationsleiste mit wesentlichen Anwendungen |
-
-10. | Benutzer | die Möglichkeit bereits gefasste Routen zu speichern | damit ich Routen wiederholen kann | Speichermöglichkeit für Routen |
-11. | Benutzer | die Möglichkeit gespeicherte Routen mit anderen zu teilen | damit ich Routen von anderen ausprobieren kann und eigene teilen kann | Teil Möglichkeit von gespiecherten Routen |
-12. | Benutzer | bereits gefasste Routen wieder entfernen kann | so das ich meine Routen auch wieder löschen kann | Gespeicherte und/oder geteilte Routen löschen |
-13. | Benutzer | routen die ich geliked habe wiederfinden | ich mir gefallende Routen öfters aufrufen kann | Gelikede Routen in meinem Profil wiederfinden |
-14. | System | routen sollen bewertet werden können | user gut bewertete Routen finden können | Ein User bestimmtes Bewertungssystem
-
-15. | Benutzer | mein Profil und meine Gruppe wechseln | um auch Routen zu erhalten die der User zuerst als unrelevant ansah | Eine Seite im Profil mit Tick Boxen |
-
-16. | Benutzer | eine Route bestehend aus vielen Stops erstellen | um eine Route mit Zwischenstops erstellen zu können | Route aus einer Liste von Routen erstellen |
-17. | Benutzer | Punkte auf der Kart anklicken um sie in die Routenplanung aufzunehmen | unabhängig von Straßen auch andere Wegpunkte setzen kann | Map Ansicht mit der Möglichkeit für Wegpunkte |
-18. | Benutzer | eine optimierte Route erstellen können | um aus mehreren Wegpunken eine Optimale Strecke zu erstellen | Erstellen einer optimierten Route mithilfe eines Buttons |
-19. | Benutzer | eine Route erstellen die nicht optimiert ist | um eine Route auch so zu haben wie der Nutzer es wollte | Erstellen einer unoptimierten Route mithilfe eines Buttons |
-
-x. | System | dauer der Route soll gespeichert werden | es eine Durschschnitt und Bestzeit gibt | Zeitmessung der Navigation |
-x. | System | listen sollen intuitiv scrollbar sein | so das es im Prinzip unendlich lange Listen gibt | Scrollbare Listen |
+| ID | **Als** | **möchte ich** | **so dass** | **Akzeptanz** |
+| :------ | :------ | :----- | :------ | :-------- |
+| 1 | Wer | Was | Warum | Wann akzeptiert |
+| 2 | Benutzer | einen Button für das zurücksetzen des Passwort | ich mir ein neues Passwort geben lassen kann | Passwort wird durch neues ersetzt |
+| 3 | Benutzer | einen Button zum erstellen eines Profils | ich als neuer Nutzer ein neues Profil machen kann | Benutzer wird angelegt und beim Login erkannt |
+| 4 | Backend  | keine Fehlerhaften Anfragen | bei fehlerhafter Mail keine Anfrage geschickt wird | Falsche Email wird nicht angenommen |
+| 5 | Benutzer | den Grund für meine Anmeldung angeben | damit ich für mich passende Routen finde | User wird einer Gruppe zugeordnet |
+| 6 | Benutzer | eine simple Kartenansicht | damit ich mich auf das wesentliche konzentrieren kann | Simple Karten Ansicht |
+| 7 | Benutzer | bei einer Navigation eine sich mitbewegende Karte | damit ich immer genau weiß wo ich bin und lang will/muss | Mitbewegende Karte |
+| 8 | System | standortfreigabe vom Nutzer | damit die Karte und die geteilten Routen in etwa zu dem User passen | Standort des Users bekommen |
+| 9 | Benutzer | die Karte wieder auf den Nutzer zentrieren | damit man bei verschobener Karte sich wieder findet | Button der den Nutzer zentriert
+| 10 | Benutzer | zwischen den Hauptanwendungen leicht hin und her wechseln können | damit die App nicht überfordert | Navigationsleiste mit wesentlichen Anwendungen |
+| 11 | Benutzer | die Möglichkeit bereits gefasste Routen zu speichern | damit ich Routen wiederholen kann | Speichermöglichkeit für Routen |
+| 12 | Benutzer | die Möglichkeit gespeicherte Routen mit anderen zu teilen | damit ich Routen von anderen ausprobieren kann und eigene teilen kann | Teil Möglichkeit von gespiecherten Routen |
+| 13 | Benutzer | bereits gefasste Routen wieder entfernen kann | so das ich meine Routen auch wieder löschen kann | Gespeicherte und/oder geteilte Routen löschen |
+| 14 | Benutzer | routen die ich geliked habe wiederfinden | ich mir gefallende Routen öfters aufrufen kann | Gelikede Routen in meinem Profil wiederfinden |
+| 15 | System | routen sollen bewertet werden können | user gut bewertete Routen finden können | Ein User bestimmtes Bewertungssystem
+| 16 | Benutzer | mein Profil und meine Gruppe wechseln | um auch Routen zu erhalten die der User zuerst als unrelevant ansah | Eine Seite im Profil mit Tick Boxen |
+| 17 | Benutzer | eine Route bestehend aus vielen Stops erstellen | um eine Route mit Zwischenstops erstellen zu können | Route aus einer Liste von Routen erstellen |
+| 18 | Benutzer | Punkte auf der Kart anklicken um sie in die Routenplanung aufzunehmen | unabhängig von Straßen auch andere Wegpunkte setzen kann | Map Ansicht mit der Möglichkeit für Wegpunkte |
+| 19 | Benutzer | eine optimierte Route erstellen können | um aus mehreren Wegpunken eine Optimale Strecke zu erstellen | Erstellen einer optimierten Route mithilfe eines Buttons |
+| 20 | Benutzer | eine Route erstellen die nicht optimiert ist | um eine Route auch so zu haben wie der Nutzer es wollte | Erstellen einer unoptimierten Route mithilfe eines Buttons |
+| x | System | dauer der Route soll gespeichert werden | es eine Durschschnitt und Bestzeit gibt | Zeitmessung der Navigation |
+| x | System | listen sollen intuitiv scrollbar sein | so das es im Prinzip unendlich lange Listen gibt | Scrollbare Listen |
 
 
 # 3 Technische Beschreibung
@@ -176,7 +161,8 @@ Ganzes als ein Softwarebaustein angesehen werden. In der Regel werden die Schich
 noch weiter detailliert und in Softwarebausteine aufgeteilt.
 ### 3.2.1 Technologieauswahl
 Beschreiben Sie hier, welche Frameworks / Technologien / Bibliotheken / Datenformate /
-Protokolle benutzt werden.
+Protokolle benutzt werden. 
+
 QT als Crossplattform Framework.
   - QT Quick mit QML da vorrangig das Smartphone genutzt werden soll
   - Direkter vergleich von MAUI einem .NET Frameork, primär für Mobile Anwendung zeigten, QT ist perfomanter.
@@ -211,6 +197,7 @@ in einem Sequenz- oder Aktivitätsdiagramm darstellen
 Softwaresystems hilfreich sind.
 ## 3.6 Entwurf
 * Detaillierte UML-Diagramme für relevante Softwarebausteine
+* ![Frontend UML](https://github.com/BTBlueTiger/RouteGuide/blob/main/Pflichtenheft/FrontendUML.png)
 ## 3.7 Fehlerbehandlung
 * Mögliche Fehler / Exceptions auflisten
 * Fehlercodes / IDs sind hilfreich
@@ -231,7 +218,10 @@ verbinden, so dass erkennbar ist, ob Sie alle Use Cases getestet haben.
 ## 4.1 Annahmen
 * Nicht durch den Kunden definierte spezifische Annahmen, Anforderungen und
 Abhängigkeiten
-* Verwendete Technologien (Programmiersprache, Frameworks, etc.)
+* C++
+* QTQuick
+* QT
+  
 * Aufteilung in Repositories gemäß Software- und Systemarchitektur und Softwarebausteinen
 * Einschränkungen, Betriebsbedingungen und Faktoren, die die Entwicklung beeinflussen
 (Betriebssysteme, Entwicklungsumgebung)
