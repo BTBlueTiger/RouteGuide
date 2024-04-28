@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qtquickcontrols2.conf</file>
+        <file>img/background.png</file>
+        <file>btn/menu.svg</file>
+        <file>btn/arrow_back.svg</file>
+        <file>img/register_background.png</file>
+        <file>btn/map.svg</file>
+        <file>btn/community.svg</file>
+        <file>btn/plan_a_route.svg</file>
+        <file>btn/profile.svg</file>
+    </qresource>
+</RCC>
