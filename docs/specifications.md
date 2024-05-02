@@ -13,9 +13,10 @@
 ## 2.1 Stakeholder
 | Funktion / Relevanz | Name | Kontakt / Verfügbarkeit | Wissen | Interessen / Ziele |
 |---|---|---|---|---|
-|Product Owner|Brunsman|---|Allwissend|---|
-|Backend Developer|Clemens Maas|---|---|---|
-|Frontend Developer|Malte Kanders|---|---|Vereinfachung des Nebenjobs|
+|Product Owner|Brunsman|E-Mail|Allwissend|---|
+|Backend Developer|Clemens Maas|E-Mail, Discord|Java, Rust, PG, Ruby, RabbitMQ|Eine gute Note|
+|Frontend Developer|Malte Kanders|E-Mail, Discord|JS, UI/UX, |Vereinfachung des Nebenjobs|
+|Endnutzer|Endnutzer|Support|-|Vereinfachung des Jobs, Nutzen fuer Freizeitaktivitaeten|
 | | | | | |
 ## 2.2 Funktionale Anforderungen
 * ggfs. Use-Case Diagramme
@@ -38,23 +39,23 @@ Qualitätsmerkmal | sehr gut | gut | normal | nicht relevant |
 | :------ | :------ | :----- | :------ | :------ |
 **Zuverlässigkeit** |-|-|-|-|
 Fehlertoleranz |X|-|-|-|
-Wiederherstellbarkeit |X|-|-|-|
+Wiederherstellbarkeit |-|X|-|-|
 Ordnungsmäßigkeit |X|-|-|-|
 Richtigkeit |X|-|-|-|
-Konformität |-|X|-|-|
+Konformität |-|-|X|-|
 **Benutzerfreundlichkeit** |-|-|-|-|
 Installierbarkeit |-|-|X|-|
 Verständlichkeit |X|-|-|-|
-Erlernbarkeit |-|X|-|-|
-Bedienbarkeit |-|X|-|-|
+Erlernbarkeit |X|-|-|-|
+Bedienbarkeit |X|-|-|-|
 **Performance** |-|-|-|-|
 Zeitverhalten |-|-|X|-|
-Effizienz|-|-|-|X|
+Effizienz|-|-|X|-|
 **Sicherheit** |-|-|-|-|
-Analysierbarkeit |X|-|-|-|
+Analysierbarkeit |-|-|-|X|
 Modifizierbarkeit |-|-|-|X|
 Stabilität |X|-|-|-|
-Prüfbarkeit |X|-|-|-|
+Prüfbarkeit |-|-|-|X|
 
 ## 2.4 Graphische Benutzerschnittstelle
 #### Übersicht
@@ -140,7 +141,9 @@ Backend
   - Rust + Rocket als REST API
   - RabbitMQ als Message Broker
   - PostgreSQL als Datenbank
+  - Redis als DB-Cache
   - TeamCity als CI/CD Pipeline
+  - JS fuer den Hilfsbot
 ## 3.3 Schnittstellen
 * Schnittstellenbeschreibung (API)
 * Auflistung der nach außen sichtbaren Schnittstelle der Softwarebausteine
@@ -155,10 +158,7 @@ definieren sollten, die dann vom Backend-Entwickler implementiert werden.
 ## 3.3.1 Ereignisse
 * In Event-gesteuerten Systemen: Definition der Ereignisse und deren Attribute
 ## 3.4 Datenmodell
-* Konzeptionelles Analyseklassendiagramm (logische Darstellung der Konzepte der
-Anwendungsdomäne)
-* Modellierung des physikalischen Datenmodells
-* RDBMS: ER-Diagramm bzw. Dokumentenorientiert: JSON-Schema
+![](diagrams/backend/erm.png)
 ## 3.5 Abläufe
 * Aktivitätsdiagramme für relevante Use Cases
 * Aktivitätsdiagramm für den Ablauf sämtlicher Use Cases
@@ -191,6 +191,15 @@ gelöscht" o.ä.
 | 500 | Server Error | Ein Server Fehler ist aufgetreten | Versuchen Sie es später erneut |
 | 503 | Service Unavailable | Der Service ist nicht verfügbar | Versuchen Sie es später erneut |
 | 504 | Gateway Timeout | Der Server hat zu lange gebraucht | Versuchen Sie es später erneut |
+| 600 | User already exists | Der User existiert bereits | Überprüfen Sie die Eingabe |
+| 601 | User not found | Der User konnte nicht gefunden werden | Überprüfen Sie die Eingabe |
+| 602 | User not logged in | Der User ist nicht eingeloggt | Loggen Sie sich ein |
+| 603 | User not authorized | Der User ist nicht berechtigt | Überprüfen Sie die Berechtigungen |
+| 604 | Route not found | Die Route konnte nicht gefunden werden | Überprüfen Sie die Eingabe |
+| 605 | Route already exists | Die Route existiert bereits | Überprüfen Sie die Eingabe |
+| 606 | Route creation failed | Die Route konnte nicht erstellt werden | Überprüfen Sie die Eingabe |
+| 607 | Route deletion failed | Die Route konnte nicht gelöscht werden | Überprüfen Sie die Eingabe |
+| 608 | Route update failed | Die Route konnte nicht aktualisiert werden | Überprüfen Sie die Eingabe |
 
 ## 3.8 Validierung
 * Relevante (Integrations)-Testfälle, die aus den Use Cases abgeleitet werden können
@@ -203,17 +212,28 @@ gelöscht" o.ä.
 verbinden, so dass erkennbar ist, ob Sie alle Use Cases getestet haben.
 # 4 Projektorganisation
 ## 4.1 Annahmen
-* Nicht durch den Kunden definierte spezifische Annahmen, Anforderungen und
+Nicht durch den Kunden definierte spezifische Annahmen, Anforderungen und
 Abhängigkeiten
 * C++
 * QTQuick
 * QT
   
 * Aufteilung in Repositories gemäß Software- und Systemarchitektur und Softwarebausteinen
-* Einschränkungen, Betriebsbedingungen und Faktoren, die die Entwicklung beeinflussen
+  
+Einschränkungen, Betriebsbedingungen und Faktoren, die die Entwicklung beeinflussen
 (Betriebssysteme, Entwicklungsumgebung)
-* Interne Qualitätsanforderungen (z.B. Softwarequalitätsmerkmale wie z.B.
+
+* Krankheitsfall eines Teammitglieds
+* Ausfall des Servers
+
+Interne Qualitätsanforderungen (z.B. Softwarequalitätsmerkmale wie z.B.
 Erweiterbarkeit)
+
+* Hohe Codequalität (Lesbarkeit, Wartbarkeit, Testbarkeit)
+* Gute Dokumentation
+* Aussagende Commit-Nachrichten
+* Hohe Testabdeckung im Backend
+* Regelmäßige Besprechungen und evtl. Code-Reviews
 ## 4.2 Verantwortlichkeiten
 * Zuordnung von Personen zu Softwarebausteinen aus Kapitel "Systemübersicht" und
 "Softwarearchitektur"
