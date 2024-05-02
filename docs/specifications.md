@@ -33,57 +33,59 @@ Eventuell Desktop oder Web Anwendung für die erweiterten Funktionalitäten.
 ### 2.3.3 Qualitätsmerkmale
 * Externe Qualitätsanforderungen (z.B. Performance, Sicherheit, Zuverlässigkeit,
 Benutzerfreundlichkeit)
-Qualitätsmerkmal | sehr gut | gut | normal | nicht relevant
-|---|---|---|---|---|
-**Zuverlässigkeit** | | | | |
+
+Qualitätsmerkmal | sehr gut | gut | normal | nicht relevant |
+| :------ | :------ | :----- | :------ | :------ |
+**Zuverlässigkeit** |-|-|-|-|
 Fehlertoleranz |X|-|-|-|
 Wiederherstellbarkeit |X|-|-|-|
 Ordnungsmäßigkeit |X|-|-|-|
 Richtigkeit |X|-|-|-|
 Konformität |-|X|-|-|
-**Benutzerfreundlichkeit** | | | | |
+**Benutzerfreundlichkeit** |-|-|-|-|
 Installierbarkeit |-|-|X|-|
 Verständlichkeit |X|-|-|-|
 Erlernbarkeit |-|X|-|-|
 Bedienbarkeit |-|X|-|-|
-**Performance** | | | | |
+**Performance** |-|-|-|-|
 Zeitverhalten |-|-|X|-|
 Effizienz|-|-|-|X|
-**Sicherheit** | | | | |
+**Sicherheit** |-|-|-|-|
 Analysierbarkeit |X|-|-|-|
 Modifizierbarkeit |-|-|-|X|
 Stabilität |X|-|-|-|
 Prüfbarkeit |X|-|-|-|
+
 ## 2.4 Graphische Benutzerschnittstelle
 #### Übersicht
-![Mockup mit Graph](mockups\RouteGuideMockups.png)
+![Mockup mit Graph](mockups/RouteGuideMockups.png)
 #### Login
-![Login](mockups\LoginScreen.png)
+![Login](mockups/LoginScreen.png)
 Use Cases: 1, 2, 3
 #### Map
-![Map](mockups\Map.png)
+![Map](mockups/Map.png)
 Use Cases: 5, 6, 7, 8
 #### Passwort vergessen
-![Passwort Vergessen](mockups\ForgotPasswort.png)
+![Passwort Vergessen](mockups/ForgotPasswort.png)
 Use Case: 1
 #### Neuer Nutzer, erste Seite
-![Neuer User 0](mockups\NewUser0.png)
+![Neuer User 0](mockups/NewUser0.png)
 #### Neuer Nutzer, zweite Seite
-![Neuer User 1](mockups\NewUser1.png)
+![Neuer User 1](mockups/NewUser1.png)
 Use Case: 4
 #### Route planen, erste Seite
-![Plan a Route 0](mockups\PlanARoute0.png)
+![Plan a Route 0](mockups/PlanARoute0.png)
 #### Route planen, zweite Seite
-![Plan a Route 1](mockups\PlanARoute1.png)
+![Plan a Route 1](mockups/PlanARoute1.png)
 Use Cases: 16, 17, 18, 19
 #### Profil, erste Seite
-![Profile 0](mockups\Profile0.png)
+![Profile 0](mockups/Profile0.png)
 Use Case: 10, 11, 12, 13, 14
 #### Profil, zweite Seite
-![Profile 1](mockups\Profile1.png)
+![Profile 1](mockups/Profile1.png)
 Use Cases: 15
 #### Community
-![Community](mockups\Community.png)
+![Community](mockups/Community.png)
 Use Cases: 11, 14
 
 * Mockups für unterschiedliche Akteure
@@ -120,9 +122,9 @@ Use Cases: 11, 14
 
 # 3 Technische Beschreibung
 ## 3.1 Systemübersicht
-![](diagrams\backend\architecture_simple.png)
+![](diagrams/backend/architecture_simple.png)
 ## 3.2 Softwarearchitektur
-![](diagrams\backend\architecture.png)
+![](diagrams/backend/architecture.png)
 ### 3.2.1 Technologieauswahl
 Beschreiben Sie hier, welche Frameworks / Technologien / Bibliotheken / Datenformate /
 Protokolle benutzt werden. 
@@ -168,7 +170,7 @@ in einem Sequenz- oder Aktivitätsdiagramm darstellen
 Softwaresystems hilfreich sind.
 ## 3.6 Entwurf
 * Detaillierte UML-Diagramme für relevante Softwarebausteine
-* ![Frontend UML](diagrams\frontend\frontendUML.png)
+* ![Frontend UML](diagrams/frontend/frontendUML.png)
 ## 3.7 Fehlerbehandlung
 * Mögliche Fehler / Exceptions auflisten
 * Fehlercodes / IDs sind hilfreich
