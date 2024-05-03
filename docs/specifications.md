@@ -19,15 +19,23 @@
 |Endnutzer|Endnutzer|Support|-|Vereinfachung des Jobs, Nutzen fuer Freizeitaktivitaeten|
 | | | | | |
 ## 2.2 Funktionale Anforderungen
-[!][GeneralUser](diagrams/frontend/GeneralUser.png)
-[!][PremiumUser](diagrams/frontend/PremiumUser.png)
-[!][GeneralUser](diagrams/frontend/Worker.png)
+Jeder User:
+
+![GeneralUser](diagrams/frontend/GeneralUser.png)
+
+Premium User:
+
+![PremiumUser](diagrams/frontend/PremiumUser.png)
+
+Arbeiter:
+
+![GeneralUser](diagrams/frontend/worker.png)
 ## 2.3 Nicht-funktionale Anforderungen
 ### 2.3.1 Rahmenbedingungen
 * Normen, Standards, Protokolle, Hardware, externe Vorgaben
 ### 2.3.2 Betriebsbedingungen
 * Getestete Endgeräte :
-  - Android (15)
+  - Android (14)
   - Linux (Ubuntu)
   - Windows (10)
 * Mögliche Weitere:
