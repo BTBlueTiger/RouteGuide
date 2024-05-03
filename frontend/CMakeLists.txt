@@ -65,7 +65,11 @@ set(qml_resource_files
     "qml/route_guide/profile.qml"
     "qml/route_guide/map.qml"
 
+<<<<<<< HEAD:frontend/CMakeLists.txt
 
+=======
+    "qml/controls/validation_text_field.qml"
+>>>>>>> ecd6f30bc2b6395e10ee8d239198e6a758c0e3b5:RouteGuideFrontend/CMakeLists.txt
 )
 
 
