@@ -56,6 +56,8 @@ set(qml_resource_files
     "qml/route_guide/bottom_navigation.qml"
     "qml/route_guide/profile.qml"
     "qml/route_guide/map.qml"
+
+    "qml/controls/validation_text_field.qml"
 )
 
 
