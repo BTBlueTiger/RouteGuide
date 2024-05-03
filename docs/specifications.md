@@ -49,8 +49,8 @@ Verständlichkeit |X|-|-|-|
 Erlernbarkeit |X|-|-|-|
 Bedienbarkeit |X|-|-|-|
 **Performance** |-|-|-|-|
-Zeitverhalten |-|-|X|-|
-Effizienz|-|-|X|-|
+Zeitverhalten |x|-|X|-|
+Effizienz|x |-|X|-|
 **Sicherheit** |-|-|-|-|
 Analysierbarkeit |-|-|-|X|
 Modifizierbarkeit |-|-|-|X|
@@ -59,7 +59,7 @@ Prüfbarkeit |-|-|-|X|
 
 ## 2.4 Graphische Benutzerschnittstelle
 #### Übersicht
-![Mockup mit Graph](mockups/RouteGuideMockups.png)
+![Mockup mit Graph](mockups/RouteGuideFull.png)
 #### Login
 ![Login](mockups/LoginScreen.png)
 Use Cases: 1, 2, 3
@@ -88,10 +88,15 @@ Use Cases: 15
 #### Community
 ![Community](mockups/Community.png)
 Use Cases: 11, 14
+#### Job Spezifisch
+![Job Specific](mockups/JopSpecific.png)
+Use Cases: 22, 23, 24
 
-* Mockups für unterschiedliche Akteure
-* Mockups für unterschiedliche Frontends (Mobil, Web, Desktop)
+Fehlendes: 
+21, 25
+
 ## 2.5 Anforderungen im Detail
+
 
 * Sicherheit: Misuse-Stories formulieren
 
@@ -107,16 +112,21 @@ Use Cases: 11, 14
 | 8 | System | standortfreigabe vom Nutzer | damit die Karte und die geteilten Routen in etwa zu dem User passen | Standort des Users bekommen |
 | 9 | Benutzer | die Karte wieder auf den Nutzer zentrieren | damit man bei verschobener Karte sich wieder findet | Button der den Nutzer zentriert
 | 10 | Benutzer | zwischen den Hauptanwendungen leicht hin und her wechseln können | damit die App nicht überfordert | Navigationsleiste mit wesentlichen Anwendungen |
-| 11 | Benutzer | die Möglichkeit bereits gefasste Routen zu speichern | damit ich Routen wiederholen kann | Speichermöglichkeit für Routen |
-| 12 | Benutzer | die Möglichkeit gespeicherte Routen mit anderen zu teilen | damit ich Routen von anderen ausprobieren kann und eigene teilen kann | Teil Möglichkeit von gespiecherten Routen |
-| 13 | Benutzer | bereits gefasste Routen wieder entfernen kann | so das ich meine Routen auch wieder löschen kann | Gespeicherte und/oder geteilte Routen löschen |
-| 14 | Benutzer | routen die ich geliked habe wiederfinden | ich mir gefallende Routen öfters aufrufen kann | Gelikede Routen in meinem Profil wiederfinden |
+| 11 | Premium Nutzer | die Möglichkeit bereits gefasste Routen zu speichern | damit ich Routen wiederholen kann | Speichermöglichkeit für Routen |
+| 12 | Premium Nutzer | die Möglichkeit gespeicherte Routen mit anderen zu teilen | damit ich Routen von anderen ausprobieren kann und eigene teilen kann | Teil Möglichkeit von gespiecherten Routen |
+| 13 | Premium Nutzer | bereits gefasste Routen wieder entfernen kann | so das ich meine Routen auch wieder löschen kann | Gespeicherte und/oder geteilte Routen löschen |
+| 14 | Premium Nutzer | routen die ich geliked habe wiederfinden | ich mir gefallende Routen öfters aufrufen kann | Gelikede Routen in meinem Profil wiederfinden |
 | 15 | System | routen sollen bewertet werden können | user gut bewertete Routen finden können | Ein User bestimmtes Bewertungssystem
-| 16 | Benutzer | mein Profil und meine Gruppe wechseln | um auch Routen zu erhalten die der User zuerst als unrelevant ansah | Eine Seite im Profil mit Tick Boxen |
+| 16 | Premium Nutzer | mein Profil und meine Gruppe wechseln | um auch Routen zu erhalten die der User zuerst als unrelevant ansah | Eine Seite im Profil mit Tick Boxen |
 | 17 | Benutzer | eine Route bestehend aus vielen Stops erstellen | um eine Route mit Zwischenstops erstellen zu können | Route aus einer Liste von Routen erstellen |
 | 18 | Benutzer | Punkte auf der Kart anklicken um sie in die Routenplanung aufzunehmen | unabhängig von Straßen auch andere Wegpunkte setzen kann | Map Ansicht mit der Möglichkeit für Wegpunkte |
-| 19 | Benutzer | eine optimierte Route erstellen können | um aus mehreren Wegpunken eine Optimale Strecke zu erstellen | Erstellen einer optimierten Route mithilfe eines Buttons |
+| 19 | Premium Nutzer / Angestellter | eine optimierte Route erstellen können | um aus mehreren Wegpunken eine Optimale Strecke zu erstellen | Erstellen einer optimierten Route mithilfe eines Buttons |
 | 20 | Benutzer | eine Route erstellen die nicht optimiert ist | um eine Route auch so zu haben wie der Nutzer es wollte | Erstellen einer unoptimierten Route mithilfe eines Buttons |
+| 21 | Firma | Bezirke aus einzelnen Straßen zusammenstellen | Fahrer die benötigten Straßen nur anzuklicken brauchen | Bezirke als Liste von Straßen erstellen |
+| 22 | Angestellter | Straßen mit Hausnummern versehen | jeder einzelne Stopp mit aufgenommen wird | einzelne Straßen um Hausnummern erweitern |
+| 23 | Firma | das nur Angestellte dürfen interne Bezirke kennen | nur authorisierte Personen sich unter der Firma anmelden können | Bspw. nur durch besondere Email Adresse Zugang zu Daten |
+| 24 | Angestellter | das man aus mehreren Bezirken wählen kann | mir daraufhin alle Straßen des Bezirks angezeigt werden | Mehrauswahl der Bezirke |
+| 25 | Firma | das Bezirke vorsortiert sind | sie mit der internen Planung zusammen passen können | Vorsortierte Bezirke |
 | x | System | dauer der Route soll gespeichert werden | es eine Durschschnitt und Bestzeit gibt | Zeitmessung der Navigation |
 | x | System | listen sollen intuitiv scrollbar sein | so das es im Prinzip unendlich lange Listen gibt | Scrollbare Listen |
 
@@ -130,11 +140,12 @@ Use Cases: 11, 14
 Beschreiben Sie hier, welche Frameworks / Technologien / Bibliotheken / Datenformate /
 Protokolle benutzt werden. 
 
-QT als Crossplattform Framework.
-  - QT Quick mit QML da vorrangig das Smartphone genutzt werden soll
-  - Direkter vergleich von MAUI einem .NET Frameork, primär für Mobile Anwendung zeigten, QT ist perfomanter.
-  - [Openrouteservice](https://openrouteservice.org/) Hilft beim erstellen von Routen  
-  - [OpenstreetMap](https://www.openstreetmap.de/) Darstellen von der Karte
+Frontend
+  - QT als Crossplattform Framework
+    - QT Quick 
+    - QML für Views (JavaScript Eigenschaften)
+    - C++ in der Logik Schicht
+  - QT besitzt bereits ein Modul für Kartenabfragen über bspw OpenstreetMaps
 
 Backend
   - Java + Spring als Authentifizierungsserver
@@ -170,7 +181,7 @@ in einem Sequenz- oder Aktivitätsdiagramm darstellen
 Softwaresystems hilfreich sind.
 ## 3.6 Entwurf
 * Detaillierte UML-Diagramme für relevante Softwarebausteine
-* ![Frontend UML](diagrams/frontend/frontendUML.png)
+* ![Frontend UML](diagrams/frontend/FrontendUML.png)
 ## 3.7 Fehlerbehandlung
 * Mögliche Fehler / Exceptions auflisten
 * Fehlercodes / IDs sind hilfreich
