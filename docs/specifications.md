@@ -219,6 +219,7 @@ Backend
 | 608 | Route update failed | Die Route konnte nicht aktualisiert werden | Überprüfen Sie die Eingabe |
 
 ## 3.8 Validierung
+![](docs/diagrams/workflow.png)
 * Relevante (Integrations)-Testfälle, die aus den Use Cases abgeleitet werden können
 * Testfälle für
 * Datenmodell
