@@ -19,18 +19,23 @@
 |Endnutzer|Endnutzer|Support|-|Vereinfachung des Jobs, Nutzen fuer Freizeitaktivitaeten|
 | | | | | |
 ## 2.2 Funktionale Anforderungen
-* ggfs. Use-Case Diagramme
-* Strukturierung der Diagramme in funktionale Gruppen
-* Definition der Akteure
-* Akteure sowie andere Begriffe der implementierten Fachdomäne definieren
-* Begriffe konsistent in der Spezifikation verwenden
-* Begriffe im Glossar am Ende des Dokuments darstellen
+[!][GeneralUser](diagrams/frontend/GeneralUser.png)
+[!][PremiumUser](diagrams/frontend/PremiumUser.png)
+[!][GeneralUser](diagrams/frontend/Worker.png)
 ## 2.3 Nicht-funktionale Anforderungen
 ### 2.3.1 Rahmenbedingungen
 * Normen, Standards, Protokolle, Hardware, externe Vorgaben
 ### 2.3.2 Betriebsbedingungen
-Vorallem Mobile Anwendung als Navigation durch die Routen.
-Eventuell Desktop oder Web Anwendung für die erweiterten Funktionalitäten.
+* Getestete Endgeräte :
+  - Android (15)
+  - Linux (Ubuntu)
+  - Windows (10)
+* Mögliche Weitere:
+  - Ios
+  - Tablets
+* Nicht Möglich:
+  - Web Anwendung durch Webassembly, da das benötigte Modul nicht,
+  für Webassambly zur Verfügung steht.
 ### 2.3.3 Qualitätsmerkmale
 * Externe Qualitätsanforderungen (z.B. Performance, Sicherheit, Zuverlässigkeit,
 Benutzerfreundlichkeit)
@@ -97,9 +102,6 @@ Fehlendes:
 
 ## 2.5 Anforderungen im Detail
 
-
-* Sicherheit: Misuse-Stories formulieren
-
 | ID | **Als** | **möchte ich** | **so dass** | **Akzeptanz** |
 | :------ | :------ | :----- | :------ | :-------- |
 | 1 | Wer | Was | Warum | Wann akzeptiert |
@@ -137,9 +139,6 @@ Fehlendes:
 ## 3.2 Softwarearchitektur
 ![](diagrams/backend/architecture.png)
 ### 3.2.1 Technologieauswahl
-Beschreiben Sie hier, welche Frameworks / Technologien / Bibliotheken / Datenformate /
-Protokolle benutzt werden. 
-
 Frontend
   - QT als Crossplattform Framework
     - QT Quick 
@@ -156,39 +155,38 @@ Backend
   - TeamCity als CI/CD Pipeline
   - JS fuer den Hilfsbot
 ## 3.3 Schnittstellen
-* Schnittstellenbeschreibung (API)
-* Auflistung der nach außen sichtbaren Schnittstelle der Softwarebausteine
-Hier sollen sämtliche Schnittstellen definiert werden:
-* die externen Schnittstellen nach außen. Über welche Schnittstelle kann z.B. der Client
-den Server erreichen?
-* die internen Schnittstellen der unter 3.2 definierten Softwarebausteine
-Es ist sinnvoll, wenn die API von denjenigen definiert werden, die die Anforderungen an
-die API kennen: in einem Client-Server-System haben die Client-Entwickler Anforderungen
-an die Backend-Entwickler, so dass in diesem Fall die Client-Entwickler die API
-definieren sollten, die dann vom Backend-Entwickler implementiert werden.
+*
 ## 3.3.1 Ereignisse
+  - Neu angelegte Listen:
+    - Listentyp 
+    - Erstellungsdatum
+    - Ersteller/Benutzer
+    - Listenname
+    - Anzahl der Elemente in der Liste
+
+  - Gelöschte Routen:
+    - Routenname oder ID
+    - Zeitpunkt des Löschvorgangs
+    - Verantwortlicher/Benutzer, der die Route gelöscht hat
+    - Verknüpfte Daten oder Ressourcen, die von der Route abhängen
+
+  - Deaktivierte Konten
+    - Kontoname oder ID
+    - Zeitpunkt der Deaktivierung
+    - Verantwortlicher/Benutzer, der das Konto deaktiviert hat
+    - Status vor der Deaktivierung (aktiv/inaktiv)
+    - Grund für die Deaktivierung
+    - Verknüpfte Daten oder Ressourcen, die von dem Konto abhängen
+  
 * In Event-gesteuerten Systemen: Definition der Ereignisse und deren Attribute
 ## 3.4 Datenmodell
 ![](diagrams/backend/erm.png)
 ## 3.5 Abläufe
-* Aktivitätsdiagramme für relevante Use Cases
-* Aktivitätsdiagramm für den Ablauf sämtlicher Use Cases
-* Aktivitätsdiagramm mit Swimlanes sind in der Regel hilfreich
-für die Darstellung der Interaktion von Akteuren der Use Cases / User Stories
-* Abläufe der Kommunikation von Rechnerknoten (z.B. Client/Server)
-in einem Sequenz- oder Aktivitätsdiagramm darstellen
-* Modellieren Sie des weiteren die Diagramme, die für das (eigene) Verständnis des
-Softwaresystems hilfreich sind.
+*
 ## 3.6 Entwurf
 * Detaillierte UML-Diagramme für relevante Softwarebausteine
 * ![Frontend UML](diagrams/frontend/FrontendUML.png)
 ## 3.7 Fehlerbehandlung
-* Mögliche Fehler / Exceptions auflisten
-* Fehlercodes / IDs sind hilfreich
-* Nicht nur Fehler technischer Art ("Datenbankserver nicht erreichbar") definieren,
-sondern auch im Hinblick auf
-Kapitel 3.8 sind fachliche Fehler wie "Kunde nicht gefunden". "Nachricht wurde bereits
-gelöscht" o.ä.
 
 | Fehlercode | Fehlermeldung | Beschreibung | Lösung |
 |---|---|---|---|
@@ -225,10 +223,10 @@ verbinden, so dass erkennbar ist, ob Sie alle Use Cases getestet haben.
 ## 4.1 Annahmen
 Nicht durch den Kunden definierte spezifische Annahmen, Anforderungen und
 Abhängigkeiten
-* C++
-* QTQuick
-* QT
-  
+
+* Mehrsprachigkeit
+* Hauptanwendungssprache: Englisch
+
 * Aufteilung in Repositories gemäß Software- und Systemarchitektur und Softwarebausteinen
   
 Einschränkungen, Betriebsbedingungen und Faktoren, die die Entwicklung beeinflussen
@@ -236,6 +234,7 @@ Einschränkungen, Betriebsbedingungen und Faktoren, die die Entwicklung beeinflu
 
 * Krankheitsfall eines Teammitglieds
 * Ausfall des Servers
+* Unbekanntes Framework
 
 Interne Qualitätsanforderungen (z.B. Softwarequalitätsmerkmale wie z.B.
 Erweiterbarkeit)
@@ -245,13 +244,12 @@ Erweiterbarkeit)
 * Aussagende Commit-Nachrichten
 * Hohe Testabdeckung im Backend
 * Regelmäßige Besprechungen und evtl. Code-Reviews
+* Hohe Performance der Navigation
+
 ## 4.2 Verantwortlichkeiten
 * Zuordnung von Personen zu Softwarebausteinen aus Kapitel "Systemübersicht" und
 "Softwarearchitektur"
-* Rollendefinition und Zuordnung
-| Softwarebaustein | Person(en) |
-|----------|-----------|
-| Komponente A | Thomas Mustermann |
+
 ### Rollenzuordnung
 | Name | Rolle |
 |----------|-----------|
@@ -260,15 +258,13 @@ Erweiterbarkeit)
 ## 4.3 Grober Projektplan
 - Meilensteine
 ### Meilensteine
-* KW 43 (21.10)
 * Abgabe Pflichtenheft
-* KW 44 (28.10) / Projekt aufsetzen
-* Repository Struktur
-* KW 45 (4.11) / Implementierung
-* Implementierung #3 (Final)
-* KW 48 (18.12) / Abnahmetests
-* manuelle Abnahmetests
-* Präsentation / Software-Demo
+* Projekt aufsetzen
+* Implementierung der Hauptfunktionalitäten
+  - Kommunikation zwischen Front und Back
+  - Erstellen von Routen
+* Erstellen eines Prototypens
+* Finale Implementirung und Software Demo
 # 5 Anhänge
 ## 5.1 Glossar
 * Definitionen, Abkürzungen, Begriffe
