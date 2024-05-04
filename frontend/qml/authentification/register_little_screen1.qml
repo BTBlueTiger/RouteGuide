@@ -14,6 +14,8 @@ Item {
     property int fontPointSize: 20
     property int xPos: (width / 2) - textfieldWidth / 2
 
+    property int emailType : userModel.onEmailTypeRequestet()
+
     width : registerLoader.windowWidth;
     height : registerLoader.windowHeight;
 
@@ -51,7 +53,7 @@ Item {
                 text: qsTr("Hiker")
                 property bool isClicked: false
 
-                enabled: false
+                enabled: emailType == 1
 
                 onClicked: {
                    isClicked = buttonClicked(button1, 0, isClicked)
@@ -69,7 +71,7 @@ Item {
                 text: qsTr("Sportler")
                 property bool isClicked: false
 
-                enabled: false
+                enabled: emailType == 1
 
                 onClicked: {
                    isClicked = buttonClicked(button2, 1, isClicked)
@@ -86,7 +88,7 @@ Item {
                 text: qsTr("Tourist")
                 property bool isClicked: false
 
-                enabled: false
+                enabled: emailType == 1
 
                 onClicked: {
                    isClicked = buttonClicked(button3, 2, isClicked)
@@ -102,12 +104,18 @@ Item {
                 width: textfieldWidth
                 text: qsTr("Company")
                 property bool isClicked: false
-
-                enabled: false
-
-                onClicked: {
-                   isClicked = buttonClicked(button4, 3, isClicked)
+                enabled: emailType == 2
+                checked: emailType == 2
+                onCheckedChanged: {
+                    if(checked) {
+                        Material.background = Material.primary
+                        Material.foreground = Material.foreground
+                    } else {
+                        Material.background = Material.rippleColor
+                    }
                 }
+                checkable: false
+
             }
 
             Button {
@@ -118,9 +126,6 @@ Item {
                 y: columnLayout.height * 0.7
                 width: textfieldWidth
                 text: qsTr("Register")
-
-                enabled: false
-
             }
         }
     }

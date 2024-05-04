@@ -4,6 +4,8 @@ import QtQuick.Layouts
 import NavigationManager
 import UserModel
 
+import CustomControls
+
 Item {
 
     id: registerRoot
@@ -14,6 +16,10 @@ Item {
     property int textfieldHeight: 60
     property int fontPointSize: 20
     property int xPos: (width / 2) - textfieldWidth / 2
+
+    property int validTextfields: 0
+
+    property int emailType : 0
 
     width : registerLoader.windowWidth;
     height : registerLoader.windowHeight;
@@ -30,74 +36,91 @@ Item {
             source: "/img/background.png"
             fillMode: Image.PreserveAspectCrop
 
-            TextField {
-                id: textField0
-                width: textfieldWidth
-                height: textfieldHeight
-                anchors.verticalCenter: root.verticalCenter
+            ValidationTextField{
                 horizontalAlignment: Text.AlignHCenter
-                y: registerRoot.height * 0.175
-                x: xPos
-                selectionColor: "#391ee9"
                 font.pointSize: fontPointSize
-                placeholderText: qsTr("First Name")
-            }
-            TextField {
-                id: textField1
+                id: textFieldEmail
+                y: columnLayout.height * 0.2
+                x: xPos
                 width: textfieldWidth
-                height: PlaceholderText
-                anchors.verticalCenter: root.verticalCenter
-                horizontalAlignment: Text.AlignHCenter
-                y: registerRoot.height * 0.3
-                x: xPos
-                selectionColor: "#391ee9"
-                font.pointSize: fontPointSize
-                placeholderText: qsTr("Last Name")
-            }
-            TextField {
-                id: textField2
-                width: textfieldWidth
-                height: textfieldHeight
-                anchors.verticalCenter: root.verticalCenter
-                horizontalAlignment: Text.AlignHCenter
-                y: registerRoot.height * 0.425
-                x: xPos
-                selectionColor: "#391ee9"
-                font.pointSize: fontPointSize
                 placeholderText: qsTr("Email")
+                errorMsg: "Not a valid Email"
+                onEditingFinished: {
+                    emailType = userModel.onEmailAdressEntered(textFieldEmail.text)
+                    if(emailType == 1 || emailType == 2){
+                        isValid = true;
+                        isError = false;
+                    } else {
+                        isError = true;
+                        isValid = false;
+                    }
+                    if(isValid){
+                        validTextfields ++
+                    } else if(!isValid){
+                        validTextfields --
+                    }
+                }
             }
-            TextField {
-                id: textField3
-                width: textfieldWidth
-                height: textfieldHeight
-                anchors.verticalCenter: root.verticalCenter
+            ValidationTextField {
                 horizontalAlignment: Text.AlignHCenter
-                y: registerRoot.height * 0.55
-                x: xPos
-                selectionColor: "#391ee9"
                 font.pointSize: fontPointSize
-                placeholderText: qsTr("Password")
-                echoMode: "PasswordEchoOnEdit"
-            }
-            TextField {
-                id: textField4
-                width: textfieldWidth
-                height: textfieldHeight
-                anchors.verticalCenter: root.verticalCenter
-                horizontalAlignment: Text.AlignHCenter
-                y: registerRoot.height * 0.675
+                id: textFieldPassword
                 x: xPos
-                selectionColor: "#391ee9"
-                font.pointSize: 20
-                placeholderText: qsTr("Reenter Password")
-                echoMode: "PasswordEchoOnEdit"
+                y: columnLayout.height * 0.35
+                width: textfieldWidth
+                placeholderText: qsTr("Passord")
+                echoMode: TextInput.Password
+                onEditingFinished: {
+                    if(userModel.onPasswordEntered(textFieldPassword.text)){
+                        isValid = true;
+                        isError = false
+                    } else {
+                        isError = true;
+                        isValid = false;
+                    }
+                    if(isValid){
+                        validTextfields ++
+                    } else if(!isValid){
+                        validTextfields --
+                    }
+                }
+            }
+            ValidationTextField {
+                horizontalAlignment: Text.AlignHCenter
+                font.pointSize: fontPointSize
+                id: textFieldPasswordReEntered
+                x: xPos
+                y: columnLayout.height * 0.5
+                width: textfieldWidth
+                placeholderText: qsTr("Re enter password")
+                echoMode: TextInput.Password
+
+                onTextEdited: {
+                    if(userModel.onSecondPasswordEntered(textFieldPasswordReEntered.text)){
+                        isValid = true;
+                        isError = false
+                    } else {
+                        isError = true;
+                        isValid = false;
+                    }
+                    if(isValid){
+                        validTextfields ++
+                    } else if(!isValid){
+                        validTextfields --
+                    }
+                }
             }
             Button {
-                width: textfieldWidth
-                height: textfieldHeight
-                y: registerRoot.height * 0.8
+                font.pointSize: fontPointSize
+                height: 70
                 x: xPos
+                y: columnLayout.height * 0.65
+                width: textfieldWidth
                 text: qsTr("Next")
+
+                enabled: (textFieldEmail.isValid
+                          && textFieldPassword.isValid
+                          && textFieldPasswordReEntered.isValid)
                 onClicked: {
                     navigationManager.changePage("register_little_screen1");
                 }

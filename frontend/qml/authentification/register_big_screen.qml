@@ -4,6 +4,8 @@ import UserModel
 import QtQuick.Layouts
 import QtQuick.Controls
 
+import CustomControls
+
 Item {
 
     id: registerRoot
@@ -16,8 +18,6 @@ Item {
     property int rightSideX: (rowLayout.width / 4) + (rowLayout.width / 3.5)
 
     property int fontPointSize: 24
-
-
     property int emailType: 0
 
     function buttonClicked(button, id, clicked) {
@@ -46,88 +46,76 @@ Item {
             y: 0
             fillMode: Image.PreserveAspectCrop
 
-            TextField {
-                horizontalAlignment: Text.AlignHCenter
-                font.pointSize: fontPointSize
-                id: textFieldFirstName
-                x: leftSideX
-                y: rowLayout.height * 0.1
-                width: textfieldWidth
-                placeholderText: qsTr("First Name")
 
-                onEditingFinished: {
-
-                }
-
-            }
-            TextField {
-                horizontalAlignment: Text.AlignHCenter
-                font.pointSize: fontPointSize
-                id: textFieldLastName
-                x: leftSideX
-                y: rowLayout.height * 0.25
-                width: textfieldWidth
-                placeholderText: qsTr("Last Name")
-            }
-            TextField {
+            ValidationTextField{
                 horizontalAlignment: Text.AlignHCenter
                 font.pointSize: fontPointSize
                 id: textFieldEmail
                 x: leftSideX
-                y: rowLayout.height * 0.4
+                y: rowLayout.height * 0.3
                 width: textfieldWidth
                 placeholderText: qsTr("Email")
+                errorMsg: "Not a valid Email"
                 onEditingFinished: {
                     emailType = userModel.onEmailAdressEntered(textFieldEmail.text)
-                    if(emailType == 2)
+                    switch(emailType)
                     {
+                    case 2:
                         button4.clicked()
+                        isValid = true;
+                        isValid = false;
+                        break;
+                    case 1:
+                        isValid = true;
+                        isError = false;
+                        break;
+                    case 0:
+                    default:
+                        isError = true;
+                        isValid = false;
+                        break;
                     }
                 }
-                background: Rectangle{
-                    implicitHeight: textFieldEmail.height
-                    implicitWidth: textFieldEmail.width
-                    color: "transparent"
-                    opacity: 1
-                    border.color: "red"
-                    radius: 4
-                }
-
-                Label {
-                    id: textFieldEmailError
-                    font.pointSize: 16
-                    text: "Not a valid email"
-                    color: "red"
-                    x: (textFieldEmail.x - textfieldWidth / 5)
-                    y: textFieldEmail.height
-                    background: Rectangle{
-                        color: "white"
-                        radius: 4
-                        opacity: 0.35
-                    }
-                }
-
-
             }
-            TextField {
+
+            ValidationTextField {
                 horizontalAlignment: Text.AlignHCenter
                 font.pointSize: fontPointSize
                 id: textFieldPassword
                 x: leftSideX
-                y: rowLayout.height * 0.55
+                y: rowLayout.height * 0.45
                 width: textfieldWidth
                 placeholderText: qsTr("Passord")
                 echoMode: TextInput.Password
+                onEditingFinished: {
+                    if(userModel.onPasswordEntered(textFieldPassword.text)){
+                        isValid = true;
+                        isError = false
+                    } else {
+                        isError = true;
+                        isValid = false;
+                    }
+                }
             }
-            TextField {
+            ValidationTextField {
                 horizontalAlignment: Text.AlignHCenter
                 font.pointSize: fontPointSize
                 id: textFieldPasswordReEntered
                 x: leftSideX
-                y: rowLayout.height * 0.7
+                y: rowLayout.height * 0.6
                 width: textfieldWidth
                 placeholderText: qsTr("Re enter password")
                 echoMode: TextInput.Password
+
+                onTextEdited: {
+                    if(userModel.onSecondPasswordEntered(textFieldPasswordReEntered.text)){
+                        isValid = true;
+                        isError = false
+                    } else {
+                        isError = true;
+                        isValid = false;
+                    }
+                }
             }
 
             Button {
@@ -200,7 +188,6 @@ Item {
                         Material.background = Material.rippleColor
                     }
                 }
-
                 checkable: false
 
             }
@@ -213,8 +200,9 @@ Item {
                 y: rowLayout.height * 0.7
                 width: textfieldWidth
                 text: qsTr("Register")
-
-                enabled: false
+                enabled: (textFieldEmail.isValid
+                          && textFieldPassword.isValid
+                          && textFieldPasswordReEntered.isValid)
             }
         }
 

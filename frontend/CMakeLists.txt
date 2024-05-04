@@ -13,6 +13,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Location Qml Core5Compat)
 
+set (_QML_IMPORT_PATHS "")
+
+list (APPEND _QML_IMPORT_PATHS ${CMAKE_CURRENT_SOURCE_DIR}/qml/controls/)
 
 set(PROJECT_SOURCES
     src/main.cpp
@@ -32,8 +35,12 @@ qt_add_executable(RouteGuide
     src/navigation/NavigationManager.cpp
     include/group/Group.h
     src/group/Group.cpp
+)
 
-
+qt_add_qml_module(RouteGuide
+    URI CustomControls
+    VERSION 1.0
+    QML_FILES qml/controls/ValidationTextField.qml
 )
 
 if (ANDROID)
@@ -55,7 +62,6 @@ endif()
 set(qml_resource_files
     "qml/main.qml"
 
-    "qml/authentification/authentification.qml"
     "qml/authentification/login.qml"
     "qml/authentification/register_little_screen0.qml"
     "qml/authentification/register_big_screen.qml"
@@ -65,11 +71,6 @@ set(qml_resource_files
     "qml/route_guide/profile.qml"
     "qml/route_guide/map.qml"
 
-<<<<<<< HEAD:frontend/CMakeLists.txt
-
-=======
-    "qml/controls/validation_text_field.qml"
->>>>>>> ecd6f30bc2b6395e10ee8d239198e6a758c0e3b5:RouteGuideFrontend/CMakeLists.txt
 )
 
 
