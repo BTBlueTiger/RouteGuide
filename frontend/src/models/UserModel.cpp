@@ -1,10 +1,29 @@
-#include "include/model/UserModel.h"
+#include "include/models/UserModel.h"
 
 #define WITHOUT_DATABASE false
 
-
-void UserModel::onFieldEntered(const QString& text, const QString &id)
+int UserModel::onEmailTypeRequestet()
 {
+    return m_emailType;
+}
+
+bool UserModel::onPasswordEntered(const QString& text)
+{
+    m_password = text;
+    return true;
+}
+
+bool UserModel::onSecondPasswordEntered(const QString &str)
+{
+    qDebug() << str << m_password;
+    if(str == m_password)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 
 }
 
@@ -19,16 +38,19 @@ int UserModel::onEmailAdressEntered(const QString &str)
         QStringList endPart(splittedString[1].split("."));
         if(endPart[0] == "mydphdl")
         {
-            return 2;
+            m_emailType = 2;
+            return m_emailType;
         }
         else
         {
-            return 1;
+            m_emailType = 1;
+            return m_emailType;
         }
     }
     else
     {
-        return 0;
+        m_emailType = 0;
+        return m_emailType;
     }
 }
 
@@ -70,8 +92,6 @@ void UserModel::onLoginAttempt(const QString &email, const QString &password)
 {
     if(WITHOUT_DATABASE) {
         m_email = email;
-        m_firstName = "Max";
-        m_lastName = "Muster";
         emit onLoginAttemptSuccess();
         return;
     }
@@ -81,8 +101,6 @@ void UserModel::onLoginAttempt(const QString &email, const QString &password)
 }
 
 void UserModel::onRegisterAttempt(
-    const QString &firstName,
-    const QString &lastName,
     const QString &email,
     const QString &passwort,
     const QString &reenteredPassword

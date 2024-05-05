@@ -12,15 +12,15 @@ public:
 
     Q_INVOKABLE void onLoginAttempt(const QString &email, const QString &password);
     Q_INVOKABLE void onRegisterAttempt(
-        const QString &firstName,
-        const QString &lastName,
         const QString &email,
         const QString &passwort,
         const QString &reenteredPassword
         );
     Q_INVOKABLE void onGroupSelect(const int &group);
     Q_INVOKABLE int onEmailAdressEntered(const QString &str);
-    Q_INVOKABLE void onFieldEntered(const QString &text, const QString &id);
+    Q_INVOKABLE bool onPasswordEntered(const QString &str);
+    Q_INVOKABLE bool onSecondPasswordEntered(const QString &str);
+    Q_INVOKABLE int onEmailTypeRequestet();
 
 signals:
     void onLoginAttemptSuccess();
@@ -33,10 +33,11 @@ signals:
 
 private:
     QString m_email;
-    int emailType;
-    QString m_firstName;
+    int m_emailType;
+    QString m_password;
     QString m_lastName;
     QList<Group> m_groupsSelected;
+
 
     bool isLoggedIn;
 
