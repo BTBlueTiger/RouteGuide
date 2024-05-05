@@ -1,25 +1,15 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import NavigationManager
-import UserModel
 
-import CustomControls
+import "../../custom_controls"
 
 Item {
-
-    id: registerRoot
-
-    property NavigationManager navigationManager
-    property UserModel userModel
     property int textfieldWidth:  width * 0.8;
     property int textfieldHeight: 60
     property int fontPointSize: 20
     property int xPos: (width / 2) - textfieldWidth / 2
-
-    property int validTextfields: 0
-
-    property int emailType : 0
+    property int emailType: 0
 
     width : registerLoader.windowWidth;
     height : registerLoader.windowHeight;
@@ -27,46 +17,51 @@ Item {
     ColumnLayout {
             id: columnLayout
             anchors.fill: parent
-            spacing: 5
 
         Image {
             id: image
             x: 0
             y: 0
-            source: "/img/background.png"
+            source: "/res/img/background.png"
             fillMode: Image.PreserveAspectCrop
 
-            ValidationTextField{
+            ValidationTextfield{
                 horizontalAlignment: Text.AlignHCenter
                 font.pointSize: fontPointSize
                 id: textFieldEmail
-                y: columnLayout.height * 0.2
                 x: xPos
+                y: columnLayout.height * 0.3
                 width: textfieldWidth
                 placeholderText: qsTr("Email")
                 errorMsg: "Not a valid Email"
                 onEditingFinished: {
                     emailType = userModel.onEmailAdressEntered(textFieldEmail.text)
-                    if(emailType == 1 || emailType == 2){
+                    switch(emailType)
+                    {
+                    case 2:
+                        button4.clicked()
                         isValid = true;
                         isError = false;
-                    } else {
+                        break;
+                    case 1:
+                        isValid = true;
+                        isError = false;
+                        break;
+                    case 0:
+                    default:
                         isError = true;
                         isValid = false;
-                    }
-                    if(isValid){
-                        validTextfields ++
-                    } else if(!isValid){
-                        validTextfields --
+                        break;
                     }
                 }
             }
-            ValidationTextField {
+
+            ValidationTextfield {
                 horizontalAlignment: Text.AlignHCenter
                 font.pointSize: fontPointSize
                 id: textFieldPassword
                 x: xPos
-                y: columnLayout.height * 0.35
+                y: columnLayout.height * 0.45
                 width: textfieldWidth
                 placeholderText: qsTr("Passord")
                 echoMode: TextInput.Password
@@ -78,19 +73,14 @@ Item {
                         isError = true;
                         isValid = false;
                     }
-                    if(isValid){
-                        validTextfields ++
-                    } else if(!isValid){
-                        validTextfields --
-                    }
                 }
             }
-            ValidationTextField {
+            ValidationTextfield {
                 horizontalAlignment: Text.AlignHCenter
                 font.pointSize: fontPointSize
                 id: textFieldPasswordReEntered
                 x: xPos
-                y: columnLayout.height * 0.5
+                y: columnLayout.height * 0.6
                 width: textfieldWidth
                 placeholderText: qsTr("Re enter password")
                 echoMode: TextInput.Password
@@ -103,26 +93,21 @@ Item {
                         isError = true;
                         isValid = false;
                     }
-                    if(isValid){
-                        validTextfields ++
-                    } else if(!isValid){
-                        validTextfields --
-                    }
                 }
             }
             Button {
-                font.pointSize: fontPointSize
-                height: 70
-                x: xPos
-                y: columnLayout.height * 0.65
                 width: textfieldWidth
+                height: textfieldHeight
+                y: columnLayout.height * 0.8
+                x: xPos
                 text: qsTr("Next")
 
                 enabled: (textFieldEmail.isValid
                           && textFieldPassword.isValid
                           && textFieldPasswordReEntered.isValid)
+
                 onClicked: {
-                    navigationManager.changePage("register_little_screen1");
+                    registerLoader.registerState = "next"
                 }
             }
         }

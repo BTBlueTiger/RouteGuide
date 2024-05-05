@@ -2,6 +2,7 @@ import QtQuick
 import QtLocation
 import QtPositioning
 import QtQuick.Controls
+
 import QLocationSearch
 
 Item {
@@ -82,6 +83,5 @@ Item {
         onLocationFound: function locationFount (latitude, longitude) {
             map.center = QtPositioning.coordinate(latitude, longitude);
         }
-
     }
 }

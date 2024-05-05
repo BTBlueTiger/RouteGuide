@@ -1,8 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 
-
-
 TextField {
 
     id: validationTextField
@@ -63,5 +61,3 @@ TextField {
         visible: isError
     }
 }
-
-

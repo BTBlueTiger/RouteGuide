@@ -1,4 +1,4 @@
-#include "include/model/UserModel.h"
+#include "include/models/UserModel.h"
 
 #define WITHOUT_DATABASE false
 

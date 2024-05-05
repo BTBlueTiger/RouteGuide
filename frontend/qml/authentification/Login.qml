@@ -1,17 +1,10 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import NavigationManager
-import ScreenInfo
 
 Item {
 
     id: loginRoot
-
-    property NavigationManager navigationManager : loginLoader.navigationManager
-
-    width : loginLoader.windowWidth
-    height : loginLoader.windowHeight
 
     ColumnLayout {
         id: columnLayout
@@ -21,7 +14,7 @@ Item {
             id: backgroundImage
             x: 0
             y: 0
-            source: "/img/background.png"
+            source: "/res/img/background.png"
             fillMode: Image.PreserveAspectCrop
 
 
@@ -29,7 +22,7 @@ Item {
                 id: textField
                 width: 300
                 height: 60
-                anchors.verticalCenter: root.verticalCenter
+
                 horizontalAlignment: Text.AlignHCenter
                 y: loginRoot.height / 2
                 x: (loginRoot.width / 2) - width / 2
@@ -70,7 +63,9 @@ Item {
                 font.pointSize: 24
                 checkable: false
                 Material.background: "#391ee9"
-                onClicked: navigationManager.changePage("map");
+                onClicked: {
+                    stackLayout.push(routeGuide)
+                }
 
             }
 
@@ -97,7 +92,10 @@ Item {
 
                     onEntered: text2.color = "lightBlue"
                     onExited: text2.color = "blue"
-                    onClicked: navigationManager.changePage("register_page")
+                    onClicked: {
+                        stackLayout.push(register)
+                        toolbarBackVisible = true;
+                    }
                 }
             }
         }
