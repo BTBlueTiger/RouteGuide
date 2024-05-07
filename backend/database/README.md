@@ -22,10 +22,8 @@ docker run --name RouteGuide -p 5432:5432 -e POSTGRES_PASSWORD=routeguideroot -d
 
 **3. Connect to the database using a tool of your choice**
 
-examples:
 ````
-Datagrip
-pgAdmin
+The directory 'datagrip' offers are pre-configured setup to connect to the db using JetBrains DataGrip
 ````
 
 **4. Run the creation scripts from the current directory**
