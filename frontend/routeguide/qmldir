@@ -1,0 +1,14 @@
+module routeguide
+typeinfo frontend.qmltypes
+prefer :/qt/qml/routeguide/
+ApplicationFlow 254.0 qml/ApplicationFlow.qml
+Login 254.0 qml/authentification/Login.qml
+RegisterFormBig 254.0 qml/authentification/register/RegisterFormBig.qml
+RegisterFormSmall0 254.0 qml/authentification/register/RegisterFormSmall0.qml
+RegisterFormSmall1 254.0 qml/authentification/register/RegisterFormSmall1.qml
+ValidationTextfield 254.0 qml/custom_controls/ValidationTextfield.qml
+RouteGuide 254.0 qml/routeguide/RouteGuide.qml
+PlanARoute 254.0 qml/routeguide/PlanARoute.qml
+PlanARouteItem 254.0 qml/listview/PlanARouteItem.qml
+LocationDialog 254.0 qml/dialogs/LocationDialog.qml
+

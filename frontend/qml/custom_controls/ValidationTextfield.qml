@@ -12,8 +12,8 @@ TextField {
     placeholderText: placeholderDefault
 
     property Rectangle _error: Rectangle {
-        implicitHeight: textFieldEmail.height
-        implicitWidth: textFieldEmail.width
+        implicitHeight: validationTextField.height
+        implicitWidth: validationTextField.width
 
         opacity: 0.2
         color: "red"
@@ -21,16 +21,16 @@ TextField {
     }
 
     property Rectangle _valid: Rectangle {
-        implicitHeight: textFieldEmail.height
-        implicitWidth: textFieldEmail.width
+        implicitHeight: validationTextField.height
+        implicitWidth: validationTextField.width
         color: "green"
         opacity: 0.2
         border.color: "#90EE90"
     }
 
     property Rectangle _default: Rectangle {
-        implicitHeight: textFieldEmail.height
-        implicitWidth: textFieldEmail.width
+        implicitHeight: validationTextField.height
+        implicitWidth: validationTextField.width
         color: "transparent"
         opacity: 0.2
     }

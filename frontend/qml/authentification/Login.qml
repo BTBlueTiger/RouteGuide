@@ -2,9 +2,17 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import "../custom_controls"
+
 Item {
 
     id: loginRoot
+
+    property int textfieldWidth:  width * 0.8;
+    property int textfieldHeight: 60
+    property int fontPointSize: 20
+    property int xPos: (width / 2) - textfieldWidth / 2
+    property int emailType: 0
 
     ColumnLayout {
         id: columnLayout
@@ -18,21 +26,40 @@ Item {
             fillMode: Image.PreserveAspectCrop
 
 
-            TextField {
-                id: textField
+            ValidationTextfield{
+                horizontalAlignment: Text.AlignHCenter
+                font.pointSize: fontPointSize
+                id: textFieldEmail
+                x: (loginRoot.width / 2) - width / 2
+                y: loginRoot.height / 2
                 width: 300
                 height: 60
-
-                horizontalAlignment: Text.AlignHCenter
-                y: loginRoot.height / 2
-                x: (loginRoot.width / 2) - width / 2
-                font.pointSize: 20
                 placeholderText: qsTr("Email")
+                errorMsg: "Not a valid Email"
+                onEditingFinished: {
+                    emailType = userModel.onEmailAdressEntered(textFieldEmail.text)
+                    switch(emailType)
+                    {
+                    case 2:
+                        isValid = true;
+                        isError = false;
+                        break;
+                    case 1:
+                        isValid = true;
+                        isError = false;
+                        break;
+                    case 0:
+                    default:
+                         isError = true;
+                        isValid = false;
+                        break;
+                    }
+                }
             }
 
             Rectangle {
-                y: textField.y - 300
-                x: textField.x + ((textField.width - width)/2)
+                y: textFieldEmail.y - 300
+                x: textFieldEmail.x + ((textFieldEmail.width - width)/2)
                 width: 250
                 height: 250
                 color: "white"
@@ -41,8 +68,8 @@ Item {
 
             TextField {
                 id: textField2
-                x: textField.x
-                y: textField.y + 100
+                x: textFieldEmail.x
+                y: textFieldEmail.y + 100
                 width: 300
                 height: 60
                 horizontalAlignment: Text.AlignHCenter
@@ -63,8 +90,18 @@ Item {
                 font.pointSize: 24
                 checkable: false
                 Material.background: "#391ee9"
+
+                //enabled: textFieldEmail.isValid
+
                 onClicked: {
-                    stackLayout.push(routeGuide)
+
+                    userModel.onLoginAttempt(
+                                textFieldEmail.text,
+                                textFieldEmail.text
+                    );
+                    stackLayout.push(map)
+
+                    //ToolTip.show("Wrong password", 3000)
                 }
 
             }

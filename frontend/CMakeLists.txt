@@ -22,6 +22,12 @@ qt_add_executable(frontend
     include/utility/ScreenInfo.h src/utility/ScreenInfo.cpp
     include/models/UserModel.h src/models/UserModel.cpp
     include/map_control/QLocationSearch.h src/map_control/QLocationSearch.cpp
+
+    include/listview/PlanARouteItem.h src/listview/PlanARouteItem.cpp
+
+    include/models/plan_a_route/PlanARouteModel.h src/models/plan_a_route/PlanARouteModel.cpp
+    include/models/plan_a_route/PlanARouteModelItem.h src/models/plan_a_route/PlanARouteModelItem.cpp
+
 )
 
 qt_add_qml_module(frontend
@@ -41,6 +47,10 @@ qt_add_qml_module(frontend
         qml/routeguide/RouteGuide.qml
         qml/routeguide/PlanARoute.qml
 
+        qml/listview/PlanARouteItem.qml
+
+        qml/dialogs/LocationDialog.qml
+
 
     RESOURCES
         qtquickcontrols2.conf
@@ -58,5 +68,6 @@ target_link_libraries(frontend PRIVATE
     Qt::Qml
     Qt6::Core5Compat
 )
+
 
 

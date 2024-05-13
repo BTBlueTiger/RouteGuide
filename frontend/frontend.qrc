@@ -12,5 +12,12 @@
         <file>qml/authentification/register/RegisterFormBig.qml</file>
         <file>qml/routeguide/PlanARoute.qml</file>
         <file>qml/routeguide/RouteGuide.qml</file>
+        <file>res/btn/profile.svg</file>
+        <file>res/btn/plan_a_route.svg</file>
+        <file>res/btn/map.svg</file>
+        <file>res/btn/community.svg</file>
+        <file>res/btn/bully.svg</file>
+        <file>qml/listview/PlanARouteItem.qml</file>
+        <file>qml/dialogs/LocationDialog.qml</file>
     </qresource>
 </RCC>

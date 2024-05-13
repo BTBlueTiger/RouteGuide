@@ -1,6 +1,13 @@
 #include "include/models/UserModel.h"
 
-#define WITHOUT_DATABASE false
+#include <QDebug>
+
+#define WITHOUT_DATABASE true
+#define WITHOUT_LOGIN_VERIFICATION true
+
+UserModel::UserModel(QObject *parent)  {
+    companyMailAdresses.push_back("mydphdl");
+}
 
 int UserModel::onEmailTypeRequestet()
 {
@@ -15,7 +22,6 @@ bool UserModel::onPasswordEntered(const QString& text)
 
 bool UserModel::onSecondPasswordEntered(const QString &str)
 {
-    qDebug() << str << m_password;
     if(str == m_password)
     {
         return true;
@@ -36,16 +42,8 @@ int UserModel::onEmailAdressEntered(const QString &str)
     {
         QStringList splittedString(str.split("@"));
         QStringList endPart(splittedString[1].split("."));
-        if(endPart[0] == "mydphdl")
-        {
-            m_emailType = 2;
-            return m_emailType;
-        }
-        else
-        {
-            m_emailType = 1;
-            return m_emailType;
-        }
+        m_emailType = emailToEmailType(endPart[0]);
+        return m_emailType;
     }
     else
     {
@@ -88,11 +86,28 @@ void UserModel::onGroupSelect(const int &group)
     }
 }
 
+int UserModel::emailToEmailType(const QString& email) {
+    auto it = std::find_if(companyMailAdresses.begin(), companyMailAdresses.end(), [&email](const QString& address) {
+        return address == email;
+    });
+
+    if (it != nullptr) {
+        m_emailType = 2;
+        return 2;
+    }
+    else
+    {
+        m_emailType = 1;
+        return 1;
+    }
+}
+
 void UserModel::onLoginAttempt(const QString &email, const QString &password)
 {
     if(WITHOUT_DATABASE) {
         m_email = email;
-        emit onLoginAttemptSuccess();
+        m_emailType = emailToEmailType(m_email[0]);
+        emit loginAttemptSuccess(m_emailType);
         return;
     }
     else {

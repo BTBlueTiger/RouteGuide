@@ -8,7 +8,7 @@ class UserModel : public QObject
     Q_OBJECT
 
 public:
-    explicit UserModel(QObject *parent = nullptr) {}
+    explicit UserModel(QObject *parent = nullptr);
 
     Q_INVOKABLE void onLoginAttempt(const QString &email, const QString &password);
     Q_INVOKABLE void onRegisterAttempt(
@@ -23,8 +23,8 @@ public:
     Q_INVOKABLE int onEmailTypeRequestet();
 
 signals:
-    void onLoginAttemptSuccess();
-    void onLoginAttemptFailed();
+    void loginAttemptSuccess(const int emailType);
+    void loginAttemptFailed();
 
     void groupSelect();
 
@@ -32,11 +32,16 @@ signals:
     void onRegisterAttemptFailed();
 
 private:
+    int emailToEmailType(const QString& email);
+
+    QList<QString> companyMailAdresses;
+
     QString m_email;
     int m_emailType;
     QString m_password;
     QString m_lastName;
     QList<Group> m_groupsSelected;
+
 
 
     bool isLoggedIn;
