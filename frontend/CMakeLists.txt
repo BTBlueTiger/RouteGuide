@@ -13,6 +13,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     Location
     Qml
     Core5Compat
+    Sql
 )
 
 qt_standard_project_setup(REQUIRES 6.6)
@@ -24,9 +25,10 @@ qt_add_executable(frontend
     include/map_control/QLocationSearch.h src/map_control/QLocationSearch.cpp
 
     include/models/plan_a_route/PlanARouteModel.h src/models/plan_a_route/PlanARouteModel.cpp
-    include/models/plan_a_route/PlanARouteModelItem.h src/models/plan_a_route/PlanARouteModelItem.cpp
-    include/models/plan_a_route/PlanARouteHouseNumberModel.h src/models/plan_a_route/PlanARouteHouseNumberModel.cpp
 
+    include/models/plan_a_route/WaypointModel.h src/models/plan_a_route/WaypointModel.cpp
+
+    include/sqlite/SqliteDatabase.h src/sqlite/SqliteDatabase.cpp
 )
 
 qt_add_qml_module(frontend
@@ -46,11 +48,14 @@ qt_add_qml_module(frontend
         qml/routeguide/RouteGuide.qml
         qml/routeguide/PlanARoute.qml
 
-        qml/dialogs/LocationDialog.qml
+        qml/dialogs/WaypointDialog.qml
 
 
     RESOURCES
         qtquickcontrols2.conf
+        SOURCES include/connections/UserApiConnection.h
+        SOURCES src/connections/UserApiConnection.cpp
+
 )
 
 if (ANDROID)
@@ -64,6 +69,7 @@ target_link_libraries(frontend PRIVATE
     Qt::Location
     Qt::Qml
     Qt6::Core5Compat
+    Qt6::Sql
 )
 
 

@@ -5,7 +5,7 @@ import QtQuick.Layouts
 
 import "../custom_controls"
 
-import PlanARouteHouseNumberModel
+import WaypointModel
 import QLocationSearch
 
 
@@ -19,11 +19,14 @@ Dialog {
     title: "Add a stop"
 
     property string location: ""
-    signal locationAdded(location: string, houseNumbers: PlanARouteHouseNumberModel)
+    signal locationAdded()
 
-    PlanARouteHouseNumberModel{
-        id: planARouteHouseNumberModel
-    }
+    /*
+    WaypointModel{
+        id: waypointModel
+    }*/
+
+    property WaypointModel waypointModel;
 
     ValidationTextfield{
         id: textfieldTown
@@ -32,6 +35,7 @@ Dialog {
         horizontalAlignment: Text.AlignHCenter
 
         placeholderDefault: "Enter a Town"
+        onEditingFinished: waypointModel.town = textfieldTown.text
         onIsErrorChanged: {
             ToolTip: ("Not found in the Database", 3000)
         }
@@ -45,34 +49,23 @@ Dialog {
         horizontalAlignment: Text.AlignHCenter
 
         placeholderDefault: "Enter a Street"
+        onEditingFinished: waypointModel.street = textfieldStreet.text
         onIsErrorChanged: {
             ToolTip: ("Not found in the Database", 3000)
         }
     }
 
     Button {
-        id: searchButton
+        id: addWaypointBtn
 
-        property int houseNumberLen: planARouteHouseNumberModel.getLenghtOfList();
-        text: {
-            if(houseNumberLen == 0) {
-                "Add Street"
-            } else if(houseNumberLen() == 1) {
-                "Add the waypoint"
-            } else {
-                "Add the waypoints"
-            }
-        }
+        text: "Add"
 
-        y: parent.height - searchButton.height
-        x: parent.width / 2 - searchButton.width / 2
+        y: parent.height - addWaypointBtn.height
+        x: parent.width / 2 - addWaypointBtn.width / 2
 
         property var houseNumbers: []
         onClicked: {
-            location = textfieldTown.text + " " +  textfieldStreet.text
-            planARouteHouseNumberModel.setQSetttings();
-            locationAdded(location, planARouteHouseNumberModel)
-            close()
+            locationAdded()
         }
     }
 
@@ -102,7 +95,7 @@ Dialog {
                 spacing: 5
 
                 Repeater {
-                    model: planARouteHouseNumberModel // Set the model for the Repeater
+                    model: waypointModel // Set the model for the Repeater
                     delegate: TextField {
                         id: planARouteHouseNumberModelItem
                         width: houseNumbersFlickable.width * .24
@@ -123,7 +116,7 @@ Dialog {
         y: textfieldStreet.y + addHouseNumbersButton.height * 1.5
         x: parent.width / 2 - addHouseNumbersButton.width / 2
         onClicked: {
-            planARouteHouseNumberModel.append("")
+            waypointModel.append("")
         }
     }
 }

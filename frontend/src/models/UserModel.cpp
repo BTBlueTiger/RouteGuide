@@ -91,7 +91,7 @@ int UserModel::emailToEmailType(const QString& email) {
         return address == email;
     });
 
-    if (it != nullptr) {
+    if (it != companyMailAdresses.end()) {
         m_emailType = 2;
         return 2;
     }

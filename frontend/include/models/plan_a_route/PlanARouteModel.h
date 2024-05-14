@@ -2,18 +2,19 @@
 #define PLANAROUTEMODEL_H
 
 #include <QAbstractListModel>
-#include"PlanARouteModelItem.h"
+#include "WaypointModel.h"
+
 
 class PlanARouteModel : public QAbstractListModel {
 Q_OBJECT
 
 public:
 
-    Q_INVOKABLE void append(const QString &town, const double latitude, const double longitude);
+    Q_INVOKABLE void append(WaypointModel& model);
 
     Q_INVOKABLE void remove(int index, int count = 1);
 
-    Q_INVOKABLE QVariantList getTownsForQML() const;
+    Q_INVOKABLE QVariantList waypointsForQML() const;
 
     enum MyListRoles {
         TownRole = Qt::UserRole + 1
@@ -30,8 +31,11 @@ protected:
 
 
 private:
-    void append(PlanARouteModelItem item);
-    QVector<PlanARouteModelItem> m_items;
+    QVector<WaypointModel*> m_items;
 };
+
+
+
+
 
 #endif // PLANAROUTEMODEL_H

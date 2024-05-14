@@ -6,6 +6,7 @@ import QtQuick.Dialogs
 import "../dialogs"
 
 import PlanARouteModel
+import WaypointModel
 
 Item {
 
@@ -45,6 +46,10 @@ Item {
         }
     }
 
+    WaypointModel {
+        id: waypointModel
+    }
+
     Button {
         id: btnAddAStop
         x: parent.width / 2 - (btnAddAStop.width / 2)
@@ -52,17 +57,18 @@ Item {
         width: parent.width - 50
         text: "Add a stop"
         onClicked: {
+            locationDialog.waypointModel = waypointModel;
             locationDialog.open()
         }
     }
 
-    LocationDialog {
+    WaypointDialog {
         id: locationDialog
 
-        onLocationAdded: function locationFound (location, latitude, longitude) {
+        onLocationAdded: function locationAdded () {
+            console.log(waypointModel.town)
 
-            planARouteModel.append(location, latitude, longitude)
-            console.log(location, latitude, longitude)
+            locationDialog.close()
         }
     }
 
