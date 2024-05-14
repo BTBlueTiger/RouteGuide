@@ -17,7 +17,6 @@
         <file>res/btn/map.svg</file>
         <file>res/btn/community.svg</file>
         <file>res/btn/bully.svg</file>
-        <file>qml/listview/PlanARouteItem.qml</file>
         <file>qml/dialogs/LocationDialog.qml</file>
     </qresource>
 </RCC>

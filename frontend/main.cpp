@@ -6,6 +6,7 @@
 #include "include/models/UserModel.h"
 #include "include/map_control/QLocationSearch.h"
 #include "include/models/plan_a_route/PlanARouteModel.h"
+#include "include/models/plan_a_route/PlanARouteHouseNumberModel.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<UserModel>("UserModel", 1, 0, "UserModel");
     qmlRegisterType<QLocationSearch>("QLocationSearch", 1, 0, "QLocationSearch");
     qmlRegisterType<PlanARouteModel>("PlanARouteModel", 1, 0, "PlanARouteModel");
+    qmlRegisterType<PlanARouteHouseNumberModel>("PlanARouteHouseNumberModel", 1, 0, "PlanARouteHouseNumberModel");
 
 
     engine.load(QUrl(QLatin1String("qrc:/qml/main.qml")));

@@ -59,7 +59,7 @@ Item {
     LocationDialog {
         id: locationDialog
 
-        onLocationIsFound: function locationFound (location, latitude, longitude) {
+        onLocationAdded: function locationFound (location, latitude, longitude) {
 
             planARouteModel.append(location, latitude, longitude)
             console.log(location, latitude, longitude)
