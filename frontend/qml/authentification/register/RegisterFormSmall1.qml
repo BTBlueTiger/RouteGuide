@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import UserModel
 
 Item {
     property int textfieldWidth:  width * 0.8;

@@ -1,125 +1,108 @@
 #include "include/models/UserModel.h"
+#include "include/Constants.h"
 
-#include <QDebug>
+#include <QtNetwork/qhttpheaders.h>
+#include <QtNetwork/qrestaccessmanager.h>
+#include <QtNetwork/qrestreply.h>
 
-#define WITHOUT_DATABASE true
-#define WITHOUT_LOGIN_VERIFICATION true
+#include <QtCore/qjsondocument.h>
+#include <QtCore/qjsonobject.h>
 
-UserModel::UserModel(QObject *parent)  {
-    companyMailAdresses.push_back("mydphdl");
+#define WRONG_LOGIN true
+
+UserModel *UserModel::m_instance = nullptr;
+
+UserModel::UserModel(QObject *parent)
+    : AbstractResource(parent)
+{
+    m_companyMailAdresses.push_back("mydphdl");
 }
 
-int UserModel::onEmailTypeRequestet()
-{
-    return m_emailType;
+QObject* UserModel::createSingletonInstance(QQmlEngine *engine, QJSEngine *scriptEngine){
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    if(m_instance==nullptr) { m_instance = new UserModel;}
+    return m_instance;
 }
 
-bool UserModel::onPasswordEntered(const QString& text)
+QString UserModel::user() const
 {
-    m_password = text;
-    return true;
+    return m_user ? m_user->email : QString();
 }
 
-bool UserModel::onSecondPasswordEntered(const QString &str)
+bool UserModel::loggedIn() const
 {
-    if(str == m_password)
+    return m_user.has_value();
+}
+
+void UserModel::loginAttempt(const QVariantMap& data)
+{
+    if(WITH_LOGIN_API) {
+        QString loginPath =
+            QString(API_PATH) + "login_dummy";
+
+        m_manager->post(m_api->createRequest(loginPath), data, this, [this,  data] (QRestReply &reply){
+            m_user.reset();
+            if(const auto json = reply.readJson();
+            json && json->isObject() && json->object().contains("token"))
+            {
+                m_user = User{
+                    data.value("id").toInt(),
+                    data.value("email").toString(),
+                    data.value("user_name").toString(),
+                    emailType("Dummy@web.de"),
+                    (*json)["tokenField"].toVariant().toByteArray(),
+                };
+            }
+            QHttpHeaders headers;
+            headers.append("token", m_user ? m_user->token : "");
+            m_api->setCommonHeaders(headers);
+            emit userChanged();
+        });
+    }
+    else if(WRONG_LOGIN)
     {
-        return true;
+        m_user.reset();
+        emit userChanged();
     }
     else
     {
-        return false;
+        m_user.reset();
+        m_user = User
+        {
+            0,
+            data["email"].toString(),
+            "Dummy",
+            emailType(data["email"].toString()),
+            "Dummy"
+        };
+        emit userChanged();
     }
 
 }
 
-int UserModel::onEmailAdressEntered(const QString &str)
-{
-    QRegExp mailREX("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
-    mailREX.setCaseSensitivity(Qt::CaseInsensitive);
-    mailREX.setPatternSyntax(QRegExp::RegExp);
-    if(mailREX.exactMatch(str))
-    {
-        QStringList splittedString(str.split("@"));
-        QStringList endPart(splittedString[1].split("."));
-        m_emailType = emailToEmailType(endPart[0]);
-        return m_emailType;
-    }
-    else
-    {
-        m_emailType = 0;
-        return m_emailType;
-    }
-}
-
-void UserModel::addOrRemoveGroup(const Group& group)
-{
-    int index = m_groupsSelected.indexOf(group);
-    if (index != -1)
-    {
-        m_groupsSelected.removeAt(index);
-    }
-    else
-    {
-        m_groupsSelected.append(group);
-    }
-}
-
-
-void UserModel::onGroupSelect(const int &group)
-{
-    switch (group) {
-    case 0:
-        addOrRemoveGroup(Group::Hiker);
-        break;
-    case 1 :
-        addOrRemoveGroup(Group::Sportler);
-        break;
-    case 2 :
-        addOrRemoveGroup(Group::Tourist);
-        break;
-    case 3 :
-        addOrRemoveGroup(Group::Company);
-        break;
-    default:
-        break;
-    }
-}
-
-int UserModel::emailToEmailType(const QString& email) {
-    auto it = std::find_if(companyMailAdresses.begin(), companyMailAdresses.end(), [&email](const QString& address) {
-        return address == email;
-    });
-
-    if (it != companyMailAdresses.end()) {
-        m_emailType = 2;
-        return 2;
-    }
-    else
-    {
-        m_emailType = 1;
-        return 1;
-    }
-}
-
-void UserModel::onLoginAttempt(const QString &email, const QString &password)
-{
-    if(WITHOUT_DATABASE) {
-        m_email = email;
-        m_emailType = emailToEmailType(m_email[0]);
-        emit loginAttemptSuccess(m_emailType);
-        return;
-    }
-    else {
-
-    }
-}
-
-void UserModel::onRegisterAttempt(
-    const QString &email,
-    const QString &passwort,
-    const QString &reenteredPassword
-    )
+void UserModel::logoutAttempt()
 {
 
+}
+
+UserModel::EMAIL_T UserModel::emailType(const QString& email)
+{
+    if(WITH_VALIDATION_TEXTFIELD) {
+        QRegExp mailREX("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
+        mailREX.setCaseSensitivity(Qt::CaseInsensitive);
+        mailREX.setPatternSyntax(QRegExp::RegExp);
+        if(mailREX.exactMatch(email)) {
+            qDebug() << "valid";
+            QStringList splittedString(email.split("@"));
+            QStringList endPart(splittedString[1].split("."));
+            QVector<QString>::iterator it = std::find(m_companyMailAdresses.begin(), m_companyMailAdresses.end(), endPart[0]);
+            return it != m_companyMailAdresses.end()
+                       ? EMAIL_T::COMPANY : EMAIL_T::PRIVATE;
+        }
+        return EMAIL_T::ERROR;
+    }
+    //Not with LOGIN API
+
+    return EMAIL_T::COMPANY;
 }

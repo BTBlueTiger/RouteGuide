@@ -3,10 +3,11 @@
 #include <QSslSocket>
 
 #include "include/utility/ScreenInfo.h"
-#include "include/models/UserModel.h"
 #include "include/map_control/QLocationSearch.h"
 #include "include/models/plan_a_route/PlanARouteModel.h"
 #include "include/models/plan_a_route/WaypointModel.h"
+#include "include/models/UserModel.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -16,8 +17,11 @@ int main(int argc, char *argv[])
 
     qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
 
+    qmlRegisterSingletonType<UserModel>("UserModel", 1, 0, "UserModel", UserModel::createSingletonInstance);
+
+    qmlRegisterUncreatableType<UserModel::EMAIL_T>("EMAIL_T", 1, 0, "EMAIL_T", "");
+
     qmlRegisterType<ScreenInfo>("ScreenInfo", 1, 0, "ScreenInfo");
-    qmlRegisterType<UserModel>("UserModel", 1, 0, "UserModel");
     qmlRegisterType<QLocationSearch>("QLocationSearch", 1, 0, "QLocationSearch");
     qmlRegisterType<PlanARouteModel>("PlanARouteModel", 1, 0, "PlanARouteModel");
     qmlRegisterType<WaypointModel>("WaypointModel", 1, 0, "WaypointModel");

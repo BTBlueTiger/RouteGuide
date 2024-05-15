@@ -12,8 +12,11 @@ find_package(Qt6 REQUIRED COMPONENTS
     Gui
     Location
     Qml
+    Quick
     Core5Compat
     Sql
+    Network
+    QuickControls2
 )
 
 qt_standard_project_setup(REQUIRES 6.6)
@@ -21,14 +24,14 @@ qt_standard_project_setup(REQUIRES 6.6)
 qt_add_executable(frontend
     main.cpp frontend.qrc
     include/utility/ScreenInfo.h src/utility/ScreenInfo.cpp
-    include/models/UserModel.h src/models/UserModel.cpp
     include/map_control/QLocationSearch.h src/map_control/QLocationSearch.cpp
 
     include/models/plan_a_route/PlanARouteModel.h src/models/plan_a_route/PlanARouteModel.cpp
-
     include/models/plan_a_route/WaypointModel.h src/models/plan_a_route/WaypointModel.cpp
 
     include/sqlite/SqliteDatabase.h src/sqlite/SqliteDatabase.cpp
+    include/connections/AbstractResource.h
+    include/Constants.h
 )
 
 qt_add_qml_module(frontend
@@ -51,11 +54,17 @@ qt_add_qml_module(frontend
         qml/dialogs/WaypointDialog.qml
 
 
+    SOURCES
+        include/models/UserModel.h src/models/UserModel.cpp
+
     RESOURCES
         qtquickcontrols2.conf
-        SOURCES include/connections/UserApiConnection.h
-        SOURCES src/connections/UserApiConnection.cpp
+        SOURCES
+)
 
+set_target_properties(frontend PROPERTIES
+    WIN32_EXECUTABLE TRUE
+    MACOSX_BUNDLE TRUE
 )
 
 if (ANDROID)
@@ -64,12 +73,15 @@ if (ANDROID)
 endif()
 
 target_link_libraries(frontend PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Location
-    Qt::Qml
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Location
+    Qt6::Qml
+    Qt6::Quick
+    Qt6::Network
     Qt6::Core5Compat
     Qt6::Sql
+    Qt6::QuickControls2
 )
 
 

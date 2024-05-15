@@ -45,14 +45,18 @@ TextField {
             background = _valid
         }
     }
+    Component.onCompleted: {
+        console.log(x)
+        console.log(y)
+
+    }
 
     Label {
         id: textFieldEmailError
         font.pointSize: 16
         text: errorMsg
         color: "red"
-        x: (validationTextField.x - validationTextField.width / 5)
-        y: validationTextField.height
+        y: + validationTextField.height
         background: Rectangle{
             color: "white"
             radius: 4

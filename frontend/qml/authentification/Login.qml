@@ -4,6 +4,10 @@ import QtQuick.Layouts
 
 import "../custom_controls"
 
+import UserModel
+import EMAIL_T
+
+
 Item {
 
     id: loginRoot
@@ -13,6 +17,33 @@ Item {
     property int fontPointSize: 20
     property int xPos: (width / 2) - textfieldWidth / 2
     property int emailType: 0
+
+    Connections{
+        target: UserModel
+        function onUserChanged() {
+            if(UserModel.loggedIn) {
+
+            } else {
+                wrongUserToolTip.visible = true
+                wrongUserToolTipTimer.start()
+            }
+        }
+    }
+
+    Timer {
+        id: wrongUserToolTipTimer
+        interval: 4000 // 4 sec
+        onTriggered: wrongUserToolTip.visible = false
+    }
+
+    ToolTip {
+        id: wrongUserToolTip
+        text: "Email or Password are wrong"
+        visible: false
+        x: parent.width / 2 - wrongUserToolTip.width / 2
+        y: parent.height / 2 - wrongUserToolTip.height / 2
+
+    }
 
     ColumnLayout {
         id: columnLayout
@@ -37,24 +68,25 @@ Item {
                 placeholderText: qsTr("Email")
                 errorMsg: "Not a valid Email"
                 onEditingFinished: {
-                    emailType = userModel.onEmailAdressEntered(textFieldEmail.text)
-                    switch(emailType)
+                    var email_t = UserModel.emailType(textFieldEmail.text);
+                    console.log(email_t)
+                    switch(email_t)
                     {
-                    case 2:
+                    case UserModel.COMPANY:
                         isValid = true;
-                        isError = false;
+                        isError = false
                         break;
-                    case 1:
-                        isValid = true;
-                        isError = false;
+                    case UserModel.PRIVATE:
+                        isValid = true
+                        isError = false
                         break;
-                    case 0:
-                    default:
-                         isError = true;
-                        isValid = false;
+                    case UserModel.ERROR:
+                        isValid = false
+                        isError = true;
                         break;
                     }
                 }
+
             }
 
             Rectangle {
@@ -67,7 +99,7 @@ Item {
             }
 
             TextField {
-                id: textField2
+                id: textFieldPassword
                 x: textFieldEmail.x
                 y: textFieldEmail.y + 100
                 width: 300
@@ -81,8 +113,8 @@ Item {
 
             Button {
                 id: button
-                x: textField2.x
-                y: textField2.y + 100
+                x: textFieldPassword.x
+                y: textFieldPassword.y + 100
                 width: 300
                 height: 60
                 text: qsTr("Sign In")
@@ -91,17 +123,15 @@ Item {
                 checkable: false
                 Material.background: "#391ee9"
 
-                //enabled: textFieldEmail.isValid
+                enabled: textFieldEmail.isValid
 
                 onClicked: {
-
-                    userModel.onLoginAttempt(
-                                textFieldEmail.text,
-                                textFieldEmail.text
+                    UserModel.loginAttempt(
+                        {
+                            ["email"] : textFieldEmail.text,
+                            ["password"] : textFieldPassword.text
+                        }
                     );
-                    stackLayout.push(map)
-
-                    //ToolTip.show("Wrong password", 3000)
                 }
 
             }
@@ -130,8 +160,10 @@ Item {
                     onEntered: text2.color = "lightBlue"
                     onExited: text2.color = "blue"
                     onClicked: {
+                        /*
                         stackLayout.push(register)
                         toolbarBackVisible = true;
+                        */
                     }
                 }
             }

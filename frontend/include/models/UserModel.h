@@ -1,50 +1,58 @@
 #include <QObject>
 #include <QRegExp>
-#include "./include/group/Group.h"
+#include <QtQml>
+#include <QQmlEngine>
+#include <QJSEngine>
 
+#include "include/connections/AbstractResource.h"
 
-class UserModel : public QObject
+/***
+ * Singleton
+ *
+*/
+class UserModel : public AbstractResource
 {
     Q_OBJECT
+    Q_PROPERTY(QString user READ user NOTIFY userChanged)
+    Q_PROPERTY(bool loggedIn READ loggedIn NOTIFY userChanged)
+
+    Q_PROPERTY(QString loginPath MEMBER m_loginPath);
+    Q_PROPERTY(QString logoutPath MEMBER m_logoutPath);
 
 public:
+
+    enum EMAIL_T {
+        COMPANY,
+        PRIVATE,
+        PREMIUM,
+        ERROR
+    };
+    Q_ENUM(EMAIL_T)
+
     explicit UserModel(QObject *parent = nullptr);
+    static QObject* createSingletonInstance(QQmlEngine *engine,  QJSEngine *scriptEngine);
 
-    Q_INVOKABLE void onLoginAttempt(const QString &email, const QString &password);
-    Q_INVOKABLE void onRegisterAttempt(
-        const QString &email,
-        const QString &passwort,
-        const QString &reenteredPassword
-        );
-    Q_INVOKABLE void onGroupSelect(const int &group);
-    Q_INVOKABLE int onEmailAdressEntered(const QString &str);
-    Q_INVOKABLE bool onPasswordEntered(const QString &str);
-    Q_INVOKABLE bool onSecondPasswordEntered(const QString &str);
-    Q_INVOKABLE int onEmailTypeRequestet();
+    QString user() const;
+    bool loggedIn() const;
+    Q_INVOKABLE void loginAttempt(const QVariantMap &data);
+    Q_INVOKABLE void logoutAttempt();
+    Q_INVOKABLE EMAIL_T emailType(const QString& email);
+    //Q_INVOKABLE void registerAttempt(const QVariantMap &data);
 
-signals:
-    void loginAttemptSuccess(const int emailType);
-    void loginAttemptFailed();
-
-    void groupSelect();
-
-    void onRegisterAttemptSuccess();
-    void onRegisterAttemptFailed();
 
 private:
-    int emailToEmailType(const QString& email);
+    static UserModel *m_instance;
+    struct User{
+        int id;
+        QString email, userName;
+        UserModel::EMAIL_T emailT;
+        QByteArray token;
+    };
+    QString m_loginPath, m_logoutPath;
+    std::optional<User> m_user;
+    QVector<QString> m_companyMailAdresses;
 
-    QList<QString> companyMailAdresses;
 
-    QString m_email;
-    int m_emailType;
-    QString m_password;
-    QString m_lastName;
-    QList<Group> m_groupsSelected;
-
-
-
-    bool isLoggedIn;
-
-    void addOrRemoveGroup(const Group& group);
+signals:
+    void userChanged();
 };
