@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>qml/ApplicationFlow.qml</file>
+        <file>res/img/background.png</file>
+        <file>res/btn/arrow_back.svg</file>
+        <file>qml/custom_controls/ValidationTextfield.qml</file>
+        <file>qml/authentification/Login.qml</file>
+        <file>qml/authentification/register/RegisterFormSmall0.qml</file>
+        <file>qml/authentification/register/RegisterFormSmall1.qml</file>
+        <file>qml/authentification/register/RegisterFormBig.qml</file>
+        <file>qml/routeguide/PlanARoute.qml</file>
+        <file>qml/routeguide/RouteGuide.qml</file>
+    </qresource>
+</RCC>

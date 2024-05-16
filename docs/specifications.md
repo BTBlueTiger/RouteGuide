@@ -163,7 +163,29 @@ Backend
   - TeamCity als CI/CD Pipeline
   - JS fuer den Hilfsbot
 ## 3.3 Schnittstellen
-*
+
+Beispiel POST fuer /user/register
+```json
+{
+  "username": "test",
+  "password": "test",
+  "email": "max@muster",
+}
+```
+
+Beispiel return fuer /user/register
+```json
+{
+  "status": "success",
+  "message": "User successfully registered",
+  "data": {
+    "id": 1,
+    "email": "",
+    "creation": "2021-06-01T12:00:00Z",
+  }
+}
+```
+
 ## 3.3.1 Ereignisse
   - Neu angelegte Listen:
     - Listentyp 
@@ -219,6 +241,7 @@ Backend
 | 608 | Route update failed | Die Route konnte nicht aktualisiert werden | Überprüfen Sie die Eingabe |
 
 ## 3.8 Validierung
+![](diagrams/workflow.png)
 * Relevante (Integrations)-Testfälle, die aus den Use Cases abgeleitet werden können
 * Testfälle für
 * Datenmodell
