@@ -34,6 +34,9 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.amqp:spring-rabbit-test")
+
+    //JSON Web Token
+    implementation("io.jsonwebtoken:jjwt-api:0.12.5")
 }
 
 tasks.withType<Test> {
