@@ -8,7 +8,7 @@ group = "dev.dubsky.routeguide"
 version = "0.0.1"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_17
 }
 
 configurations {
