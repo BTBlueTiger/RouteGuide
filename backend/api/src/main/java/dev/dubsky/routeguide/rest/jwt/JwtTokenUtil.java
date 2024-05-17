@@ -1,4 +1,4 @@
-package dev.dubsky.routeguide.rest.auth;
+package dev.dubsky.routeguide.rest.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
