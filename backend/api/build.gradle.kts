@@ -36,6 +36,7 @@ dependencies {
     testImplementation("org.springframework.amqp:spring-rabbit-test")
 
     implementation("javax.servlet:javax.servlet-api:4.0.1")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
 
     // JSON Web Token
     implementation("io.jsonwebtoken:jjwt-api:0.12.5")

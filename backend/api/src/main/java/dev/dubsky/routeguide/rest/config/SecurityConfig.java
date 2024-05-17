@@ -1,7 +1,7 @@
 package dev.dubsky.routeguide.rest.config;
 
-import dev.dubsky.routeguide.rest.auth.JwtAuthenticationFilter;
-import dev.dubsky.routeguide.rest.auth.JwtTokenUtil;
+import dev.dubsky.routeguide.rest.jwt.JwtAuthenticationFilter;
+import dev.dubsky.routeguide.rest.jwt.JwtTokenUtil;
 import dev.dubsky.routeguide.rest.service.impl.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

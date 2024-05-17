@@ -1,5 +1,6 @@
-package dev.dubsky.routeguide.rest.auth;
+package dev.dubsky.routeguide.rest.controller;
 
+import dev.dubsky.routeguide.rest.jwt.JwtTokenUtil;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
