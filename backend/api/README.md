@@ -5,7 +5,7 @@
 
 ![](https://img.shields.io/badge/Current%20Version-1.0.0-green?style=for-the-badge&logo=git)
 
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/dubskysteam/AQP/.github%2Fworkflows%2Fgradle.yml?branch=dev&style=for-the-badge&logo=teamcity)
+![TeamCity build status](http://94.16.31.72:8111/app/rest/builds/buildType:id:RouteGuide_BuildApi,branch:name:dev/statusIcon.svg)
 
 ### Stack Info
 
