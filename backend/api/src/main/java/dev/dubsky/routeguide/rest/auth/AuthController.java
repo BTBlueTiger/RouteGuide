@@ -35,10 +35,14 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody Map<String, String> user) {
+        System.out.println("Login method called with username: " + user.get("username"));
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.get("username"), user.get("password"))
         );
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user.get("username"));
-        return jwtTokenUtil.generateToken(userDetails);
+        String token = jwtTokenUtil.generateToken(userDetails);
+        System.out.println("Generated Token: " + token);
+        return token;
     }
+
 }
