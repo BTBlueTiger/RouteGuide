@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Effects
 
 import "../custom_controls"
 
@@ -70,11 +71,46 @@ Item {
 
             Rectangle {
                 y: textFieldUsername.y - 300
-                x: textFieldUsername.x + ((textFieldUsername.width - width)/2)
+                x: textFieldUsername.x + ((textFieldUsername.width - width) / 2)
                 width: 250
                 height: 250
-                color: "white"
-                radius: 180
+                color: "transparent"
+                radius: 125 // Making it fully circular
+                clip: true // Clip the content to the bounds of the Rectangle
+
+                Image {
+                    x:0
+                        id: sourceItem
+                        source: "../../res/img/logo.jpeg"
+                        anchors.centerIn: parent
+                        width: 250
+                        height: 250
+                        visible: false
+                    }
+
+                    MultiEffect {
+                        x:0
+                        source: sourceItem
+                        anchors.fill: sourceItem
+                        maskEnabled: true
+                        maskSource: mask
+                    }
+
+                    Item {
+                        id: mask
+                        width: sourceItem.width
+                        height: sourceItem.height
+                        layer.enabled: true
+                        visible: false
+
+                        Rectangle {
+
+                            width: sourceItem.width
+                            height: sourceItem.height
+                            radius: width/2
+                            color: "black"
+                        }
+                    }
             }
 
             TextField {

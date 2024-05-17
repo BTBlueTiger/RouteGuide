@@ -18,5 +18,6 @@
         <file>res/btn/community.svg</file>
         <file>res/btn/bully.svg</file>
         <file>qml/dialogs/WaypointDialog.qml</file>
+        <file>res/img/logo.jpeg</file>
     </qresource>
 </RCC>

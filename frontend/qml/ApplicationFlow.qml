@@ -151,7 +151,7 @@ Item {
                 }
 
                 icon.source: {
-                    if(UserModel.emailType === UserModel.COMPANY) {
+                    if(UserModel.email_t === UserModel.COMPANY) {
                         "/res/btn/community.svg"
                     } else {
                         "/res/btn/bully.svg"

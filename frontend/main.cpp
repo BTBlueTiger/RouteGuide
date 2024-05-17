@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QSslSocket>
+#include <QIcon>
 
 #include "include/utility/ScreenInfo.h"
 #include "include/map_control/QLocationSearch.h"
@@ -13,7 +14,10 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    QGuiApplication::setWindowIcon(QIcon(":/res/img/logo.jpeg"));
+
     QQmlApplicationEngine engine;
+
 
     qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
 
