@@ -74,9 +74,10 @@ void UserModel::loginAttempt(const QVariantMap& data)
             0,
             data["email"].toString(),
             "Dummy",
-            emailType(data["email"].toString()),
+            emailType("kamalte@web.de"),
             "Dummy"
         };
+        qDebug() << m_user->emailT;
         emit userChanged();
     }
 

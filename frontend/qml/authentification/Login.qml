@@ -38,7 +38,7 @@ Item {
 
     ToolTip {
         id: wrongUserToolTip
-        text: "Email or Password are wrong"
+        text: "Username or Password are wrong"
         visible: false
         x: parent.width / 2 - wrongUserToolTip.width / 2
         y: parent.height / 2 - wrongUserToolTip.height / 2
@@ -60,36 +60,17 @@ Item {
             ValidationTextfield{
                 horizontalAlignment: Text.AlignHCenter
                 font.pointSize: fontPointSize
-                id: textFieldEmail
+                id: textFieldUsername
                 x: (loginRoot.width / 2) - width / 2
                 y: loginRoot.height / 2
                 width: 300
                 height: 60
-                placeholderText: qsTr("Email")
-                errorMsg: "Not a valid Email"
-                onEditingFinished: {
-                    var email_t = UserModel.emailType(textFieldEmail.text);
-                    switch(email_t)
-                    {
-                    case UserModel.ERROR:
-                        state = 1
-                        break;
-                    case UserModel.PRIVATE:
-                    case UserModel.PREMIUM:
-                    case UserModel.COMPANY:
-                        state = 2
-                        break;
-                    default:
-                        state = 0;
-                        break;
-                    }
-                }
-
+                placeholderText: qsTr("Username")
             }
 
             Rectangle {
-                y: textFieldEmail.y - 300
-                x: textFieldEmail.x + ((textFieldEmail.width - width)/2)
+                y: textFieldUsername.y - 300
+                x: textFieldUsername.x + ((textFieldUsername.width - width)/2)
                 width: 250
                 height: 250
                 color: "white"
@@ -98,8 +79,8 @@ Item {
 
             TextField {
                 id: textFieldPassword
-                x: textFieldEmail.x
-                y: textFieldEmail.y + 100
+                x: textFieldUsername.x
+                y: textFieldUsername.y + 100
                 width: 300
                 height: 60
                 horizontalAlignment: Text.AlignHCenter
@@ -120,13 +101,10 @@ Item {
                 font.pointSize: 24
                 checkable: false
                 Material.background: "#391ee9"
-
-                enabled: textFieldEmail.state == 2
-
                 onClicked: {
                     UserModel.loginAttempt(
                         {
-                            ["email"] : textFieldEmail.text,
+                            ["username"] : textFieldUsername.text,
                             ["password"] : textFieldPassword.text
                         }
                     );

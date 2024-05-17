@@ -17,7 +17,7 @@ Item {
     property string previousState: ""
 
     property bool toolbarBackVisible: false
-    property bool tabbarVisible: UserModel.user != ""
+    property bool tabbarVisible: UserModel.loggedIn
     property bool bigscreen: width > 700 ? true : false
 
     property int tabbarHeight: 56
@@ -135,11 +135,14 @@ Item {
                 }
             }
 
+            Component.onCompleted: {
+                console.log(UserModel.emailType)
+            }
 
             TabButton {
                 text: {
                     if(bigscreen){
-                        if(UserModel.emailType === UserModel.COMPANY) {
+                        if(UserModel.email_t === UserModel.COMPANY) {
                             return "Community"
                         } else {
                             return "Company"
@@ -148,7 +151,7 @@ Item {
                 }
 
                 icon.source: {
-                    if(UserModel.emailType === UserModel.PRIVATE) {
+                    if(UserModel.emailType === UserModel.COMPANY) {
                         "/res/btn/community.svg"
                     } else {
                         "/res/btn/bully.svg"
