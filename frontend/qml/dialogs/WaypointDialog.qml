@@ -21,6 +21,7 @@ Dialog {
     property string location: ""
     signal locationAdded()
 
+
     /*
     WaypointModel{
         id: waypointModel
