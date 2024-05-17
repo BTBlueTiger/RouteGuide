@@ -1,67 +1,38 @@
 import QtQuick
 import QtQuick.Controls
 
+import ValidationTextfieldModel
+
 TextField {
 
     id: validationTextField
-    property bool isError : false
-    property bool isValid : false
+    /***
+      * 0 -> default
+      * 1 -> error
+      * 2 -> valid
+      */
+    property int state : 0
     property string errorMsg : ""
     property string placeholderDefault: ""
 
+    property ValidationTextfieldModel m_model: ValidationTextfieldModel {}
+
+
     placeholderText: placeholderDefault
 
-    property Rectangle _error: Rectangle {
-        implicitHeight: validationTextField.height
-        implicitWidth: validationTextField.width
+    background: Rectangle {
 
-        opacity: 0.2
-        color: "red"
+        color: m_model.color
+        border.color: "dark gray"
+        border.width: 1
         radius: 4
-    }
-
-    property Rectangle _valid: Rectangle {
-        implicitHeight: validationTextField.height
-        implicitWidth: validationTextField.width
-        color: "green"
-        opacity: 0.2
-        border.color: "#90EE90"
-    }
-
-    property Rectangle _default: Rectangle {
-        implicitHeight: validationTextField.height
-        implicitWidth: validationTextField.width
-        color: "transparent"
-        opacity: 0.2
-    }
-
-    onIsErrorChanged: {
-        if(isError) {
-            background = _error
-        }
-    }
-    onIsValidChanged: {
-        if(isValid) {
-            background = _valid
-        }
-    }
-    Component.onCompleted: {
-        console.log(x)
-        console.log(y)
+        opacity: m_model.opacity
 
     }
 
-    Label {
-        id: textFieldEmailError
-        font.pointSize: 16
-        text: errorMsg
-        color: "red"
-        y: + validationTextField.height
-        background: Rectangle{
-            color: "white"
-            radius: 4
-            opacity: 0.35
-        }
-        visible: isError
+    onStateChanged: {
+        m_model.state = state
     }
+
+    property bool isValid: state === 2
 }

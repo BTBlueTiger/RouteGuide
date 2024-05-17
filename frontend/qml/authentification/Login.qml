@@ -22,7 +22,7 @@ Item {
         target: UserModel
         function onUserChanged() {
             if(UserModel.loggedIn) {
-
+                stackLayout.push(map)
             } else {
                 wrongUserToolTip.visible = true
                 wrongUserToolTipTimer.start()
@@ -69,20 +69,18 @@ Item {
                 errorMsg: "Not a valid Email"
                 onEditingFinished: {
                     var email_t = UserModel.emailType(textFieldEmail.text);
-                    console.log(email_t)
                     switch(email_t)
                     {
-                    case UserModel.COMPANY:
-                        isValid = true;
-                        isError = false
+                    case UserModel.ERROR:
+                        state = 1
                         break;
                     case UserModel.PRIVATE:
-                        isValid = true
-                        isError = false
+                    case UserModel.PREMIUM:
+                    case UserModel.COMPANY:
+                        state = 2
                         break;
-                    case UserModel.ERROR:
-                        isValid = false
-                        isError = true;
+                    default:
+                        state = 0;
                         break;
                     }
                 }
@@ -123,7 +121,7 @@ Item {
                 checkable: false
                 Material.background: "#391ee9"
 
-                enabled: textFieldEmail.isValid
+                enabled: textFieldEmail.state == 2
 
                 onClicked: {
                     UserModel.loginAttempt(
@@ -160,10 +158,8 @@ Item {
                     onEntered: text2.color = "lightBlue"
                     onExited: text2.color = "blue"
                     onClicked: {
-                        /*
                         stackLayout.push(register)
                         toolbarBackVisible = true;
-                        */
                     }
                 }
             }

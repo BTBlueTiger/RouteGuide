@@ -36,9 +36,7 @@ Dialog {
 
         placeholderDefault: "Enter a Town"
         onEditingFinished: waypointModel.town = textfieldTown.text
-        onIsErrorChanged: {
-            ToolTip: ("Not found in the Database", 3000)
-        }
+
     }
 
     ValidationTextfield{
@@ -50,9 +48,6 @@ Dialog {
 
         placeholderDefault: "Enter a Street"
         onEditingFinished: waypointModel.street = textfieldStreet.text
-        onIsErrorChanged: {
-            ToolTip: ("Not found in the Database", 3000)
-        }
     }
 
     Button {

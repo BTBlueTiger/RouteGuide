@@ -23,15 +23,6 @@ qt_standard_project_setup(REQUIRES 6.6)
 
 qt_add_executable(frontend
     main.cpp frontend.qrc
-    include/utility/ScreenInfo.h src/utility/ScreenInfo.cpp
-    include/map_control/QLocationSearch.h src/map_control/QLocationSearch.cpp
-
-    include/models/plan_a_route/PlanARouteModel.h src/models/plan_a_route/PlanARouteModel.cpp
-    include/models/plan_a_route/WaypointModel.h src/models/plan_a_route/WaypointModel.cpp
-
-    include/sqlite/SqliteDatabase.h src/sqlite/SqliteDatabase.cpp
-    include/connections/AbstractResource.h
-    include/Constants.h
 )
 
 qt_add_qml_module(frontend
@@ -55,11 +46,22 @@ qt_add_qml_module(frontend
 
 
     SOURCES
+        include/utility/ScreenInfo.h src/utility/ScreenInfo.cpp
+        include/map_control/QLocationSearch.h src/map_control/QLocationSearch.cpp
+
+        include/models/plan_a_route/PlanARouteModel.h src/models/plan_a_route/PlanARouteModel.cpp
+        include/models/plan_a_route/WaypointModel.h src/models/plan_a_route/WaypointModel.cpp
         include/models/UserModel.h src/models/UserModel.cpp
+
+        include/sqlite/SqliteDatabase.h src/sqlite/SqliteDatabase.cpp
+        include/connections/AbstractResource.h
+        include/custom_controls/ValidationTextfieldModel.h src/custom_controls/ValidationTexfieldModel.cpp
+        include/Constants.h
 
     RESOURCES
         qtquickcontrols2.conf
         SOURCES
+
 )
 
 set_target_properties(frontend PROPERTIES

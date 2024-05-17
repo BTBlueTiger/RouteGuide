@@ -8,7 +8,8 @@
 #include <QtCore/qjsondocument.h>
 #include <QtCore/qjsonobject.h>
 
-#define WRONG_LOGIN true
+#define WRONG_LOGIN false
+#define IS_COMPANY false
 
 UserModel *UserModel::m_instance = nullptr;
 
@@ -88,12 +89,10 @@ void UserModel::logoutAttempt()
 
 UserModel::EMAIL_T UserModel::emailType(const QString& email)
 {
-    if(WITH_VALIDATION_TEXTFIELD) {
         QRegExp mailREX("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
         mailREX.setCaseSensitivity(Qt::CaseInsensitive);
         mailREX.setPatternSyntax(QRegExp::RegExp);
         if(mailREX.exactMatch(email)) {
-            qDebug() << "valid";
             QStringList splittedString(email.split("@"));
             QStringList endPart(splittedString[1].split("."));
             QVector<QString>::iterator it = std::find(m_companyMailAdresses.begin(), m_companyMailAdresses.end(), endPart[0]);
@@ -101,8 +100,51 @@ UserModel::EMAIL_T UserModel::emailType(const QString& email)
                        ? EMAIL_T::COMPANY : EMAIL_T::PRIVATE;
         }
         return EMAIL_T::ERROR;
-    }
-    //Not with LOGIN API
+}
 
-    return EMAIL_T::COMPANY;
+void UserModel::changePremiumGroup(int group)
+{
+    int wasInserted = -1;
+    if(premiumGroups.size() > 0)
+    {
+        for(int i = 0; i < premiumGroups.size(); i++)
+        {
+            if(premiumGroups.at(i) == group)
+            {
+                wasInserted = i;
+            }
+        }
+    }
+    if(wasInserted)
+    {
+        premiumGroups.removeAt(wasInserted);
+    }
+    else
+    {
+        premiumGroups.append(group);
+    }
+    emit premiumGroupsChanged(premiumGroups);
+}
+
+
+void UserModel::registerAttempt(const QVariantMap& data)
+{
+        QString registerPath =
+            QString(API_PATH) + "register_dummy";
+        m_manager->post(m_api->createRequest(registerPath), data, this, [this,  data] (QRestReply &reply){
+
+        });
+}
+
+int UserModel::email_t() const
+{
+    return m_email_t;
+}
+
+void UserModel::setEmail_t(int type)
+{
+    if(type == m_email_t)
+        return;
+    m_email_t = type;
+    emit email_tChanged(m_email_t);
 }

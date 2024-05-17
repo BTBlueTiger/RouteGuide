@@ -7,6 +7,7 @@ import "authentification/register"
 import "custom_controls"
 import "routeguide"
 
+import UserModel
 
 Item {
     id: applicationFlow
@@ -16,7 +17,7 @@ Item {
     property string previousState: ""
 
     property bool toolbarBackVisible: false
-    property bool tabbarVisible: userType != ""
+    property bool tabbarVisible: UserModel.user != ""
     property bool bigscreen: width > 700 ? true : false
 
     property int tabbarHeight: 56
@@ -33,8 +34,14 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
 
-        //!- User has logged in
-
+        Connections{
+            target: UserModel
+            function onUserChanged () {
+                if(UserModel.user) {
+                    console.log(UserModel.user)
+                }
+            }
+        }
 
         states: [
             State {
@@ -132,7 +139,7 @@ Item {
             TabButton {
                 text: {
                     if(bigscreen){
-                        if(userType == 1) {
+                        if(UserModel.emailType === UserModel.COMPANY) {
                             return "Community"
                         } else {
                             return "Company"
@@ -141,7 +148,7 @@ Item {
                 }
 
                 icon.source: {
-                    if(userType == 1) {
+                    if(UserModel.emailType === UserModel.PRIVATE) {
                         "/res/btn/community.svg"
                     } else {
                         "/res/btn/bully.svg"

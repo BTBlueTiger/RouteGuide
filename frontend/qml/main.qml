@@ -5,8 +5,6 @@ import ScreenInfo
 //! [Set application window size]
 ApplicationWindow {
 
-
-
     property string userType: ""
 
     property int userTypeCompany: 2

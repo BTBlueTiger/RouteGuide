@@ -14,9 +14,7 @@ Item {
 
     PlanARouteModel{
         id: planARouteModel;
-
     }
-
 
     ScrollView {
         id: scrollView
@@ -66,8 +64,6 @@ Item {
         id: locationDialog
 
         onLocationAdded: function locationAdded () {
-            console.log(waypointModel.town)
-
             locationDialog.close()
         }
     }
