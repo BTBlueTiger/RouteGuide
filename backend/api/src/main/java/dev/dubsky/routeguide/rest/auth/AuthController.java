@@ -1,6 +1,5 @@
-package dev.dubsky.routeguide.rest.controller;
+package dev.dubsky.routeguide.rest.auth;
 
-import dev.dubsky.routeguide.rest.auth.JwtTokenUtil;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
