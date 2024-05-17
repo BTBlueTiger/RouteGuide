@@ -9,7 +9,7 @@
 
 ### Stack Info
 
-![](https://img.shields.io/badge/Java%20SDK-21%20LTS-orange?style=for-the-badge&logo=java)
+![](https://img.shields.io/badge/Java%20SDK-17%20LTS-orange?style=for-the-badge&logo=java)
 ![](https://img.shields.io/badge/Jakarta%20EE-9.1.0-green?style=for-the-badge&logo=Jakarta)
 ![](https://img.shields.io/badge/Spring%20-6.1-green?style=for-the-badge&logo=Spring)
 
@@ -17,7 +17,7 @@
 ![](https://img.shields.io/badge/PostgreSQL-16-blue?style=for-the-badge&logo=postgresql)
 
 ___
-[![](https://img.shields.io/badge/Download-Latest-blue?style=for-the-badge&logo=)](https://github.com/DubskySteam/AQP/releases)
+[![](https://img.shields.io/badge/Download-Latest-blue?style=for-the-badge&logo=)](https://github.com/BTBlueTiger/RouteGuide/releases)
 
 ### Managed Dependencies
 
@@ -26,6 +26,20 @@ The dependencies are managed by Gradle, so you don't need to worry about them. I
 ```groovy  
     // RabbitMQ DEPENDENCIES
     implementation('com.rabbitmq:amqp-client:5.20.0')
+
+    //Spring DEPENDENCIES
+    implementation("org.springframework.boot:spring-boot-starter-amqp")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-mail")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    compileOnly("org.projectlombok:lombok")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    //developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+    runtimeOnly("org.postgresql:postgresql")
+    annotationProcessor("org.projectlombok:lombok")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.amqp:spring-rabbit-test")
 ```
 
 ## How to work with this project
@@ -33,6 +47,34 @@ The dependencies are managed by Gradle, so you don't need to worry about them. I
 This microservice uses Gradle as build tool. Most IDEs with Gradle support will allow you to open the build.gradle file and build the entire project from there.
 
 Installing Gradle is not required as the project comes with a Gradle wrapper, but it is recommended to install it to your system anyway, since it can make the build process faster to build by hand.
+
+## Running the docker container
+**1. Build the image**
+```bash
+docker build -t route-guide-api .
+```
+
+or pull the image from the registry
+```bash
+docker pull dubskysteam/route-guide-api
+```
+
+**2. Build and run the container**
+```bash
+docker run -d \
+  -p 8080:8080 \
+  -e RG_DB_USERNAME="your_username" \
+  -e RG_DB_PASSWORD="your_password" \
+  -e RG_DB_HOST="your_db_host" \
+  -e RG_DB_PORT="your_db_port" \
+  -e RG_JWT_SECRET="your_jwt_secret" \
+  route-guide-api
+```
+
+**3. Check the logs**
+```bash
+docker logs -f <container_id>
+```
 
 ## Setting up RabbitMQ
 
