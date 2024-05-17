@@ -14,7 +14,6 @@ class AbstractResource : public QObject
 {
     Q_OBJECT
 
-
 public:
     explicit AbstractResource(QObject *parent = nullptr) : QObject (parent)
     {}
