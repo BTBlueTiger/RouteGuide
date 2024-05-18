@@ -11,7 +11,7 @@ import EMAIL_T
 
 Item {
 
-    id: login
+    id: loginView
 
     property int textfieldWidth:  width * 0.8;
     property int textfieldHeight: 60
@@ -62,8 +62,8 @@ Item {
                 horizontalAlignment: Text.AlignHCenter
                 font.pointSize: fontPointSize
                 id: textFieldUsername
-                x: (login.width / 2) - width / 2
-                y: login.height / 2
+                x: (loginView.width / 2) - width / 2
+                y: loginView.height / 2
                 width: 300
                 height: 60
                 placeholderText: qsTr("Username")
