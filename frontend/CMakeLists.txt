@@ -60,7 +60,6 @@ qt_add_qml_module(frontend
 
     RESOURCES
         qtquickcontrols2.conf
-        SOURCES
 
 )
 
