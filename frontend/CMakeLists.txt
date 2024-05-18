@@ -87,5 +87,7 @@ target_link_libraries(frontend PRIVATE
 
 
 
-add_subdirectory(tests)
+add_subdirectory(tests/unit)
+add_subdirectory(tests/integration)
+
 
