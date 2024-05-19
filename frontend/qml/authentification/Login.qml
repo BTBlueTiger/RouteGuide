@@ -3,11 +3,10 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Effects
 
-import "../custom_controls"
-
 import UserModel
 import EMAIL_T
 
+import ValidationTextfield
 
 Item {
 

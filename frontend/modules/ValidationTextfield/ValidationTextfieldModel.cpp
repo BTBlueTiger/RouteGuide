@@ -1,6 +1,6 @@
-#include "include/custom_controls/ValidationTextfieldModel.h"
+#include "ValidationTextfieldModel.h"
 
-ValidationTextfieldModel::ValidationTextfieldModel(QObject* parent) : QObject(parent)
+    ValidationTextfieldModel::ValidationTextfieldModel(QObject* parent) : QObject(parent)
 {
 
 }

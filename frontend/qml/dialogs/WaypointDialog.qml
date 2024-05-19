@@ -3,10 +3,11 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import "../custom_controls"
 
 import WaypointModel
 import QLocationSearch
+
+import ValidationTextfield
 
 
 Dialog {

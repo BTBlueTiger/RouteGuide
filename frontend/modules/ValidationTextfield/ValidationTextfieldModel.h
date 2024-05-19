@@ -2,6 +2,7 @@
 #define VALIDATIONTEXTFIELDMODEL_H
 
 #include <QObject>
+#include <QQmlEngine>
 
 class ValidationTextfieldModel : public QObject
 {
@@ -10,6 +11,7 @@ class ValidationTextfieldModel : public QObject
     Q_PROPERTY(QString borderColor READ borderColor NOTIFY borderColorChanged)
     Q_PROPERTY(QString color READ color NOTIFY colorChanged)
     Q_PROPERTY(float opacity READ opacity NOTIFY opacityChanged)
+    QML_ELEMENT
 
 public:
 

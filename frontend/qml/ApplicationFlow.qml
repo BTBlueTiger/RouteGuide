@@ -4,7 +4,6 @@ import QtQuick.Layouts
 
 import "authentification"
 import "authentification/register"
-import "custom_controls"
 import "routeguide"
 
 import UserModel

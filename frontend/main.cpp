@@ -2,13 +2,16 @@
 #include <QQmlApplicationEngine>
 #include <QSslSocket>
 #include <QIcon>
+#include <QtQml/qqmlextensionplugin.h>
 
 #include "include/utility/ScreenInfo.h"
 #include "include/map_control/QLocationSearch.h"
 #include "include/models/plan_a_route/PlanARouteModel.h"
 #include "include/models/plan_a_route/WaypointModel.h"
 #include "include/models/UserModel.h"
-#include "include/custom_controls/ValidationTextfieldModel.h"
+
+
+Q_IMPORT_QML_PLUGIN(ValidationTextfieldPlugin)
 
 int main(int argc, char *argv[])
 {
@@ -23,8 +26,6 @@ int main(int argc, char *argv[])
 
     qmlRegisterSingletonType<UserModel>("UserModel", 1, 0, "UserModel", UserModel::createSingletonInstance);
     qmlRegisterUncreatableType<UserModel::EMAIL_T>("EMAIL_T", 1, 0, "EMAIL_T", "");
-
-    qmlRegisterType<ValidationTextfieldModel>("ValidationTextfieldModel", 1, 0, "ValidationTextfieldModel");
 
     qmlRegisterType<PlanARouteModel>("PlanARouteModel", 1, 0, "PlanARouteModel");
     qmlRegisterType<WaypointModel>("WaypointModel", 1, 0, "WaypointModel");

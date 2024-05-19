@@ -7,6 +7,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+
 find_package(Qt6 REQUIRED COMPONENTS
     Core
     Gui
@@ -18,6 +19,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     Network
     QuickControls2
 )
+
 
 qt_standard_project_setup(REQUIRES 6.6)
 
@@ -37,8 +39,6 @@ qt_add_qml_module(frontend
         qml/authentification/register/RegisterFormSmall0.qml
         qml/authentification/register/RegisterFormSmall1.qml
 
-        qml/custom_controls/ValidationTextfield.qml
-
         qml/routeguide/RouteGuide.qml
         qml/routeguide/PlanARoute.qml
 
@@ -55,13 +55,17 @@ qt_add_qml_module(frontend
 
         include/sqlite/SqliteDatabase.h src/sqlite/SqliteDatabase.cpp
         include/connections/AbstractResource.h
-        include/custom_controls/ValidationTextfieldModel.h src/custom_controls/ValidationTexfieldModel.cpp
         include/Constants.h
 
     RESOURCES
         qtquickcontrols2.conf
-
 )
+
+target_include_directories(frontend PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/modules/ValidationTextfield)
+
+
+add_subdirectory(modules/ValidationTextfield)
+
 
 set_target_properties(frontend PROPERTIES
     WIN32_EXECUTABLE TRUE
@@ -85,6 +89,8 @@ target_link_libraries(frontend PRIVATE
     Qt6::QuickControls2
 )
 
+target_link_libraries(frontend PRIVATE Qt6::Quick ValidationTextfieldplugin)
+target_compile_definitions(frontend PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
 
 add_subdirectory(tests/unit)

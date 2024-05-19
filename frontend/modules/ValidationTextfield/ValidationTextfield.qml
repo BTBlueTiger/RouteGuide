@@ -5,6 +5,10 @@ import ValidationTextfieldModel
 
 TextField {
 
+    ValidationTextfieldModel{
+        id: model
+    }
+
     id: validationTextField
     /***
       * 0 -> default
@@ -15,18 +19,16 @@ TextField {
     property string errorMsg : ""
     property string placeholderDefault: ""
 
-    property ValidationTextfieldModel m_model: ValidationTextfieldModel {}
-
 
     placeholderText: placeholderDefault
 
     background: Rectangle {
 
-        color: m_model.color
+        color: model.color
         border.color: "dark gray"
         border.width: 1
         radius: 4
-        opacity: m_model.opacity
+        opacity: model.opacity
 
     }
 
