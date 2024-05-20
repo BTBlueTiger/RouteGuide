@@ -28,20 +28,19 @@ public class UserController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('USER')")
     public User createUser(@RequestBody User user) {
         return userService.save(user);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
         user.setId(id);
         return userService.save(user);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
     }
