@@ -56,12 +56,12 @@ gradle clean build
 ## Building / Running the docker container
 **1. Build the image**
 ```bash
-docker build -t dubskysteam/routeguide .
+docker build -t dubskysteam/routeguide:TAG .
 ```
 
 or pull the image from the registry
 ```bash
-docker pull dubskysteam/routeguide:latest
+docker pull dubskysteam/routeguide:TAG
 ```
 
 **2. Build and run the container**
@@ -73,7 +73,7 @@ docker run -d \
   -e RG_DB_HOST="your_db_host" \
   -e RG_DB_PORT="your_db_port" \
   -e RG_JWT_SECRET="your_jwt_secret" \
-  dubskysteam/routeguide:latest
+  dubskysteam/routeguide:TAG
 ```
 
 **3. Check the logs**
