@@ -1,5 +1,6 @@
 package dev.dubsky.routeguide.rest.service.impl;
 
+import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.persistence.UserRepository;
 import dev.dubsky.routeguide.rest.service.UserService;
@@ -14,6 +15,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CompanyServiceImpl companyService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -33,6 +37,14 @@ public class UserServiceImpl implements UserService {
         user.setCreation(java.time.Instant.now());
         if (user.getRole() == null) {
             user.setRole("USER");
+        }
+        String email = user.getEmail();
+        String emailAfterAt = email.substring(email.indexOf("@"));
+        System.out.println("Registering user with email ending: " + emailAfterAt);
+        Company company = companyService.checkIfMailExists(emailAfterAt);
+        if (company != null) {
+            System.out.println("Company found: " + company.getName());
+            user.setCompany(company);
         }
         return userRepository.save(user);
     }
