@@ -1,5 +1,6 @@
 package dev.dubsky.routeguide.rest.service.impl;
 
+import dev.dubsky.routeguide.rest.jwt.JwtTokenUtil;
 import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.persistence.UserRepository;
@@ -22,9 +23,17 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
+
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public User getCurrentUser(String token) {
+        return userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).orElse(null);
     }
 
     @Override
