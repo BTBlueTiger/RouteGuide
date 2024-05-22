@@ -34,4 +34,8 @@ public class User {
     @Column(name = "creation", nullable = false)
     private Instant creation;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
 }
