@@ -20,8 +20,23 @@ public class UserController {
     @GetMapping("/me")
     @PreAuthorize("hasRole('USER')")
     public UserDTO getCurrentUser(@RequestHeader("Authorization") String token) {
-        token = token.substring(7);
         return new UserDTO(userService.getCurrentUser(token));
+    }
+
+    @PutMapping("/me/setEmail")
+    @PreAuthorize("hasRole('USER')")
+    public UserDTO setEmail(@RequestHeader("Authorization") String token, @RequestBody String email) {
+        User user = userService.getCurrentUser(token);
+        user.setEmail(email);
+        return new UserDTO(userService.save(user));
+    }
+
+    @PutMapping("/me/setPassword")
+    @PreAuthorize("hasRole('USER')")
+    public UserDTO setPassword(@RequestHeader("Authorization") String token, @RequestBody String password) {
+        User user = userService.getCurrentUser(token);
+        user.setPassword(password);
+        return new UserDTO(userService.save(user));
     }
 
     @GetMapping("/{id}")
