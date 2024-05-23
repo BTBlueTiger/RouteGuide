@@ -3,6 +3,10 @@ import QtQuick.Controls
 
 import ScreenInfo
 //! [Set application window size]
+
+import ValidationTextfield
+import QtTest
+
 ApplicationWindow {
 
     id: rootWindow
@@ -22,3 +26,4 @@ ApplicationWindow {
         height: parent.height
     }
 }
+

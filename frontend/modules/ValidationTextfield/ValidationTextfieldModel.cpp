@@ -5,6 +5,18 @@
 
 }
 
+int ValidationTextfieldModel::type() const
+{
+    return m_type;
+}
+
+void ValidationTextfieldModel::setType(const int type)
+{
+    if(type == m_type)
+        return;
+    m_type = type;
+}
+
 int ValidationTextfieldModel::state() const
 {
     return m_state;

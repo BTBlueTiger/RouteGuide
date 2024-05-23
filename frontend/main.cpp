@@ -10,7 +10,6 @@
 #include "include/models/plan_a_route/WaypointModel.h"
 #include "include/models/UserModel.h"
 
-
 Q_IMPORT_QML_PLUGIN(ValidationTextfieldPlugin)
 
 int main(int argc, char *argv[])

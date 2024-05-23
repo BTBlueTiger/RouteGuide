@@ -61,10 +61,8 @@ qt_add_qml_module(frontend
         qtquickcontrols2.conf
 )
 
-target_include_directories(frontend PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/modules/ValidationTextfield)
 
 
-add_subdirectory(modules/ValidationTextfield)
 
 
 set_target_properties(frontend PROPERTIES
@@ -89,11 +87,29 @@ target_link_libraries(frontend PRIVATE
     Qt6::QuickControls2
 )
 
-target_link_libraries(frontend PRIVATE Qt6::Quick ValidationTextfieldplugin)
-target_compile_definitions(frontend PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+add_subdirectory(modules/ValidationTextfield)
+target_link_libraries(frontend PRIVATE ValidationTextfieldplugin)
 
 
-add_subdirectory(tests/unit)
+set(MY_UNITTESTS TRUE)
+enable_testing()
+if(${MY_UNITTESTS})
+    add_subdirectory(tests/unit)
+endif()
 add_subdirectory(tests/integration)
+
+
+#qt_add_translations(${EXECUTABLE_NAME} TS_FILES
+#        ${EXECUTABLE_NAME}_de_DE.ts
+#        ${EXECUTABLE_NAME}_en_EN.ts
+#    SOURCES ${QML_SOURCES2} ${CPP_SOURCES} ${HPP_SOURCES}
+#    RESOURCE_PREFIX "/translations"
+#)
+
+
+install(TARGETS ${EXECUTABLE_NAME}
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
 
 

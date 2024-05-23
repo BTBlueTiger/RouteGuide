@@ -1,29 +1,21 @@
 import QtQuick
 import QtQuick.Controls
-import QtTest
+
 import ValidationTextfieldModel
 
-
 TextField {
-
-    enum ValidationType{
-        None,
-        Email
-    }
-
-    enum ValidationState{
-        Default,
-        Error,
-        Valid
-    }
 
     ValidationTextfieldModel{
         id: model
     }
 
     id: validationTextField
-    property int state : ValidationState.Default
-    property int validationType: ValidationType.None
+    /***
+      * 0 -> default
+      * 1 -> error
+      * 2 -> valid
+      */
+    property int state : 0
     property string errorMsg : ""
     property string placeholderDefault: ""
 
@@ -33,6 +25,7 @@ TextField {
     background: Rectangle {
 
         color: model.color
+        border.color: "dark gray"
         border.width: 1
         radius: 4
         opacity: model.opacity
@@ -40,7 +33,7 @@ TextField {
     }
 
     onStateChanged: {
-        model.state = state
+        m_model.state = state
     }
 
     property bool isValid: state === 2

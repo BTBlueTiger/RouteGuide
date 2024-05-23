@@ -131,10 +131,13 @@ void UserModel::changePremiumGroup(int group)
 void UserModel::registerAttempt(const QVariantMap& data)
 {
         QString registerPath =
-            QString(API_PATH) + "register_dummy";
-        m_manager->post(m_api->createRequest(registerPath), data, this, [this,  data] (QRestReply &reply){
+            QString(API_PATH) + "register";
+    qDebug() << QJsonDocument::fromVariant(data);;
+    /*
+    m_manager->post(m_api->createRequest(registerPath), data, this, [this,  data] (QRestReply &reply){
 
         });
+*/
 }
 
 int UserModel::email_t() const

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
-import "../../custom_controls"
+import ValidationTextfield
 
 import UserModel
 
@@ -126,7 +126,7 @@ Item {
 
                 Button {
                     font.pointSize: fontPointSize
-                    id: button1
+                    id: buttonHiker
                     height: 70
                     x: rightSideX
                     y: rowLayout.height * 0.1
@@ -144,7 +144,7 @@ Item {
 
                 Button {
                     font.pointSize: fontPointSize
-                    id: button2
+                    id: buttonSportler
                     height: 70
                     x: rightSideX
                     y: rowLayout.height * 0.25
@@ -161,7 +161,7 @@ Item {
 
                 Button {
                     font.pointSize: fontPointSize
-                    id: button3
+                    id: buttonTourist
                     height: 70
                     x: rightSideX
                     y: rowLayout.height * 0.4
@@ -178,7 +178,7 @@ Item {
 
                 Button {
                     font.pointSize: fontPointSize
-                    id: button4
+                    id: buttonCompany
                     height: 70
                     x: rightSideX
                     y: rowLayout.height * 0.55
@@ -209,6 +209,31 @@ Item {
                     enabled: {
                         textFieldPasswordReEntered.isValid &&
                         textfieldEmail.isValid
+                    }
+                    onClicked: {
+                        var role = ""
+                        if(UserModel.email_t === UserModel.COMPANY)
+                            role = "company"
+                        else {
+                            if(buttonHiker.isClicked) {
+                                role += "hiker"
+                            }
+                            if(buttonSportler.isClicked) {
+                                role += "sportler"
+                            }
+                            if(buttonTourist.isClicked) {
+                                role += "tourist"
+                            }
+                        }
+
+                        UserModel.registerAttempt(
+                                {
+                                    "email": textfieldEmail.text,
+                                    "username": textfieldUserName.text,
+                                    "password": textFieldPassword.text,
+                                    "role": role
+                                }
+                            )
                     }
                 }
             }
