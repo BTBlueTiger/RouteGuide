@@ -1,45 +1,80 @@
 #include <QObject>
 #include <QRegExp>
-#include "./include/group/Group.h"
+#include <QtQml>
+#include <QQmlEngine>
+#include <QJSEngine>
 
+#include "include/connections/AbstractResource.h"
 
-class UserModel : public QObject
+/***
+ * Singleton
+ *
+*/
+class UserModel : public AbstractResource
 {
     Q_OBJECT
+    Q_PROPERTY(QString user READ user NOTIFY userChanged)
+    Q_PROPERTY(bool loggedIn READ loggedIn NOTIFY userChanged)
+    Q_PROPERTY(int email_t READ email_t WRITE setEmail_t NOTIFY email_tChanged FINAL)
+
+    Q_PROPERTY(QString loginPath MEMBER m_loginPath);
+    Q_PROPERTY(QString logoutPath MEMBER m_logoutPath);
 
 public:
-    explicit UserModel(QObject *parent = nullptr) {}
 
-    Q_INVOKABLE void onLoginAttempt(const QString &email, const QString &password);
-    Q_INVOKABLE void onRegisterAttempt(
-        const QString &email,
-        const QString &passwort,
-        const QString &reenteredPassword
-        );
-    Q_INVOKABLE void onGroupSelect(const int &group);
-    Q_INVOKABLE int onEmailAdressEntered(const QString &str);
-    Q_INVOKABLE bool onPasswordEntered(const QString &str);
-    Q_INVOKABLE bool onSecondPasswordEntered(const QString &str);
-    Q_INVOKABLE int onEmailTypeRequestet();
+    enum EMAIL_T {
+        COMPANY,
+        PRIVATE,
+        PREMIUM,
+        ERROR
+    };
+    Q_ENUM(EMAIL_T)
 
-signals:
-    void onLoginAttemptSuccess();
-    void onLoginAttemptFailed();
+    enum PREMIUM_GROUPS {
+        HIKER,
+        SPORTLER,
+        TOURIST
+    };
+    Q_ENUM(PREMIUM_GROUPS)
 
-    void groupSelect();
+    explicit UserModel(QObject *parent = nullptr);
+    static QObject* createSingletonInstance(QQmlEngine *engine,  QJSEngine *scriptEngine);
 
-    void onRegisterAttemptSuccess();
-    void onRegisterAttemptFailed();
+    QString user() const;
+    bool loggedIn() const;
+    int email_t() const;
+
+    void setEmail_t(int);
+
+
+    Q_INVOKABLE void loginAttempt(const QVariantMap &data);
+    Q_INVOKABLE void logoutAttempt();
+    Q_INVOKABLE EMAIL_T emailType(const QString& email);
+
+    Q_INVOKABLE void registerAttempt(const QVariantMap &data);
+
+    Q_INVOKABLE void changePremiumGroup(int group);
 
 private:
-    QString m_email;
-    int m_emailType;
-    QString m_password;
-    QString m_lastName;
-    QList<Group> m_groupsSelected;
+    static UserModel *m_instance;
+    struct User{
+        int id;
+        QString email, userName;
+        EMAIL_T emailT;
+        QByteArray token;
+        QVector<PREMIUM_GROUPS> premiumGroups;
+    };
+
+    QVector<int> premiumGroups;;
+    QString m_loginPath, m_logoutPath;
+    std::optional<User> m_user;
+    QVector<QString> m_companyMailAdresses;
+    int m_email_t;
 
 
-    bool isLoggedIn;
 
-    void addOrRemoveGroup(const Group& group);
+signals:
+    void userChanged();
+    void premiumGroupsChanged(QVector<int>);
+    void email_tChanged(int);
 };

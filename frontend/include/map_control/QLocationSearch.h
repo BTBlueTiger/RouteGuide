@@ -14,7 +14,6 @@ class QLocationSearch : public QObject
     Q_OBJECT
 public:
     explicit QLocationSearch(QObject *parent = nullptr);
-
     Q_INVOKABLE void searchLocation(const QString &locationName);
 
 signals:
