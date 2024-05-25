@@ -12,6 +12,8 @@ Item {
 
     property int fontPointSize: 20
 
+    id: planARoute
+
     PlanARouteModel{
         id: planARouteModel;
     }
@@ -21,23 +23,65 @@ Item {
         y: tabbarHeight
         width: parent.width
         height: parent.height / 2
+        anchors.margins: 20
         ListView {
             height: parent.height
             width: parent.width
             model: planARouteModel
-            delegate: RowLayout {
-                Text {
-                    text: town
-                    font.pixelSize: 24
-                    color: "white"
+            delegate: ColumnLayout {
+
+                anchors.horizontalCenter: parent ? parent.horizontalCenter : undefined
+
+                RowLayout {
+
+                    Text {
+                        text: "Stadt: " + waypoint_model_role.town
+                        font.pixelSize: 24
+                        color: "white"
+                        Layout.alignment: Qt.AlignLeft
+                    }
+
+                    Text {
+                        text: " Straße: " + waypoint_model_role.street
+                        font.pixelSize: 24
+                        color: "white"
+                        Layout.alignment: Qt.AlignLeft
+                    }
+
+                    Item {
+                        Layout.fillWidth: true
+                    }
+                    ToolButton {
+                        icon.source: "/res/btn/modify.svg"
+                        onClicked: {
+                            locationDialog.waypointModel = planARouteModel.getModel(planARouteModel.index)
+                            locationDialog.open()
+                        }
+                    }
+
+                    ToolButton {
+                        icon.source: "/res/btn/clear.svg"
+                        onClicked: {
+                            planARouteModel.remove(index)
+                        }
+                        Layout.alignment: Qt.AlignRight
+                    }
                 }
-                Item {
-                    Layout.fillWidth: true
-                }
-                ToolButton {
-                    text: "x"
-                    onClicked: {
-                        planARouteModel.remove(index)
+
+
+                RowLayout {
+                    width: parent.width
+                    height: parent.height
+
+                    Repeater {
+                        model: waypoint_model_role.houseNumbers
+                        delegate: RowLayout {
+                            Text {
+                                text: modelData
+                                font.pixelSize: 20
+                                color: "white"
+                            }
+                        }
                     }
                 }
             }
@@ -55,7 +99,11 @@ Item {
         width: parent.width - 50
         text: "Add a stop"
         onClicked: {
-            locationDialog.waypointModel = waypointModel;
+            planARouteModel.appendNewWayPointModel(planARouteModel.rowCount + 1)
+            locationDialog.waypointModel = planARouteModel.getModel(planARouteModel.index)
+            if(defaultTown.text.length > 0) {
+                locationDialog.waypointModel.town = defaultTown.text
+            }
             locationDialog.open()
         }
     }
@@ -76,5 +124,15 @@ Item {
         y: btnAddAStop.y + btnAddAStop.height
         width: parent.width - 50
         text: "Plan the Route"
+    }
+
+    TextField {
+        id: defaultTown
+        x: parent.width / 2 - (btnAddAStop.width / 2)
+        y: btnPlanARoute.y + btnPlanARoute.height
+        width: parent.width - 50
+        placeholderText: qsTr("Default Town")
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
     }
 }

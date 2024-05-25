@@ -5,18 +5,26 @@ PlanARouteModel::PlanARouteModel(QObject* parent) : QAbstractListModel(parent)
 
 }
 
-void PlanARouteModel::append(WaypointModel& model)
+void PlanARouteModel::appendNewWayPointModel(int row)
 {
+    WaypointModel* newModel = new WaypointModel();
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-
+    m_items.append(newModel);
     endInsertRows();
 }
 
 PlanARouteModel::~PlanARouteModel()
 {
+    qDeleteAll(m_items);
     m_items.clear();
 }
 
+WaypointModel* PlanARouteModel::getModel(int index)
+{
+    if (index < 0 || index >= m_items.size())
+        return nullptr;
+    return m_items.at(index);
+}
 
 int PlanARouteModel::rowCount(const QModelIndex &parent) const
 {
@@ -32,18 +40,9 @@ QVariant PlanARouteModel::data(const QModelIndex &index, int role) const
     if(index.row() <0 || index.row() >= rowCount())
         return {};
     const WaypointModel &item = m_items[index.row()];
-    switch (role) {
-    case WaypointModel::WaypointRoles::TownRole:
-
-        break;
-    case WaypointModel::WaypointRoles::StreetRole:
-
-        break;
-    case WaypointModel::WaypointRoles::HouseNumberRole:
-
-        break;
-    default:
-        break;
+    if(role == WayPoinModelRole)
+    {
+        return QVariant::fromValue<WaypointModel*>(m_items[index.row()]);
     }
     return {};
 }
@@ -51,16 +50,18 @@ QVariant PlanARouteModel::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray> PlanARouteModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles[TownRole] = "town";
+    roles[WayPoinModelRole] = "waypoint_model_role";
     return roles;
 }
 
-void PlanARouteModel::remove(int index, int count)
+void PlanARouteModel::remove(int index)
 {
-    beginRemoveRows(QModelIndex(), index, index + count - 1);
-    for (int row = 0; row < count; ++row) {
-        m_items.removeAt(index);
+    if (index < 0 || index >= rowCount()) {
+        return;
     }
+
+    beginRemoveRows(QModelIndex(), index, index);
+    delete m_items.takeAt(index);
     endRemoveRows();
 }
 
@@ -68,11 +69,21 @@ QVariantList PlanARouteModel::waypointsForQML() const {
     QVariantList routeList;
     for (const WaypointModel &waypoint : m_items) {
         QVariantMap routeMap;
-        //routeMap["town"] = waypoint.town;
-        //routeList.append(routeMap);
     }
     return routeList;
 }
 
 
 
+int PlanARouteModel::index() const
+{
+    return m_items.size() - 1;
+}
+
+void PlanARouteModel::setModel(int index, WaypointModel* model)
+{
+    m_items.removeAt(index);
+    m_items.insert(index, model);
+    emit waypointModelChanged(index);
+    qDebug() << "Test";
+}

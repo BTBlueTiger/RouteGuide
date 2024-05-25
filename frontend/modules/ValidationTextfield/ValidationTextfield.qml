@@ -22,8 +22,8 @@ TextField {
     }
 
     id: validationTextField
-    property int state : ValidationState.Default
-    property int validationType: ValidationType.None
+    property int state : 0
+    property int validationType: 0
     property string errorMsg : ""
     property string placeholderDefault: ""
 
@@ -36,6 +36,7 @@ TextField {
         border.width: 1
         radius: 4
         opacity: model.opacity
+        border.color: "darkGrey"
 
     }
 

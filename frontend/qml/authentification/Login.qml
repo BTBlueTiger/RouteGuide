@@ -42,7 +42,6 @@ Item {
         visible: false
         x: parent.width / 2 - wrongUserToolTip.width / 2
         y: parent.height / 2 - wrongUserToolTip.height / 2
-
     }
 
     ColumnLayout {

@@ -1,25 +1,9 @@
 #include "include/models/plan_a_route/WaypointModel.h"
 
 
-WaypointModelItem::WaypointModelItem(const QString &houseNumber)
-    : m_houseNumber(std::move(houseNumber))
-{
-
-}
-
-void WaypointModelItem::updateHouseNumber(const QString& houseNumber)
-{
-    m_houseNumber = houseNumber;
-}
-
 WaypointModel::WaypointModel(QObject* parent) : QAbstractListModel(parent)
 {
 
-}
-
-QString WaypointModelItem::houseNumber() const
-{
-    return m_houseNumber;
 }
 
 QString WaypointModel::town() const
@@ -32,7 +16,7 @@ QString WaypointModel::street() const
     return m_street;
 }
 
-QVector<WaypointModelItem> WaypointModel::houseNumbers() const
+QStringList WaypointModel::houseNumbers() const
 {
     return m_items;
 }
@@ -53,9 +37,12 @@ void WaypointModel::setStreet(const QString& street)
     emit streetChanged(street);
 }
 
-void WaypointModel::setHouseNumbers(const QVector<WaypointModelItem>& houseNumbers)
+void WaypointModel::setHouseNumbers(const QStringList& houseNumbers)
 {
-    emit houseNumbersChanged(houseNumbers);
+    if (m_items != houseNumbers) {
+        m_items = houseNumbers;
+        emit houseNumbersChanged();
+    }
 }
 
 
@@ -63,9 +50,7 @@ void WaypointModel::setHouseNumbers(const QVector<WaypointModelItem>& houseNumbe
 bool WaypointModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (index.isValid() && role == HouseNumberRole) {
-        // Set data in model here. It can also be a good idea to check whether
-        // the new value actually differs from the current value
-        if (m_items[index.row()].houseNumber() != value.toString()) {
+     if (m_items[index.row()] != value.toString()) {
             m_items[index.row()] = value.toString();
             emit dataChanged(index, index, { HouseNumberRole, Qt::DisplayRole });
             return true;
@@ -74,6 +59,7 @@ bool WaypointModel::setData(const QModelIndex &index, const QVariant &value, int
     return false;
 }
 
+/*
 
 int WaypointModel::getLenghtOfList() const
 {
@@ -82,16 +68,19 @@ int WaypointModel::getLenghtOfList() const
 
 void WaypointModel::changeItem(int index, const QString& houseNumber, int count)
 {
-
+    m_items[index] = houseNumber;
 }
+*/
 
-void WaypointModel::append(const QString &houseNumber)
+void WaypointModel::append()
 {
-    WaypointModelItem item(houseNumber);
+
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_items.append(item);
+    m_items.append("");
     endInsertRows();
+    emit houseNumbersChanged();
 }
+
 
 WaypointModel::~WaypointModel()
 {
@@ -112,9 +101,6 @@ QVariant WaypointModel::data(const QModelIndex &index, int role) const
         return {};
     if(index.row() <0 || index.row() >= rowCount())
         return {};
-    const WaypointModelItem &item = m_items[index.row()];
-    if(role == HouseNumberRole)
-        return item.houseNumber();
     return {};
 }
 
@@ -127,21 +113,30 @@ QHash<int, QByteArray> WaypointModel::roleNames() const
     return roles;
 }
 
-void WaypointModel::remove(int index, int count)
+
+void WaypointModel::remove(int index)
 {
-    beginRemoveRows(QModelIndex(), index, index + count - 1);
-    for (int row = 0; row < count; ++row) {
-        m_items.removeAt(index);
-    }
+    beginRemoveRows(QModelIndex(), index, index);
+    m_items.removeAt(index);
     endRemoveRows();
 }
 
 QVariantList WaypointModel::qVariantListhouseNumbers() const {
     QVariantList routeList;
-    for (const WaypointModelItem &item : m_items) {
+    for (const QString &item : m_items) {
         QVariantMap routeMap;
-        routeMap["house_number"] = item.houseNumber();
+        routeMap["house_number"] = item;
         routeList.append(routeMap);
     }
     return routeList;
+}
+
+void WaypointModel::removeEmptyStops()
+{
+    for (int i = m_items.size() - 1; i >= 0; --i) {
+        if (m_items[i].trimmed().isEmpty()) {
+            m_items.removeAt(i);
+        }
+    }
+    emit houseNumbersChanged();
 }

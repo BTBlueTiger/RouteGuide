@@ -8,23 +8,31 @@
 class PlanARouteModel : public QAbstractListModel {
 Q_OBJECT
 
+    Q_PROPERTY(int index READ index CONSTANT)
 public:
 
-    Q_INVOKABLE void append(WaypointModel& model);
+    Q_INVOKABLE void appendNewWayPointModel(int row);
 
-    Q_INVOKABLE void remove(int index, int count = 1);
+    Q_INVOKABLE WaypointModel* getModel(int index);
+
+    Q_INVOKABLE void setModel(int index, WaypointModel* model);
+
+    Q_INVOKABLE void remove(int index);
 
     Q_INVOKABLE QVariantList waypointsForQML() const;
 
     enum MyListRoles {
-        TownRole = Qt::UserRole + 1
+        WayPoinModelRole = Qt::UserRole + 1
     };
 
     PlanARouteModel(QObject* parent = nullptr);
     ~PlanARouteModel();
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex &index, int role = TownRole) const override;
+    QVariant data(const QModelIndex &index, int role = WayPoinModelRole) const override;
+    int index() const;
+
+    void setIndex(int index);
 
 protected:
     QHash<int, QByteArray> roleNames() const override;
@@ -32,6 +40,11 @@ protected:
 
 private:
     QVector<WaypointModel*> m_items;
+    int m_index;
+
+signals:
+    void indexChanged(int index);
+    void waypointModelChanged(int index);
 };
 
 

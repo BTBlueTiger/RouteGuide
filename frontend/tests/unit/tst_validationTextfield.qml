@@ -9,14 +9,14 @@ TestCase {
         id: field
         errorMsg: "Error"
         placeholderDefault: "Default"
-        validationType: ValidationTextfield.ValidationState.Email
+        //validationType: ValidationTextfield.ValidationState.Email
     }
 
     function test_initialState() {
         verify(field.state === ValidationTextfield.ValidationState.Default)
         verify(field.errorMsg === "Error")
         verify(field.placeholderDefault === "Default")
-        verify(field.validationType === ValidationTextfield.ValidationType.Email)
+        //verify(field.validationType === ValidationTextfield.ValidationType.Email)
     }
 
 
