@@ -1,5 +1,6 @@
 package dev.dubsky.routeguide.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -36,8 +37,9 @@ public class Address {
     @Column(name = "latitude", nullable = false)
     private Double latitude;
 
+    @JsonIgnore
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "route_id", nullable = false)
     private Route route;
 
