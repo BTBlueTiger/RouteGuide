@@ -52,6 +52,7 @@ public class UserController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public UserDTO createUser(@RequestBody User user) {
         return new UserDTO(userService.save(user));
     }
