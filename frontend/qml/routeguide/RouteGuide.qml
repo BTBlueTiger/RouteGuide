@@ -9,18 +9,26 @@ Item {
     Plugin {
         id: mapPlugin
         name: "osm"
+        PluginParameter {
+            name: "osm.mapping.custom.host"
 
+            // OSM plugin will auto-append if .png isn't suffix, and that screws up apikey which silently
+            // fails authentication (only Wireshark revealed it)
+            value: "http://tile.thunderforest.com/atlas/%z/%x/%y.png?apikey=5e174dbc86e5477b90da4369fabe46f5&fake=.png"
+        }
     }
 
     Map {
         id: map
         anchors.fill: parent
         plugin: mapPlugin
-        center: QtPositioning.coordinate(59.91, 10.75) // Oslo
+        center: QtPositioning.coordinate(52.2125431, 8.7179206)
         zoomLevel: 14
         property geoCoordinate startCentroid
 
-        //activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
+        activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
+
+
 
         PinchHandler {
             id: pinch
