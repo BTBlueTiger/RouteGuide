@@ -140,3 +140,5 @@ void WaypointModel::removeEmptyStops()
     }
     emit houseNumbersChanged();
 }
+
+

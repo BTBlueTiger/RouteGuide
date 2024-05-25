@@ -15,10 +15,14 @@ class UserModel : public AbstractResource
     Q_OBJECT
     Q_PROPERTY(QString user READ user NOTIFY userChanged)
     Q_PROPERTY(bool loggedIn READ loggedIn NOTIFY userChanged)
+    Q_PROPERTY(bool registerSuccess READ registerSuccess NOTIFY registerSuccessChanged)
+
     Q_PROPERTY(int email_t READ email_t WRITE setEmail_t NOTIFY email_tChanged FINAL)
 
     Q_PROPERTY(QString loginPath MEMBER m_loginPath);
     Q_PROPERTY(QString logoutPath MEMBER m_logoutPath);
+
+
 
 public:
 
@@ -42,6 +46,7 @@ public:
 
     QString user() const;
     bool loggedIn() const;
+    bool registerSuccess() const;
     int email_t() const;
 
     void setEmail_t(int);
@@ -58,11 +63,8 @@ public:
 private:
     static UserModel *m_instance;
     struct User{
-        int id;
         QString email, userName;
         EMAIL_T emailT;
-        QByteArray token;
-        QVector<PREMIUM_GROUPS> premiumGroups;
     };
 
     QVector<int> premiumGroups;;
@@ -70,11 +72,12 @@ private:
     std::optional<User> m_user;
     QVector<QString> m_companyMailAdresses;
     int m_email_t;
-
+    bool m_registerSuccess;
 
 
 signals:
     void userChanged();
+    void registerSuccessChanged();
     void premiumGroupsChanged(QVector<int>);
     void email_tChanged(int);
 };

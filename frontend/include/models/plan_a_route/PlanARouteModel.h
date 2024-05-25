@@ -33,6 +33,7 @@ public:
     int index() const;
 
     void setIndex(int index);
+    QVector<WaypointModel*> waypointModels() const;
 
 protected:
     QHash<int, QByteArray> roleNames() const override;

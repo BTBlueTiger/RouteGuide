@@ -8,6 +8,8 @@ import "../dialogs"
 import PlanARouteModel
 import WaypointModel
 
+import QLocationSearch
+
 Item {
 
     property int fontPointSize: 20
@@ -117,6 +119,10 @@ Item {
     }
 
 
+    QLocationSearch {
+        id: qLocationSearchPlugin
+
+    }
 
     Button {
         id: btnPlanARoute
@@ -124,6 +130,9 @@ Item {
         y: btnAddAStop.y + btnAddAStop.height
         width: parent.width - 50
         text: "Plan the Route"
+        onClicked: {
+            qLocationSearchPlugin.searchLocation(planARouteModel)
+        }
     }
 
     TextField {

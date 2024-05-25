@@ -8,7 +8,7 @@
 #include <QtCore/qjsondocument.h>
 #include <QtCore/qjsonobject.h>
 
-#define WRONG_LOGIN false
+#define WRONG_LOGIN true
 #define IS_COMPANY false
 
 UserModel *UserModel::m_instance = nullptr;
@@ -17,6 +17,7 @@ UserModel::UserModel(QObject *parent)
     : AbstractResource(parent)
 {
     m_companyMailAdresses.push_back("mydphdl");
+    m_companyMailAdresses.push_back("scorp");
 }
 
 QObject* UserModel::createSingletonInstance(QQmlEngine *engine, QJSEngine *scriptEngine){
@@ -36,52 +37,65 @@ bool UserModel::loggedIn() const
     return m_user.has_value();
 }
 
+bool UserModel::registerSuccess() const
+{
+    return m_registerSuccess;
+}
+
 void UserModel::loginAttempt(const QVariantMap& data)
 {
-    if(WITH_LOGIN_API) {
-        QString loginPath =
-            QString(API_PATH) + "login_dummy";
+    if(WITH_API)
+    {
+        QNetworkReply* response = postRequest(
+            *qVariantMapToQByteArray(data),
+            m_api->createRequest("/auth/login")
+            );
 
-        m_manager->post(m_api->createRequest(loginPath), data, this, [this,  data] (QRestReply &reply){
-            m_user.reset();
-            if(const auto json = reply.readJson();
-            json && json->isObject() && json->object().contains("token"))
+        QObject::connect(response, &QNetworkReply::finished, [=](){
+            if(response->error() == QNetworkReply::NoError)
             {
-                m_user = User{
-                    data.value("id").toInt(),
-                    data.value("email").toString(),
-                    data.value("user_name").toString(),
-                    emailType("Dummy@web.de"),
-                    (*json)["tokenField"].toVariant().toByteArray(),
-                };
+                m_api->setBearerToken(response->readAll());
+                QNetworkReply * secondResponse = getRequest(m_api->createRequest("/users/me"));
+                QObject::connect(secondResponse, &QNetworkReply::finished, [=]()
+                {
+                    QByteArray jsonData = secondResponse->readAll();
+                    QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
+                    QJsonObject jsonObj = jsonDoc.object();
+                    m_user =
+                    {
+                        data["email"].toString(),
+                        data["username"].toString()
+                    };
+                    if(!data["company"].toString().isEmpty())
+                    {
+                        m_user->emailT = EMAIL_T::COMPANY;
+                    }
+                    else
+                    {
+                        m_user->emailT = EMAIL_T::PRIVATE;
+                    }
+                    qDebug() << jsonObj;
+                    emit userChanged();
+                });
+            } else {
+                m_user.reset();
+                emit userChanged();
             }
-            QHttpHeaders headers;
-            headers.append("token", m_user ? m_user->token : "");
-            m_api->setCommonHeaders(headers);
-            emit userChanged();
         });
-    }
-    else if(WRONG_LOGIN)
-    {
-        m_user.reset();
-        emit userChanged();
-    }
-    else
-    {
+    } else {
         m_user.reset();
         m_user = User
-        {
-            0,
-            data["email"].toString(),
-            "Dummy",
-            emailType("kamalte@web.de"),
-            "Dummy"
-        };
+            {
+                data["email"].toString(),
+                "Dummy",
+                emailType("kamalte@web.de"),
+            };
         qDebug() << m_user->emailT;
         emit userChanged();
-    }
 
+    }
 }
+
 
 void UserModel::logoutAttempt()
 {
@@ -130,14 +144,22 @@ void UserModel::changePremiumGroup(int group)
 
 void UserModel::registerAttempt(const QVariantMap& data)
 {
-        QString registerPath =
-            QString(API_PATH) + "register";
-    qDebug() << QJsonDocument::fromVariant(data);;
-    /*
-    m_manager->post(m_api->createRequest(registerPath), data, this, [this,  data] (QRestReply &reply){
-
-        });
-*/
+    QNetworkReply* response = postRequest(
+        *qVariantMapToQByteArray(data),
+        m_api->createRequest("/auth/register")
+        );
+    QObject::connect(response, &QNetworkReply::finished, [=](){
+        if(response->error() == QNetworkReply::NoError)
+        {
+            m_registerSuccess = true;
+            emit registerSuccessChanged();
+        }
+        else
+        {
+            m_registerSuccess = false;
+            emit registerSuccessChanged();
+        }
+    });
 }
 
 int UserModel::email_t() const

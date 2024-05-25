@@ -44,6 +44,8 @@ qt_add_qml_module(frontend
 
         qml/dialogs/WaypointDialog.qml
 
+        qml/routeguide/RoutingMap.qml
+
 
     SOURCES
         include/utility/ScreenInfo.h src/utility/ScreenInfo.cpp

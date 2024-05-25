@@ -21,5 +21,7 @@
         <file>res/btn/modify.svg</file>
         <file>res/btn/add_circle.svg</file>
         <file>res/btn/clear.svg</file>
+        <file>qml/routeguide/RoutingMap.qml</file>
+        <file>res/btn/place.svg</file>
     </qresource>
 </RCC>

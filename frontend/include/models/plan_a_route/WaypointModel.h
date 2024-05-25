@@ -45,7 +45,7 @@ public:
 signals:
     void townChanged(const QString&);
     void streetChanged(const QString&);
-    void houseNumbersChanged();
+    void houseNumbersChanged() const;
 
 protected:
     QHash<int, QByteArray> roleNames() const override;

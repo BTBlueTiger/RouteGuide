@@ -87,3 +87,8 @@ void PlanARouteModel::setModel(int index, WaypointModel* model)
     emit waypointModelChanged(index);
     qDebug() << "Test";
 }
+
+QVector<WaypointModel*> PlanARouteModel::waypointModels() const
+{
+    return m_items;
+}

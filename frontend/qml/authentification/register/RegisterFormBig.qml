@@ -19,6 +19,23 @@ Item {
     property int emailType: 0
 
 
+    Connections{
+        target: UserModel
+        function onRegisterSuccessChanged() {
+
+
+            if(UserModel.registerSuccess) {
+                console.log("isSuccess")
+                registerAttemptSuccess.visible = true
+                registerAttemptSuccessToolTip.start()
+            } else {
+                console.log("isNotSuccess")
+                registerAttemptFailed.visible = true
+                registerAttemptFailedToolTip.start()
+            }
+        }
+    }
+
 
 
     function buttonClicked(button, id, clicked) {
@@ -30,6 +47,34 @@ Item {
             button.Material.background = Material.rippleColor
         }
         return !clicked
+    }
+
+    ToolTip {
+        id: registerAttemptSuccess
+        text: "Check your emails to confirm your registration"
+        visible: false
+        x: registerForm.width / 2 - registerAttemptSuccess.width / 2
+        y: registerForm.height / 2 - registerAttemptSuccess.height / 2
+
+        Timer {
+            id: registerAttemptSuccessToolTip
+            interval: 4000 // 4 sec
+            onTriggered: registerAttemptSuccess.visible = false
+        }
+    }
+
+    ToolTip {
+        id: registerAttemptFailed
+        text: "Something went wrong"
+        visible: false
+        x: registerForm.width / 2 - registerAttemptFailed.width / 2
+        y: registerForm.height / 2 - registerAttemptFailed.height / 2
+
+        Timer {
+            id: registerAttemptFailedToolTip
+            interval: 4000 // 4 sec
+            onTriggered: registerAttemptFailed.visible = false
+        }
     }
 
 

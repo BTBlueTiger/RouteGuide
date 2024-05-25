@@ -79,7 +79,7 @@ Item {
 
     Component {
         id: map
-        RouteGuide{
+        RoutingMap{
 
         }
     }
