@@ -2,19 +2,12 @@ import QtQuick
 import QtQuick.Controls
 
 import ScreenInfo
+import UserModel
 //! [Set application window size]
-
-import ValidationTextfield
-import QtTest
-
 ApplicationWindow {
 
-    id: rootWindow
-
-    property string userType: ""
-
-
     property var screenInfo: ScreenInfo {}
+    property var userModel: UserModel {}
 
     visible: true
     width: Qt.platform.os === "android" ? screenInfo.screenResolution().width : 1280
@@ -26,4 +19,3 @@ ApplicationWindow {
         height: parent.height
     }
 }
-
