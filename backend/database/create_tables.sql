@@ -55,3 +55,35 @@ create table user_group
 
 alter table user_group
     owner to admin;
+
+create table routes
+(
+    routes_id serial
+        constraint routes_pk
+            primary key,
+    user_id   integer not null
+        constraint routes_user_user_id_fk
+            references "user",
+    name      varchar
+);
+
+alter table routes
+    owner to admin;
+
+create table addresses
+(
+    id        serial
+        constraint addresses_pk
+            primary key,
+    town      varchar          not null,
+    street    varchar          not null,
+    number    varchar          not null,
+    longitude double precision not null,
+    latitude  double precision not null,
+    route_id  integer          not null
+        constraint addresses_routes_routes_id_fk
+            references routes
+);
+
+alter table addresses
+    owner to admin;
