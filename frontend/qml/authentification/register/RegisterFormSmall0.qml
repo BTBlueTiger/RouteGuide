@@ -4,14 +4,15 @@ import QtQuick.Layouts
 
 import "../../custom_controls"
 
-import UserModel
-
 Item {
     property int textfieldWidth:  width * 0.8;
     property int textfieldHeight: 60
     property int fontPointSize: 20
     property int xPos: (width / 2) - textfieldWidth / 2
     property int emailType: 0
+
+    width : registerLoader.windowWidth;
+    height : registerLoader.windowHeight;
 
     ColumnLayout {
             id: columnLayout
@@ -21,7 +22,6 @@ Item {
             id: image
             x: 0
             y: 0
-            z: -1
             source: "/res/img/background.png"
             fillMode: Image.PreserveAspectCrop
 
@@ -35,22 +35,24 @@ Item {
                 placeholderText: qsTr("Email")
                 errorMsg: "Not a valid Email"
                 onEditingFinished: {
-                    var email_t = UserModel.emailType(textFieldEmail.text);
-                    switch(email_t)
+                    emailType = userModel.onEmailAdressEntered(textFieldEmail.text)
+                    switch(emailType)
                     {
-                    case UserModel.ERROR:
-                        state = 1
+                    case 2:
+                        button4.clicked()
+                        isValid = true;
+                        isError = false;
                         break;
-                    case UserModel.PRIVATE:
-                    case UserModel.PREMIUM:
-                    case UserModel.COMPANY:
-                        state = 2
+                    case 1:
+                        isValid = true;
+                        isError = false;
                         break;
+                    case 0:
                     default:
-                        state = 0;
+                        isError = true;
+                        isValid = false;
                         break;
                     }
-                    UserModel.email_t = email_t
                 }
             }
 
@@ -63,8 +65,15 @@ Item {
                 width: textfieldWidth
                 placeholderText: qsTr("Passord")
                 echoMode: TextInput.Password
-
-
+                onEditingFinished: {
+                    if(userModel.onPasswordEntered(textFieldPassword.text)){
+                        isValid = true;
+                        isError = false
+                    } else {
+                        isError = true;
+                        isValid = false;
+                    }
+                }
             }
             ValidationTextfield {
                 horizontalAlignment: Text.AlignHCenter
@@ -75,23 +84,15 @@ Item {
                 width: textfieldWidth
                 placeholderText: qsTr("Re enter password")
                 echoMode: TextInput.Password
+
                 onTextEdited: {
-                    if(text !== textFieldPassword.text) {
-                        toolTip.visible = true
-                        state = 1
-                    } else if(text === textFieldPassword.text) {
-                        toolTip.visible = false
-                        state = 2
+                    if(userModel.onSecondPasswordEntered(textFieldPasswordReEntered.text)){
+                        isValid = true;
+                        isError = false
+                    } else {
+                        isError = true;
+                        isValid = false;
                     }
-                    else {
-                        toolTip.visible = false
-                        state = 0
-                    }
-                }
-                ToolTip{
-                    id: toolTip
-                    text: "Not the same password"
-                    visible: false
                 }
             }
             Button {
@@ -102,6 +103,7 @@ Item {
                 text: qsTr("Next")
 
                 enabled: (textFieldEmail.isValid
+                          && textFieldPassword.isValid
                           && textFieldPasswordReEntered.isValid)
 
                 onClicked: {

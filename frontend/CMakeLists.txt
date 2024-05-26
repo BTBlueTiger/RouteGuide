@@ -7,24 +7,21 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-
 find_package(Qt6 REQUIRED COMPONENTS
     Core
     Gui
     Location
     Qml
-    Quick
     Core5Compat
-    Sql
-    Network
-    QuickControls2
 )
-
 
 qt_standard_project_setup(REQUIRES 6.6)
 
 qt_add_executable(frontend
     main.cpp frontend.qrc
+    include/utility/ScreenInfo.h src/utility/ScreenInfo.cpp
+    include/models/UserModel.h src/models/UserModel.cpp
+    include/map_control/QLocationSearch.h src/map_control/QLocationSearch.cpp
 )
 
 qt_add_qml_module(frontend
@@ -39,35 +36,14 @@ qt_add_qml_module(frontend
         qml/authentification/register/RegisterFormSmall0.qml
         qml/authentification/register/RegisterFormSmall1.qml
 
+        qml/custom_controls/ValidationTextfield.qml
+
         qml/routeguide/RouteGuide.qml
         qml/routeguide/PlanARoute.qml
 
-        qml/dialogs/WaypointDialog.qml
-
-
-    SOURCES
-        include/utility/ScreenInfo.h src/utility/ScreenInfo.cpp
-        include/map_control/QLocationSearch.h src/map_control/QLocationSearch.cpp
-
-        include/models/plan_a_route/PlanARouteModel.h src/models/plan_a_route/PlanARouteModel.cpp
-        include/models/plan_a_route/WaypointModel.h src/models/plan_a_route/WaypointModel.cpp
-        include/models/UserModel.h src/models/UserModel.cpp
-
-        include/sqlite/SqliteDatabase.h src/sqlite/SqliteDatabase.cpp
-        include/connections/AbstractResource.h
-        include/Constants.h
 
     RESOURCES
         qtquickcontrols2.conf
-)
-
-
-
-
-
-set_target_properties(frontend PROPERTIES
-    WIN32_EXECUTABLE TRUE
-    MACOSX_BUNDLE TRUE
 )
 
 if (ANDROID)
@@ -76,40 +52,11 @@ if (ANDROID)
 endif()
 
 target_link_libraries(frontend PRIVATE
-    Qt6::Core
-    Qt6::Gui
-    Qt6::Location
-    Qt6::Qml
-    Qt6::Quick
-    Qt6::Network
+    Qt::Core
+    Qt::Gui
+    Qt::Location
+    Qt::Qml
     Qt6::Core5Compat
-    Qt6::Sql
-    Qt6::QuickControls2
-)
-
-add_subdirectory(modules/ValidationTextfield)
-target_link_libraries(frontend PRIVATE ValidationTextfieldplugin)
-
-
-set(MY_UNITTESTS TRUE)
-enable_testing()
-if(${MY_UNITTESTS})
-    add_subdirectory(tests/unit)
-endif()
-add_subdirectory(tests/integration)
-
-
-#qt_add_translations(${EXECUTABLE_NAME} TS_FILES
-#        ${EXECUTABLE_NAME}_de_DE.ts
-#        ${EXECUTABLE_NAME}_en_EN.ts
-#    SOURCES ${QML_SOURCES2} ${CPP_SOURCES} ${HPP_SOURCES}
-#    RESOURCE_PREFIX "/translations"
-#)
-
-
-install(TARGETS ${EXECUTABLE_NAME}
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
 

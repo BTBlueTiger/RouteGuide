@@ -2,9 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
-import ValidationTextfield
-
-import UserModel
+import "../../custom_controls"
 
 Item {
     id: registerForm
@@ -18,20 +16,16 @@ Item {
     property int fontPointSize: 24
     property int emailType: 0
 
-
-
-
     function buttonClicked(button, id, clicked) {
         if (!clicked) {
-            //userModel.onGroupSelect(id);
+            userModel.onGroupSelect(id);
             button.Material.background = Material.primary // Change the color to blue when clicked
         } else {
-            //userModel.onGroupSelect(id);
+            userModel.onGroupSelect(id);
             button.Material.background = Material.rippleColor
         }
         return !clicked
     }
-
 
     RowLayout {
             id: rowLayout
@@ -44,39 +38,32 @@ Item {
                 y: 0
                 fillMode: Image.PreserveAspectCrop
 
-                TextField {
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pointSize: fontPointSize
-                    id: textfieldUserName
-                    x: leftSideX
-                    y: rowLayout.height * 0.20
-                    width: textfieldWidth
-                    placeholderText: qsTr("UserName")
-                }
-
                 ValidationTextfield{
                     horizontalAlignment: Text.AlignHCenter
                     font.pointSize: fontPointSize
-                    id: textfieldEmail
+                    id: textFieldEmail
                     x: leftSideX
-                    y: rowLayout.height * 0.35
+                    y: rowLayout.height * 0.3
                     width: textfieldWidth
                     placeholderText: qsTr("Email")
                     errorMsg: "Not a valid Email"
                     onEditingFinished: {
-                        var email_t = UserModel.emailType(textfieldEmail.text);
-                        switch(email_t)
+                        emailType = userModel.onEmailAdressEntered(textFieldEmail.text)
+                        switch(emailType)
                         {
-                        case UserModel.ERROR:
-                            state = 1
+                        case 2:
+                            button4.clicked()
+                            isValid = true;
+                            isError = false;
                             break;
-                        case UserModel.PRIVATE:
-                        case UserModel.PREMIUM:
-                        case UserModel.COMPANY:
-                            state = 2
+                        case 1:
+                            isValid = true;
+                            isError = false;
                             break;
+                        case 0:
                         default:
-                            state = 0;
+                            isError = true;
+                            isValid = false;
                             break;
                         }
                     }
@@ -87,46 +74,44 @@ Item {
                     font.pointSize: fontPointSize
                     id: textFieldPassword
                     x: leftSideX
-                    y: rowLayout.height * 0.5
+                    y: rowLayout.height * 0.45
                     width: textfieldWidth
                     placeholderText: qsTr("Passord")
                     echoMode: TextInput.Password
+                    onEditingFinished: {
+                        if(userModel.onPasswordEntered(textFieldPassword.text)){
+                            isValid = true;
+                            isError = false
+                        } else {
+                            isError = true;
+                            isValid = false;
+                        }
+                    }
                 }
-
                 ValidationTextfield {
-                    property bool tooltipVisible: false
                     horizontalAlignment: Text.AlignHCenter
                     font.pointSize: fontPointSize
                     id: textFieldPasswordReEntered
                     x: leftSideX
-                    y: rowLayout.height * 0.65
+                    y: rowLayout.height * 0.6
                     width: textfieldWidth
                     placeholderText: qsTr("Re enter password")
                     echoMode: TextInput.Password
 
                     onTextEdited: {
-                        if(text !== textFieldPassword.text) {
-                            toolTip.visible = true
-                            state = 1
-                        } else if(text === textFieldPassword.text) {
-                            toolTip.visible = false
-                            state = 2
+                        if(userModel.onSecondPasswordEntered(textFieldPasswordReEntered.text)){
+                            isValid = true;
+                            isError = false
+                        } else {
+                            isError = true;
+                            isValid = false;
                         }
-                        else {
-                            toolTip.visible = false
-                            state = 0
-                        }
-                    }
-                    ToolTip{
-                        id: toolTip
-                        text: "Not the same password"
-                        visible: false
                     }
                 }
 
                 Button {
                     font.pointSize: fontPointSize
-                    id: buttonHiker
+                    id: button1
                     height: 70
                     x: rightSideX
                     y: rowLayout.height * 0.1
@@ -134,7 +119,7 @@ Item {
                     text: qsTr("Hiker")
                     property bool isClicked: false
 
-                    enabled: UserModel.emailType(textfieldEmail.text) === UserModel.PRIVATE
+                    enabled: emailType == 1
 
                     onClicked: {
                        isClicked = buttonClicked(button1, 0, isClicked)
@@ -144,7 +129,7 @@ Item {
 
                 Button {
                     font.pointSize: fontPointSize
-                    id: buttonSportler
+                    id: button2
                     height: 70
                     x: rightSideX
                     y: rowLayout.height * 0.25
@@ -152,7 +137,7 @@ Item {
                     text: qsTr("Sportler")
                     property bool isClicked: false
 
-                    enabled: UserModel.emailType(textfieldEmail.text) === UserModel.PRIVATE
+                    enabled: emailType == 1
 
                     onClicked: {
                        isClicked = buttonClicked(button2, 1, isClicked)
@@ -161,7 +146,7 @@ Item {
 
                 Button {
                     font.pointSize: fontPointSize
-                    id: buttonTourist
+                    id: button3
                     height: 70
                     x: rightSideX
                     y: rowLayout.height * 0.4
@@ -169,7 +154,7 @@ Item {
                     text: qsTr("Tourist")
                     property bool isClicked: false
 
-                    enabled: UserModel.emailType(textfieldEmail.text) === UserModel.PRIVATE
+                    enabled: emailType == 1
 
                     onClicked: {
                        isClicked = buttonClicked(button3, 2, isClicked)
@@ -178,17 +163,16 @@ Item {
 
                 Button {
                     font.pointSize: fontPointSize
-                    id: buttonCompany
+                    id: button4
                     height: 70
                     x: rightSideX
                     y: rowLayout.height * 0.55
                     width: textfieldWidth
                     text: qsTr("Company")
-                    enabled: UserModel.emailType(textfieldEmail.text) === UserModel.COMPANY
-                    checked: UserModel.emailType(textfieldEmail.text) === UserModel.COMPANY
+                    enabled: emailType == 2
+                    checked: emailType == 2
                     onCheckedChanged: {
                         if(checked) {
-                            text.color = "white"
                             Material.background = Material.primary
                             Material.foreground = Material.foreground
                         } else {
@@ -206,35 +190,9 @@ Item {
                     y: rowLayout.height * 0.7
                     width: textfieldWidth
                     text: qsTr("Register")
-                    enabled: {
-                        textFieldPasswordReEntered.isValid &&
-                        textfieldEmail.isValid
-                    }
-                    onClicked: {
-                        var role = ""
-                        if(UserModel.email_t === UserModel.COMPANY)
-                            role = "company"
-                        else {
-                            if(buttonHiker.isClicked) {
-                                role += "hiker"
-                            }
-                            if(buttonSportler.isClicked) {
-                                role += "sportler"
-                            }
-                            if(buttonTourist.isClicked) {
-                                role += "tourist"
-                            }
-                        }
-
-                        UserModel.registerAttempt(
-                                {
-                                    "email": textfieldEmail.text,
-                                    "username": textfieldUserName.text,
-                                    "password": textFieldPassword.text,
-                                    "role": role
-                                }
-                            )
-                    }
+                    enabled: (textFieldEmail.isValid
+                              && textFieldPassword.isValid
+                              && textFieldPasswordReEntered.isValid)
                 }
             }
     }
