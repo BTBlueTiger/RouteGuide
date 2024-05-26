@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+
+
 import UserModel
 
 Item {
@@ -8,17 +10,19 @@ Item {
     property int textfieldHeight: 60
     property int fontPointSize: 20
     property int xPos: (width / 2) - textfieldWidth / 2
-    property int emailType: userModel.onEmailTypeRequestet();
     width : registerLoader.windowWidth;
     height : registerLoader.windowHeight;
 
+    Component.onCompleted: {
+        console.log(UserModel.email_t)
+    }
 
     function buttonClicked(button, id, clicked) {
         if (!clicked) {
-            userModel.onGroupSelect(id);
+            ////.onGroupSelect(id);
             button.Material.background = Material.primary // Change the color to blue when clicked
         } else {
-            userModel.onGroupSelect(id);
+            ////.onGroupSelect(id);
             button.Material.background = Material.rippleColor
         }
         return !clicked
@@ -46,7 +50,7 @@ Item {
                 text: qsTr("Hiker")
                 property bool isClicked: false
 
-                enabled: emailType == 1
+                enabled: UserModel.email_t === UserModel.PRIVATE
 
                 onClicked: {
                    isClicked = buttonClicked(button1, 0, isClicked)
@@ -64,7 +68,8 @@ Item {
                 text: qsTr("Sportler")
                 property bool isClicked: false
 
-                enabled: emailType == 1
+
+                enabled: UserModel.email_t === UserModel.PRIVATE
 
                 onClicked: {
                    isClicked = buttonClicked(button2, 1, isClicked)
@@ -81,10 +86,11 @@ Item {
                 text: qsTr("Tourist")
                 property bool isClicked: false
 
-                enabled: emailType == 1
+
+                enabled: UserModel.email_t === UserModel.PRIVATE
 
                 onClicked: {
-                   isClicked = buttonClicked(button3, 2, isClicked)
+                   isClicked = buttonClicked(button2, 1, isClicked)
                 }
             }
 
@@ -96,10 +102,11 @@ Item {
                 y: columnLayout.height * 0.55
                 width: textfieldWidth
                 text: qsTr("Company")
-                enabled: emailType == 2
-                checked: emailType == 2
+                enabled: UserModel.email_t === UserModel.COMPANY
+                checked: UserModel.email_t === UserModel.COMPANY
                 onCheckedChanged: {
                     if(checked) {
+                        text.color = "white"
                         Material.background = Material.primary
                         Material.foreground = Material.foreground
                     } else {

@@ -3,7 +3,7 @@
 
 ### Version & Build Info
 
-![](https://img.shields.io/badge/Current%20Version-1.0.0-green?style=for-the-badge&logo=git)
+![](https://img.shields.io/badge/Current%20Version-1.1.0-green?style=for-the-badge&logo=git)
 
 ![TeamCity build status](http://94.16.31.72:8111/app/rest/builds/buildType:id:RouteGuide_BuildApi,branch:name:dev/statusIcon.svg)
 
@@ -48,15 +48,20 @@ This microservice uses Gradle as build tool. Most IDEs with Gradle support will 
 
 Installing Gradle is not required as the project comes with a Gradle wrapper, but it is recommended to install it to your system anyway, since it can make the build process faster to build by hand.
 
-## Running the docker container
+**Building the project**
+```bash 
+gradle clean build
+```
+
+## Building / Running the docker container
 **1. Build the image**
 ```bash
-docker build -t route-guide-api .
+docker build -t dubskysteam/routeguide:TAG .
 ```
 
 or pull the image from the registry
 ```bash
-docker pull dubskysteam/route-guide-api
+docker pull dubskysteam/routeguide:TAG
 ```
 
 **2. Build and run the container**
@@ -68,7 +73,7 @@ docker run -d \
   -e RG_DB_HOST="your_db_host" \
   -e RG_DB_PORT="your_db_port" \
   -e RG_JWT_SECRET="your_jwt_secret" \
-  route-guide-api
+  dubskysteam/routeguide:TAG
 ```
 
 **3. Check the logs**

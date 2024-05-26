@@ -1,10 +1,48 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Effects
+
+import UserModel
+import EMAIL_T
+
+import ValidationTextfield
 
 Item {
 
-    id: loginRoot
+    id: loginView
+
+    property int textfieldWidth:  width * 0.8;
+    property int textfieldHeight: 60
+    property int fontPointSize: 20
+    property int xPos: (width / 2) - textfieldWidth / 2
+    property int emailType: 0
+
+    Connections{
+        target: UserModel
+        function onUserChanged() {
+            if(UserModel.loggedIn) {
+                stackLayout.push(map)
+            } else {
+                wrongUserToolTip.visible = true
+                wrongUserToolTipTimer.start()
+            }
+        }
+    }
+
+    Timer {
+        id: wrongUserToolTipTimer
+        interval: 4000 // 4 sec
+        onTriggered: wrongUserToolTip.visible = false
+    }
+
+    ToolTip {
+        id: wrongUserToolTip
+        text: "Username or Password are wrong"
+        visible: false
+        x: parent.width / 2 - wrongUserToolTip.width / 2
+        y: parent.height / 2 - wrongUserToolTip.height / 2
+    }
 
     ColumnLayout {
         id: columnLayout
@@ -18,31 +56,65 @@ Item {
             fillMode: Image.PreserveAspectCrop
 
 
-            TextField {
-                id: textField
+            ValidationTextfield{
+                horizontalAlignment: Text.AlignHCenter
+                font.pointSize: fontPointSize
+                id: textFieldUsername
+                x: (loginView.width / 2) - width / 2
+                y: loginView.height / 2
                 width: 300
                 height: 60
-
-                horizontalAlignment: Text.AlignHCenter
-                y: loginRoot.height / 2
-                x: (loginRoot.width / 2) - width / 2
-                font.pointSize: 20
-                placeholderText: qsTr("Email")
+                placeholderText: qsTr("Username")
             }
 
             Rectangle {
-                y: textField.y - 300
-                x: textField.x + ((textField.width - width)/2)
+                y: textFieldUsername.y - 300
+                x: textFieldUsername.x + ((textFieldUsername.width - width) / 2)
                 width: 250
                 height: 250
-                color: "white"
-                radius: 180
+                color: "transparent"
+                radius: 125 // Making it fully circular
+                clip: true // Clip the content to the bounds of the Rectangle
+
+                Image {
+                    x:0
+                        id: sourceItem
+                        source: "../../res/img/logo.jpeg"
+                        anchors.centerIn: parent
+                        width: 250
+                        height: 250
+                        visible: false
+                    }
+
+                    MultiEffect {
+                        x:0
+                        source: sourceItem
+                        anchors.fill: sourceItem
+                        maskEnabled: true
+                        maskSource: mask
+                    }
+
+                    Item {
+                        id: mask
+                        width: sourceItem.width
+                        height: sourceItem.height
+                        layer.enabled: true
+                        visible: false
+
+                        Rectangle {
+
+                            width: sourceItem.width
+                            height: sourceItem.height
+                            radius: width/2
+                            color: "black"
+                        }
+                    }
             }
 
             TextField {
-                id: textField2
-                x: textField.x
-                y: textField.y + 100
+                id: textFieldPassword
+                x: textFieldUsername.x
+                y: textFieldUsername.y + 100
                 width: 300
                 height: 60
                 horizontalAlignment: Text.AlignHCenter
@@ -54,8 +126,8 @@ Item {
 
             Button {
                 id: button
-                x: textField2.x
-                y: textField2.y + 100
+                x: textFieldPassword.x
+                y: textFieldPassword.y + 100
                 width: 300
                 height: 60
                 text: qsTr("Sign In")
@@ -64,7 +136,12 @@ Item {
                 checkable: false
                 Material.background: "#391ee9"
                 onClicked: {
-                    stackLayout.push(routeGuide)
+                    UserModel.loginAttempt(
+                        {
+                            ["username"] : textFieldUsername.text,
+                            ["password"] : textFieldPassword.text
+                        }
+                    );
                 }
 
             }
