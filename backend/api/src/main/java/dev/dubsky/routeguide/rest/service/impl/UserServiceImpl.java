@@ -32,6 +32,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
+
+    @Override
     public User getCurrentUser(String token) {
         token = token.replace("Bearer ", "");
         return userRepository.findByUsername(jwtTokenUtil.getUsernameFromToken(token)).orElse(null);
