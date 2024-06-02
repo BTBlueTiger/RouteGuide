@@ -1,6 +1,8 @@
 
 #include "include/models/waypoint/WaypointModel.h"
 
+#include <QJsonArray>
+
 namespace Waypoint
 {
 
@@ -104,18 +106,18 @@ namespace Waypoint
         m_waypointModelItems.removeAt(index);
         endRemoveRows();
     }
-
-    void Waypoint::WaypointModel::onNominatimRessourceResponse(NominatimRessource::ResponseType responseType, const QJsonArray& data)
+    
+    void Waypoint::WaypointModel::onNominatimRessourceResponse(ResponseType responseType, const QJsonArray& data)
     {
-        if(responseType == NominatimRessource::Success)
+        if(responseType == ResponseType::Success)
         {
             setJsonData(data);
         }
-        else if(responseType == NominatimRessource::Failed)
+        else if(responseType == ResponseType::Failed)
         {
             qDebug() << "No Response Data";
         }
-        else if(responseType == NominatimRessource::NetworkError)
+        else if(responseType == ResponseType::NetworkError)
         {
             qDebug() << "No Connection to Nominatim Server";
         }
@@ -126,6 +128,15 @@ namespace Waypoint
         return m_waypointModelItems[index];
     }
 
+    QList<QGeoCoordinate> WaypointModel::getCoordinates() const
+    {
+        QList<QGeoCoordinate> coordinates;
+        for(const WaypointModelItem* item: m_waypointModelItems)
+        {
+            coordinates.append(item->coordinate());
+        }
+        return coordinates;
+    }
 
 
 }

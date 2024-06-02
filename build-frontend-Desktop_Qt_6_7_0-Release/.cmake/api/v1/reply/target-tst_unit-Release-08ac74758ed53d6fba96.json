@@ -1,0 +1,945 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "tests/unit/tst_unit"
+		}
+	],
+	"backtrace" : 4,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"_qt_internal_create_executable",
+			"qt6_add_executable",
+			"qt_add_executable",
+			"target_link_libraries",
+			"__qt_internal_propagate_object_files",
+			"__qt_internal_propagate_object_library",
+			"qt6_add_qml_module",
+			"qt_add_qml_module",
+			"__qt_propagate_generated_resource",
+			"_qt_internal_process_resource",
+			"qt6_add_resources",
+			"qt6_target_qml_sources",
+			"set_target_properties",
+			"include",
+			"find_package",
+			"find_dependency",
+			"_qt_internal_find_qt_dependencies",
+			"qt6_add_qml_plugin",
+			"add_dependencies",
+			"_qt_internal_scan_qml_imports",
+			"_qt_internal_generate_deploy_qml_imports_script",
+			"cmake_language",
+			"_qt_internal_finalize_executable",
+			"qt6_finalize_target",
+			"add_definitions"
+		],
+		"files" : 
+		[
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6Core/Qt6CoreMacros.cmake",
+			"tests/unit/CMakeLists.txt",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake",
+			"modules/ValidationTextfield/CMakeLists.txt",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6Test/Qt6TestVersionlessTargets.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6Test/Qt6TestConfig.cmake",
+			"/home/kamalte/Qt/Tools/CMake/share/cmake-3.27/Modules/CMakeFindDependencyMacro.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6QuickTest/Qt6QuickTestDependencies.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6QuickTest/Qt6QuickTestConfig.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6Network/Qt6NetworkVersionlessTargets.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6Network/Qt6NetworkConfig.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlDependencies.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6PositioningQuick/Qt6PositioningQuickDependencies.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6PositioningQuick/Qt6PositioningQuickConfig.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6Location/Qt6LocationDependencies.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6Location/Qt6LocationConfig.cmake",
+			"CMakeLists.txt",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlTargets.cmake",
+			"/home/kamalte/Qt/6.7.0/gcc_64/lib/cmake/Qt6Core/Qt6CoreMacros.cmake:590:EVAL"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 29,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 869,
+				"parent" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 575,
+				"parent" : 2
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 629,
+				"parent" : 3
+			},
+			{
+				"file" : 3
+			},
+			{
+				"command" : 8,
+				"file" : 3,
+				"line" : 11,
+				"parent" : 5
+			},
+			{
+				"command" : 7,
+				"file" : 2,
+				"line" : 776,
+				"parent" : 6
+			},
+			{
+				"command" : 6,
+				"file" : 2,
+				"line" : 668,
+				"parent" : 7
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 1922,
+				"parent" : 8
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 1870,
+				"parent" : 9
+			},
+			{
+				"command" : 8,
+				"file" : 3,
+				"line" : 16,
+				"parent" : 5
+			},
+			{
+				"command" : 7,
+				"file" : 2,
+				"line" : 776,
+				"parent" : 11
+			},
+			{
+				"command" : 6,
+				"file" : 2,
+				"line" : 668,
+				"parent" : 12
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 1922,
+				"parent" : 13
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 1870,
+				"parent" : 14
+			},
+			{
+				"command" : 11,
+				"file" : 2,
+				"line" : 590,
+				"parent" : 7
+			},
+			{
+				"command" : 10,
+				"file" : 0,
+				"line" : 337,
+				"parent" : 16
+			},
+			{
+				"command" : 9,
+				"file" : 0,
+				"line" : 2390,
+				"parent" : 17
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 1995,
+				"parent" : 18
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 1922,
+				"parent" : 19
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 1870,
+				"parent" : 20
+			},
+			{
+				"command" : 11,
+				"file" : 2,
+				"line" : 590,
+				"parent" : 12
+			},
+			{
+				"command" : 10,
+				"file" : 0,
+				"line" : 337,
+				"parent" : 22
+			},
+			{
+				"command" : 9,
+				"file" : 0,
+				"line" : 2390,
+				"parent" : 23
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 1995,
+				"parent" : 24
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 1922,
+				"parent" : 25
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 1870,
+				"parent" : 26
+			},
+			{
+				"command" : 12,
+				"file" : 2,
+				"line" : 647,
+				"parent" : 12
+			},
+			{
+				"command" : 11,
+				"file" : 2,
+				"line" : 2749,
+				"parent" : 28
+			},
+			{
+				"command" : 10,
+				"file" : 0,
+				"line" : 337,
+				"parent" : 29
+			},
+			{
+				"command" : 9,
+				"file" : 0,
+				"line" : 2390,
+				"parent" : 30
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 1995,
+				"parent" : 31
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 1922,
+				"parent" : 32
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 1870,
+				"parent" : 33
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 39,
+				"parent" : 0
+			},
+			{
+				"command" : 15,
+				"file" : 1,
+				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"file" : 10,
+				"parent" : 36
+			},
+			{
+				"command" : 15,
+				"file" : 10,
+				"line" : 167,
+				"parent" : 37
+			},
+			{
+				"file" : 9,
+				"parent" : 38
+			},
+			{
+				"command" : 14,
+				"file" : 9,
+				"line" : 43,
+				"parent" : 39
+			},
+			{
+				"file" : 8,
+				"parent" : 40
+			},
+			{
+				"command" : 17,
+				"file" : 8,
+				"line" : 42,
+				"parent" : 41
+			},
+			{
+				"command" : 16,
+				"file" : 7,
+				"line" : 111,
+				"parent" : 42
+			},
+			{
+				"command" : 15,
+				"file" : 6,
+				"line" : 76,
+				"parent" : 43
+			},
+			{
+				"file" : 5,
+				"parent" : 44
+			},
+			{
+				"command" : 14,
+				"file" : 5,
+				"line" : 60,
+				"parent" : 45
+			},
+			{
+				"file" : 4,
+				"parent" : 46
+			},
+			{
+				"command" : 13,
+				"file" : 4,
+				"line" : 61,
+				"parent" : 47
+			},
+			{
+				"command" : 18,
+				"file" : 2,
+				"line" : 625,
+				"parent" : 7
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 2227,
+				"parent" : 49
+			},
+			{
+				"command" : 18,
+				"file" : 2,
+				"line" : 625,
+				"parent" : 12
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 2227,
+				"parent" : 51
+			},
+			{
+				"file" : 19
+			},
+			{
+				"command" : 15,
+				"file" : 19,
+				"line" : 11,
+				"parent" : 53
+			},
+			{
+				"file" : 10,
+				"parent" : 54
+			},
+			{
+				"command" : 15,
+				"file" : 10,
+				"line" : 167,
+				"parent" : 55
+			},
+			{
+				"file" : 18,
+				"parent" : 56
+			},
+			{
+				"command" : 14,
+				"file" : 18,
+				"line" : 43,
+				"parent" : 57
+			},
+			{
+				"file" : 17,
+				"parent" : 58
+			},
+			{
+				"command" : 17,
+				"file" : 17,
+				"line" : 42,
+				"parent" : 59
+			},
+			{
+				"command" : 16,
+				"file" : 7,
+				"line" : 111,
+				"parent" : 60
+			},
+			{
+				"command" : 15,
+				"file" : 6,
+				"line" : 76,
+				"parent" : 61
+			},
+			{
+				"file" : 16,
+				"parent" : 62
+			},
+			{
+				"command" : 14,
+				"file" : 16,
+				"line" : 43,
+				"parent" : 63
+			},
+			{
+				"file" : 15,
+				"parent" : 64
+			},
+			{
+				"command" : 17,
+				"file" : 15,
+				"line" : 42,
+				"parent" : 65
+			},
+			{
+				"command" : 16,
+				"file" : 7,
+				"line" : 111,
+				"parent" : 66
+			},
+			{
+				"command" : 15,
+				"file" : 6,
+				"line" : 76,
+				"parent" : 67
+			},
+			{
+				"file" : 14,
+				"parent" : 68
+			},
+			{
+				"command" : 14,
+				"file" : 14,
+				"line" : 44,
+				"parent" : 69
+			},
+			{
+				"file" : 13,
+				"parent" : 70
+			},
+			{
+				"command" : 17,
+				"file" : 13,
+				"line" : 42,
+				"parent" : 71
+			},
+			{
+				"command" : 16,
+				"file" : 7,
+				"line" : 111,
+				"parent" : 72
+			},
+			{
+				"command" : 15,
+				"file" : 6,
+				"line" : 76,
+				"parent" : 73
+			},
+			{
+				"file" : 12,
+				"parent" : 74
+			},
+			{
+				"command" : 14,
+				"file" : 12,
+				"line" : 60,
+				"parent" : 75
+			},
+			{
+				"file" : 11,
+				"parent" : 76
+			},
+			{
+				"command" : 13,
+				"file" : 11,
+				"line" : 61,
+				"parent" : 77
+			},
+			{
+				"command" : 14,
+				"file" : 14,
+				"line" : 56,
+				"parent" : 69
+			},
+			{
+				"file" : 20,
+				"parent" : 79
+			},
+			{
+				"command" : 13,
+				"file" : 20,
+				"line" : 61,
+				"parent" : 80
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 576,
+				"parent" : 2
+			},
+			{
+				"file" : 1,
+				"line" : -1,
+				"parent" : 0
+			},
+			{
+				"command" : 24,
+				"file" : 21,
+				"line" : 1,
+				"parent" : 83
+			},
+			{
+				"command" : 23,
+				"file" : 0,
+				"line" : 774,
+				"parent" : 84
+			},
+			{
+				"command" : 22,
+				"file" : 0,
+				"line" : 678,
+				"parent" : 85
+			},
+			{
+				"command" : 21,
+				"file" : 0,
+				"line" : 678,
+				"parent" : 86
+			},
+			{
+				"command" : 20,
+				"file" : 2,
+				"line" : 3468,
+				"parent" : 87
+			},
+			{
+				"command" : 19,
+				"file" : 2,
+				"line" : 3284,
+				"parent" : 88
+			},
+			{
+				"command" : 25,
+				"file" : 1,
+				"line" : 20,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-DQT_QML_DEBUG -O3 -DNDEBUG -std=gnu++17 -fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 82,
+					"fragment" : "-fPIC"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 82,
+					"define" : "QT_CORE_LIB"
+				},
+				{
+					"backtrace" : 35,
+					"define" : "QT_NETWORK_LIB"
+				},
+				{
+					"backtrace" : 82,
+					"define" : "QT_NO_DEBUG"
+				},
+				{
+					"backtrace" : 35,
+					"define" : "QT_QMLBUILTINS_LIB"
+				},
+				{
+					"backtrace" : 35,
+					"define" : "QT_QMLINTEGRATION_LIB"
+				},
+				{
+					"backtrace" : 35,
+					"define" : "QT_QMLTEST_LIB"
+				},
+				{
+					"backtrace" : 35,
+					"define" : "QT_QML_LIB"
+				},
+				{
+					"backtrace" : 35,
+					"define" : "QT_TESTCASE_BUILDDIR=\"/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/tests/unit\""
+				},
+				{
+					"backtrace" : 35,
+					"define" : "QT_TESTCASE_SOURCEDIR=\"/home/kamalte/Documents/RouteGuide/frontend/tests/unit\""
+				},
+				{
+					"backtrace" : 35,
+					"define" : "QT_TESTLIB_LIB"
+				},
+				{
+					"backtrace" : 90,
+					"define" : "QUICK_TEST_SOURCE_DIR=\"/home/kamalte/Documents/RouteGuide/frontend/tests/unit\""
+				}
+			],
+			"includes" : 
+			[
+				{
+					"path" : "/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/tests/unit"
+				},
+				{
+					"path" : "/home/kamalte/Documents/RouteGuide/frontend/tests/unit"
+				},
+				{
+					"backtrace" : 0,
+					"path" : "/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/tests/unit/tst_unit_autogen/include"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "/home/kamalte/Qt/6.7.0/gcc_64/include/QtCore"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "/home/kamalte/Qt/6.7.0/gcc_64/include"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "/home/kamalte/Qt/6.7.0/gcc_64/mkspecs/linux-g++"
+				},
+				{
+					"backtrace" : 35,
+					"isSystem" : true,
+					"path" : "/home/kamalte/Qt/6.7.0/gcc_64/include/QtQuickTest"
+				},
+				{
+					"backtrace" : 35,
+					"isSystem" : true,
+					"path" : "/home/kamalte/Qt/6.7.0/gcc_64/include/QtTest"
+				},
+				{
+					"backtrace" : 35,
+					"isSystem" : true,
+					"path" : "/home/kamalte/Qt/6.7.0/gcc_64/include/QtQml"
+				},
+				{
+					"backtrace" : 35,
+					"isSystem" : true,
+					"path" : "/home/kamalte/Qt/6.7.0/gcc_64/include/QtQmlIntegration"
+				},
+				{
+					"backtrace" : 35,
+					"isSystem" : true,
+					"path" : "/home/kamalte/Qt/6.7.0/gcc_64/include/QtQmlBuiltins"
+				},
+				{
+					"backtrace" : 35,
+					"isSystem" : true,
+					"path" : "/home/kamalte/Qt/6.7.0/gcc_64/include/QtNetwork"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					82
+				],
+				"standard" : "17"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 35,
+			"id" : "ValidationTextfield::@95199e873ed2de2c9200"
+		},
+		{
+			"backtrace" : 35,
+			"id" : "ValidationTextfieldModel::@95199e873ed2de2c9200"
+		},
+		{
+			"backtrace" : 35,
+			"id" : "ValidationTextfieldModel_resources_1::@95199e873ed2de2c9200"
+		},
+		{
+			"backtrace" : 35,
+			"id" : "ValidationTextfieldModelplugin::@95199e873ed2de2c9200"
+		},
+		{
+			"backtrace" : 35,
+			"id" : "ValidationTextfieldModelplugin_init::@95199e873ed2de2c9200"
+		},
+		{
+			"backtrace" : 35,
+			"id" : "ValidationTextfield_resources_1::@95199e873ed2de2c9200"
+		},
+		{
+			"backtrace" : 35,
+			"id" : "ValidationTextfieldplugin::@95199e873ed2de2c9200"
+		},
+		{
+			"backtrace" : 35,
+			"id" : "ValidationTextfield_resources_2::@95199e873ed2de2c9200"
+		},
+		{
+			"backtrace" : 35,
+			"id" : "ValidationTextfieldplugin_init::@95199e873ed2de2c9200"
+		},
+		{
+			"backtrace" : 89,
+			"id" : "tst_unit_qmlimportscan::@17bd492d087794b9594e"
+		},
+		{
+			"id" : "tst_unit_autogen_timestamp_deps::@17bd492d087794b9594e"
+		},
+		{
+			"backtrace" : 0,
+			"id" : "tst_unit_autogen::@17bd492d087794b9594e"
+		}
+	],
+	"id" : "tst_unit::@17bd492d087794b9594e",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-DQT_QML_DEBUG -O3 -DNDEBUG",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/home/kamalte/Qt/6.7.0/gcc_64/lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 10,
+				"fragment" : "modules/ValidationTextfield/CMakeFiles/ValidationTextfieldModelplugin_init.dir/./ValidationTextfieldModelplugin_init_autogen/mocs_compilation.cpp.o",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 10,
+				"fragment" : "modules/ValidationTextfield/CMakeFiles/ValidationTextfieldModelplugin_init.dir/./ValidationTextfieldModelplugin_init.cpp.o",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 15,
+				"fragment" : "modules/ValidationTextfield/CMakeFiles/ValidationTextfieldplugin_init.dir/./ValidationTextfieldplugin_init_autogen/mocs_compilation.cpp.o",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 15,
+				"fragment" : "modules/ValidationTextfield/CMakeFiles/ValidationTextfieldplugin_init.dir/./ValidationTextfieldplugin_init.cpp.o",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 21,
+				"fragment" : "modules/ValidationTextfield/CMakeFiles/ValidationTextfieldModel_resources_1.dir/./.rcc/qrc_qmake_ValidationTextfieldModel_init.cpp.o",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 27,
+				"fragment" : "modules/ValidationTextfield/CMakeFiles/ValidationTextfield_resources_1.dir/./.rcc/qrc_qmake_ValidationTextfield_init.cpp.o",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 34,
+				"fragment" : "modules/ValidationTextfield/CMakeFiles/ValidationTextfield_resources_2.dir/./.rcc/qrc_ValidationTextfield_raw_qml_0_init.cpp.o",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 35,
+				"fragment" : "/home/kamalte/Qt/6.7.0/gcc_64/lib/libQt6QuickTest.so.6.7.0",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 35,
+				"fragment" : "ValidationTextfieldModel/libValidationTextfieldModelplugin.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 35,
+				"fragment" : "ValidationTextfield/libValidationTextfieldplugin.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 48,
+				"fragment" : "/home/kamalte/Qt/6.7.0/gcc_64/lib/libQt6Test.so.6.7.0",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 50,
+				"fragment" : "modules/ValidationTextfield/libValidationTextfieldModel.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 52,
+				"fragment" : "modules/ValidationTextfield/libValidationTextfield.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 35,
+				"fragment" : "/home/kamalte/Qt/6.7.0/gcc_64/lib/libQt6Qml.so.6.7.0",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 78,
+				"fragment" : "/home/kamalte/Qt/6.7.0/gcc_64/lib/libQt6Network.so.6.7.0",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 81,
+				"fragment" : "/home/kamalte/Qt/6.7.0/gcc_64/lib/libQt6QmlBuiltins.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 82,
+				"fragment" : "/home/kamalte/Qt/6.7.0/gcc_64/lib/libQt6Core.so.6.7.0",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "tst_unit",
+	"nameOnDisk" : "tst_unit",
+	"paths" : 
+	{
+		"build" : "tests/unit",
+		"source" : "tests/unit"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files\\Generated",
+			"sourceIndexes" : 
+			[
+				0,
+				4
+			]
+		},
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				1,
+				2
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				3
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				5
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/tests/unit/tst_unit_autogen/mocs_compilation.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "tests/unit/main.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "tests/unit/setup.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"path" : "tests/unit/setup.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/tests/unit/tst_unit_autogen/timestamp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/tests/unit/tst_unit_autogen/timestamp.rule",
+			"sourceGroupIndex" : 3
+		}
+	],
+	"type" : "EXECUTABLE"
+}

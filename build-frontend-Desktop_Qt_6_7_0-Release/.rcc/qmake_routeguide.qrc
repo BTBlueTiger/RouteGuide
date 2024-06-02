@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/qt/qml/routeguide">
+    <file alias="qmldir">/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/routeguide/qmldir</file>
+  </qresource>
+</RCC>
+

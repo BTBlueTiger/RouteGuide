@@ -1,0 +1,52 @@
+{
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target"
+		],
+		"files" : 
+		[
+			"tests/unit/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 27,
+				"parent" : 0
+			}
+		]
+	},
+	"id" : "tst_unit_qmlfiles::@17bd492d087794b9594e",
+	"name" : "tst_unit_qmlfiles",
+	"paths" : 
+	{
+		"build" : "tests/unit",
+		"source" : "tests/unit"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"path" : "tests/unit/tst_validationTextfield.qml",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "UTILITY"
+}

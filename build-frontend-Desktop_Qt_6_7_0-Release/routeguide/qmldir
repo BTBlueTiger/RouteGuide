@@ -1,0 +1,15 @@
+module routeguide
+typeinfo frontend.qmltypes
+prefer :/qt/qml/routeguide/
+ApplicationFlow 254.0 qml/ApplicationFlow.qml
+Login 254.0 qml/authentification/Login.qml
+RegisterFormBig 254.0 qml/authentification/register/RegisterFormBig.qml
+RegisterFormSmall0 254.0 qml/authentification/register/RegisterFormSmall0.qml
+RegisterFormSmall1 254.0 qml/authentification/register/RegisterFormSmall1.qml
+PlanARoute 254.0 qml/routeguide/PlanARoute/PlanARoute.qml
+AddedPage 254.0 qml/routeguide/PlanARoute/AddedPage.qml
+SearchPage 254.0 qml/routeguide/PlanARoute/SearchPage.qml
+PreviewPage 254.0 qml/routeguide/PlanARoute/PreviewPage.qml
+WaypointFlickable 254.0 qml/routeguide/PlanARoute/WaypointFlickable.qml
+Formatter 254.0 js/Formatter.js
+

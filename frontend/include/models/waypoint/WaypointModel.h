@@ -4,12 +4,13 @@
 #include <QObject>
 #include <QAbstractListModel>
 
-#include "include/connections/NominatimRessource.h"
+#include "include/connections/ResponseType.h"
+#include "include/models/AbstractModel.h"
 #include "include/models/waypoint/WaypointModelItem.h"
 
 namespace Waypoint
 {
-    class WaypointModel : public QAbstractListModel {
+    class WaypointModel : public QAbstractListModel, public AbstractModel {
         Q_OBJECT
     public:
 
@@ -17,6 +18,7 @@ namespace Waypoint
         Q_INVOKABLE void remove(int);
         Q_INVOKABLE void appendModelItem(WaypointModelItem*);
         Q_INVOKABLE WaypointModelItem* getModelItem(int index);
+        Q_INVOKABLE QList<QGeoCoordinate> getCoordinates() const;
 
 
         enum WaypointRoles {
@@ -30,9 +32,6 @@ namespace Waypoint
         int rowCount(const QModelIndex &parent = QModelIndex()) const override;
         QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-
-        QVector<WaypointModelItem*> waypointModelItems();
-
     protected:
         QHash<int, QByteArray> roleNames() const override;
 
@@ -40,7 +39,7 @@ namespace Waypoint
         QVector<WaypointModelItem*> m_waypointModelItems;
 
     public slots:
-        void onNominatimRessourceResponse(NominatimRessource::ResponseType responseType, const QJsonArray& data);
+        void onNominatimRessourceResponse(ResponseType responseType, const QJsonArray& data);
     };
 }
 

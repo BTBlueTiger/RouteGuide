@@ -1,0 +1,14 @@
+--bare
+-I
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release
+-I
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release
+-I
+/home/kamalte/Qt/6.7.0/gcc_64/./qml
+--resource
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/modules/ValidationTextfield/.rcc/qmake_ValidationTextfield.qrc
+--resource
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/modules/ValidationTextfield/.rcc/ValidationTextfield_raw_qml_0.qrc
+/home/kamalte/Documents/RouteGuide/frontend/modules/ValidationTextfield/ValidationTextfield.qml
+--json
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/ValidationTextfield_qmllint.json

@@ -22,9 +22,7 @@ Item {
 
     id: planARoute
 
-    WaypointManager{
-        id: waypointManager
-    }
+
 
     Rectangle {
         id: rectangle
@@ -78,9 +76,8 @@ Item {
                             if(potentialWaypointModel.rowCount() === 0) {
                                 currentIndex = 1
                             } else {
-                                waypointManager.createGeoRoute(potentialWaypointModelName)
+                                previewPage.routingModel = routingManager.createRoutingModel("0", potentialWaypointModel.getCoordinates())
                             }
-
                         }
                         pageIndex = currentIndex
                     }
@@ -106,7 +103,9 @@ Item {
                     Page {
                         title: qsTr("Page 3")
                         PreviewPage {
-
+                            id: previewPage
+                            height: parent.height
+                            width: parent.width
                         }
                     }
                 }

@@ -1,0 +1,10 @@
+-I
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release
+-I
+/home/kamalte/Qt/6.7.0/gcc_64/./qml
+--resource
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/.rcc/qmake_routeguide.qrc
+--resource
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/.rcc/frontend_raw_qml_0.qrc
+--module
+routeguide

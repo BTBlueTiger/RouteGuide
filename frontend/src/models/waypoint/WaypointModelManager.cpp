@@ -4,19 +4,6 @@
 
 namespace Waypoint {
 
-    WaypointManager::WaypointManager(QObject * parent) : QObject(parent)
-    {
-
-    }
-
-
-    WaypointManager::~WaypointManager()
-    {
-        qDeleteAll(m_waypointModels);
-        m_waypointModels.clear();
-
-    }
-
     WaypointModel* WaypointManager::createWaypointModel(const QString& modelName)
     {
         WaypointModel* model = new WaypointModel;
@@ -25,7 +12,7 @@ namespace Waypoint {
     }
 
 
-    WaypointModel* Waypoint::WaypointManager::getWaypointModel(const QString& modelName)
+    WaypointModel* WaypointManager::getWaypointModel(const QString& modelName)
     {
         if(m_waypointModels.contains(modelName))
         {
@@ -34,10 +21,13 @@ namespace Waypoint {
         return nullptr;
     }
 
+
+
+
     void WaypointManager::searchWithNominatimRessource(const QString& request, const QString& model)
     {
         m_nominatimRessource.setSearch(request);
-        connect(&m_nominatimRessource, &NominatimRessource::networkResponse, m_waypointModels[model], &WaypointModel::onNominatimRessourceResponse);
+        connect(&m_nominatimRessource, &LocationResource::networkResponse, m_waypointModels[model], &WaypointModel::onNominatimRessourceResponse);
     }
 
     void WaypointManager::addItemToWaypointModel(const QString& modelName, WaypointModelItem* item)

@@ -3,7 +3,6 @@ import QtLocation
 import QtPositioning
 import QtQuick.Controls
 
-import QLocationSearch
 
 Item {
 

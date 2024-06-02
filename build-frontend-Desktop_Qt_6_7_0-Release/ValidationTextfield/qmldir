@@ -1,0 +1,8 @@
+module ValidationTextfield
+linktarget ValidationTextfieldplugin
+optional plugin ValidationTextfieldplugin
+classname ValidationTextfieldPlugin
+typeinfo ValidationTextfield.qmltypes
+prefer :/qt/qml/ValidationTextfield/
+ValidationTextfield 254.0 ValidationTextfield.qml
+

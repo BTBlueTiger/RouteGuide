@@ -1,0 +1,16 @@
+--resource
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/.rcc/qmake_routeguide.qrc
+--resource
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/.rcc/frontend_raw_qml_0.qrc
+/qt/qml/routeguide/qml/main.qml
+/qt/qml/routeguide/qml/ApplicationFlow.qml
+/qt/qml/routeguide/qml/authentification/Login.qml
+/qt/qml/routeguide/qml/authentification/register/RegisterFormBig.qml
+/qt/qml/routeguide/qml/authentification/register/RegisterFormSmall0.qml
+/qt/qml/routeguide/qml/authentification/register/RegisterFormSmall1.qml
+/qt/qml/routeguide/qml/routeguide/PlanARoute/PlanARoute.qml
+/qt/qml/routeguide/qml/routeguide/PlanARoute/AddedPage.qml
+/qt/qml/routeguide/qml/routeguide/PlanARoute/SearchPage.qml
+/qt/qml/routeguide/qml/routeguide/PlanARoute/PreviewPage.qml
+/qt/qml/routeguide/qml/routeguide/PlanARoute/WaypointFlickable.qml
+/qt/qml/routeguide/js/Formatter.js

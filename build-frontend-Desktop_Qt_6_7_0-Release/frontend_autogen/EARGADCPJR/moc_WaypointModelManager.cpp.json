@@ -1,0 +1,93 @@
+{
+    "classes": [
+        {
+            "className": "WaypointManager",
+            "methods": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "modelName",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "createWaypointModel",
+                    "returnType": "WaypointModel*"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "modelName",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "getWaypointModel",
+                    "returnType": "WaypointModel*"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "modelName",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "item",
+                            "type": "WaypointModelItem*"
+                        }
+                    ],
+                    "name": "addItemToWaypointModel",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "modelName",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "index",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "removeItemFromWaypointModel",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "request",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "model",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "searchWithNominatimRessource",
+                    "returnType": "void"
+                }
+            ],
+            "object": true,
+            "qualifiedClassName": "Waypoint::WaypointManager",
+            "signals": [
+                {
+                    "access": "public",
+                    "name": "waypointRoutChanged",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "WaypointModelManager.h",
+    "outputRevision": 68
+}

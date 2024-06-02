@@ -1,0 +1,48 @@
+{
+    "classes": [
+        {
+            "className": "ScreenInfo",
+            "methods": [
+                {
+                    "access": "public",
+                    "name": "screenResolution",
+                    "returnType": "QSizeF"
+                }
+            ],
+            "object": true,
+            "qualifiedClassName": "ScreenInfo",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "width",
+                            "type": "qreal"
+                        },
+                        {
+                            "name": "height",
+                            "type": "qreal"
+                        }
+                    ],
+                    "name": "screenResolutionChanged",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "name": "updateScreenInfo",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "ScreenInfo.h",
+    "outputRevision": 68
+}

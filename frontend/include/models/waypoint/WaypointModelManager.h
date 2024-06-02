@@ -3,6 +3,9 @@
 
 #include <QObject>
 
+#include "include/connections/LocationResource.h"
+
+
 #include "WaypointModel.h"
 #include "WaypointModelItem.h"
 
@@ -25,14 +28,12 @@ namespace Waypoint{
 
         //Q_INVOKABLE QGeoRoute* createGeoRoute(const QString& modelName);
 
-        WaypointManager(QObject * parent = nullptr);
-        ~WaypointManager();
 
 
     private:
         QMap<QString, WaypointModel*> m_waypointModels;
         //QGeoRoute* m_geoRoute;
-        NominatimRessource m_nominatimRessource;
+        LocationResource m_nominatimRessource;
 
     signals:
         void waypointRoutChanged();

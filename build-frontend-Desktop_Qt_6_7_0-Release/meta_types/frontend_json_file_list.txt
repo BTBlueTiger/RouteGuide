@@ -1,0 +1,7 @@
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/frontend_autogen/include/../BXK3T7HALT/moc_ScreenInfo.cpp.json
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/frontend_autogen/include/../EARGADCPJR/moc_WaypointModel.cpp.json
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/frontend_autogen/include/../EARGADCPJR/moc_WaypointModelItem.cpp.json
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/frontend_autogen/include/../EARGADCPJR/moc_WaypointModelManager.cpp.json
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/frontend_autogen/include/../EPPU6REHSQ/moc_UserModel.cpp.json
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/frontend_autogen/include/../PUVAIO3T7U/moc_AbstractResource.cpp.json
+/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/frontend_autogen/include/../PUVAIO3T7U/moc_LocationResource.cpp.json

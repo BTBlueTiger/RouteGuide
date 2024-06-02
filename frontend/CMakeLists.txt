@@ -52,21 +52,28 @@ qt_add_qml_module(frontend
     SOURCES
         include/utility/ScreenInfo.h src/utility/ScreenInfo.cpp
 
-        include/connections/AbstractResource.h
+
 
         include/sqlite/SqliteDatabase.h src/sqlite/SqliteDatabase.cpp
         include/Constants.h
 
-        include/connections/NominatimRessource.h src/connections/NominatimRessource.cpp
+        include/connections/AbstractResource.h
+        include/connections/ResponseType.h
+
+        include/connections/LocationResource.h src/connections/LocationResource.cpp
+        include/connections/RouteResource.h src/connections/RouteResource.cpp
 
         include/models/UserModel.h src/models/UserModel.cpp
         include/models/waypoint/WaypointModel.h src/models/waypoint/WaypointModel.cpp
         include/models/waypoint/WaypointModelItem.h src/models/waypoint/WaypointModelItem.cpp
         include/models/waypoint/WaypointModelManager.h src/models/waypoint/WaypointModelManager.cpp
 
+        include/models/routing/RoutingManager.h src/models/routing/RoutingManager.cpp
+        include/models/routing/RoutingModel.h src/models/routing/RoutingModel.cpp
 
     RESOURCES
         qtquickcontrols2.conf
+
 
 )
 

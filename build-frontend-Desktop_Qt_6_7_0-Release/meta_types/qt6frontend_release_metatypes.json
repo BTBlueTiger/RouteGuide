@@ -1,0 +1,578 @@
+[
+    {
+        "classes": [
+            {
+                "className": "ScreenInfo",
+                "methods": [
+                    {
+                        "access": "public",
+                        "name": "screenResolution",
+                        "returnType": "QSizeF"
+                    }
+                ],
+                "object": true,
+                "qualifiedClassName": "ScreenInfo",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "width",
+                                "type": "qreal"
+                            },
+                            {
+                                "name": "height",
+                                "type": "qreal"
+                            }
+                        ],
+                        "name": "screenResolutionChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "name": "updateScreenInfo",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "ScreenInfo.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "WaypointModel",
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "array",
+                                "type": "QJsonArray"
+                            }
+                        ],
+                        "name": "setJsonData",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "type": "int"
+                            }
+                        ],
+                        "name": "remove",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "type": "WaypointModelItem*"
+                            }
+                        ],
+                        "name": "appendModelItem",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "index",
+                                "type": "int"
+                            }
+                        ],
+                        "name": "getModelItem",
+                        "returnType": "WaypointModelItem*"
+                    }
+                ],
+                "object": true,
+                "qualifiedClassName": "Waypoint::WaypointModel",
+                "slots": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "responseType",
+                                "type": "LocationResource::ResponseType"
+                            },
+                            {
+                                "name": "data",
+                                "type": "QJsonArray"
+                            }
+                        ],
+                        "name": "onNominatimRessourceResponse",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QAbstractListModel"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "WaypointModel.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "WaypointModelItem",
+                "object": true,
+                "properties": [
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": false,
+                        "index": 0,
+                        "member": "m_displayName",
+                        "name": "displayName",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": false,
+                        "index": 1,
+                        "member": "m_coordinate",
+                        "name": "coordinate",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QGeoCoordinate",
+                        "user": false
+                    }
+                ],
+                "qualifiedClassName": "Waypoint::WaypointModelItem",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "WaypointModelItem.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "WaypointManager",
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "modelName",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "createWaypointModel",
+                        "returnType": "WaypointModel*"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "modelName",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "getWaypointModel",
+                        "returnType": "WaypointModel*"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "modelName",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "item",
+                                "type": "WaypointModelItem*"
+                            }
+                        ],
+                        "name": "addItemToWaypointModel",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "modelName",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "index",
+                                "type": "int"
+                            }
+                        ],
+                        "name": "removeItemFromWaypointModel",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "request",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "model",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "searchWithNominatimRessource",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "qualifiedClassName": "Waypoint::WaypointManager",
+                "signals": [
+                    {
+                        "access": "public",
+                        "name": "waypointRoutChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "WaypointModelManager.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "UserModel",
+                "enums": [
+                    {
+                        "isClass": false,
+                        "isFlag": false,
+                        "name": "EMAIL_T",
+                        "values": [
+                            "COMPANY",
+                            "PRIVATE",
+                            "PREMIUM",
+                            "ERROR"
+                        ]
+                    },
+                    {
+                        "isClass": false,
+                        "isFlag": false,
+                        "name": "PREMIUM_GROUPS",
+                        "values": [
+                            "HIKER",
+                            "SPORTLER",
+                            "TOURIST"
+                        ]
+                    }
+                ],
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "data",
+                                "type": "QVariantMap"
+                            }
+                        ],
+                        "name": "loginAttempt",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "logoutAttempt",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "email",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "emailType",
+                        "returnType": "EMAIL_T"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "data",
+                                "type": "QVariantMap"
+                            }
+                        ],
+                        "name": "registerAttempt",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "group",
+                                "type": "int"
+                            }
+                        ],
+                        "name": "changePremiumGroup",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 0,
+                        "name": "user",
+                        "notify": "userChanged",
+                        "read": "user",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 1,
+                        "name": "loggedIn",
+                        "notify": "userChanged",
+                        "read": "loggedIn",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 2,
+                        "name": "registerSuccess",
+                        "notify": "registerSuccessChanged",
+                        "read": "registerSuccess",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 3,
+                        "name": "email_t",
+                        "notify": "email_tChanged",
+                        "read": "email_t",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "int",
+                        "user": false,
+                        "write": "setEmail_t"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 4,
+                        "member": "m_loginPath",
+                        "name": "loginPath",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 5,
+                        "member": "m_logoutPath",
+                        "name": "logoutPath",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false
+                    }
+                ],
+                "qualifiedClassName": "UserModel",
+                "signals": [
+                    {
+                        "access": "public",
+                        "name": "userChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "registerSuccessChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "type": "QList<int>"
+                            }
+                        ],
+                        "name": "premiumGroupsChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "type": "int"
+                            }
+                        ],
+                        "name": "email_tChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "AbstractResource"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "UserModel.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "AbstractResource",
+                "object": true,
+                "qualifiedClassName": "AbstractResource",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "AbstractResource.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "LocationResource",
+                "enums": [
+                    {
+                        "isClass": false,
+                        "isFlag": false,
+                        "name": "ResponseType",
+                        "values": [
+                            "Success",
+                            "Failed",
+                            "NetworkError"
+                        ]
+                    }
+                ],
+                "methods": [
+                    {
+                        "access": "public",
+                        "name": "searchQ",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": true,
+                        "index": 0,
+                        "name": "search",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false,
+                        "write": "setSearch"
+                    }
+                ],
+                "qualifiedClassName": "LocationResource",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "responseType",
+                                "type": "ResponseType"
+                            },
+                            {
+                                "name": "data",
+                                "type": "QJsonArray"
+                            }
+                        ],
+                        "name": "networkResponse",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "responseType",
+                                "type": "ResponseType"
+                            }
+                        ],
+                        "isCloned": true,
+                        "name": "networkResponse",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "name": "networkRequestFinished",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "AbstractResource"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "LocationResource.h",
+        "outputRevision": 68
+    }
+]

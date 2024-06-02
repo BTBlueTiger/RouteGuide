@@ -17,6 +17,8 @@ Rectangle {
     }
     anchors.fill: parent
 
+
+
     WaypointFlickable{
         width: parent.width
         height: parent.height

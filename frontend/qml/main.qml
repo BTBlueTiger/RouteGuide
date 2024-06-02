@@ -7,6 +7,9 @@ import ScreenInfo
 import ValidationTextfield
 import QtTest
 
+import WaypointManager
+import RoutingManager
+
 ApplicationWindow {
 
     id: rootWindow
@@ -15,6 +18,12 @@ ApplicationWindow {
 
 
     property var screenInfo: ScreenInfo {}
+
+    WaypointManager{ id: waypointManager }
+    RoutingManager {id: routingManager }
+
+
+
 
     visible: true
     width: Qt.platform.os === "android" ? screenInfo.screenResolution().width : 1280

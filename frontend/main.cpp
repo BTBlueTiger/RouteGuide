@@ -13,6 +13,9 @@
 #include "include/models/waypoint/WaypointModelItem.h"
 #include "include/models/waypoint/WaypointModelManager.h"
 
+#include "include/models/routing/RoutingModel.h"
+#include "include/models/routing/RoutingManager.h"
+
 
 
 Q_IMPORT_QML_PLUGIN(ValidationTextfieldPlugin)
@@ -34,6 +37,10 @@ int main(int argc, char *argv[])
     qmlRegisterType<Waypoint::WaypointModelItem>("WaypointModelItem", 1, 0, "WaypointModelItem");
     qmlRegisterType<Waypoint::WaypointModel>("WaypointModel", 1, 0, "WaypointModel");
     qmlRegisterType<Waypoint::WaypointManager>("WaypointManager", 1, 0, "WaypointManager");
+
+    qmlRegisterType<Routing::RoutingModel>("RoutingModel", 1, 0, "RoutingModel");
+    qmlRegisterType<Routing::RoutingManager>("RoutingManager", 1, 0, "RoutingManager");
+
 
     qmlRegisterType<ScreenInfo>("ScreenInfo", 1, 0, "ScreenInfo");
 
