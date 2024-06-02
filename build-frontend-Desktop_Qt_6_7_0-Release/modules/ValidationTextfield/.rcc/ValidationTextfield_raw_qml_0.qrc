@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/qt/qml/ValidationTextfield/">
-    <file alias="ValidationTextfield.qml">/home/kamalte/Documents/RouteGuide/frontend/modules/ValidationTextfield/ValidationTextfield.qml</file>
-  </qresource>
-</RCC>
-

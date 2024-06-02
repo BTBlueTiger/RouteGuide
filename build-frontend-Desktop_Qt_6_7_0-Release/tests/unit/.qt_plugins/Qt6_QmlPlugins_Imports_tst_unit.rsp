@@ -1,9 +1,0 @@
--rootPath
-/home/kamalte/Documents/RouteGuide/frontend/tests/unit
--cmake-output
--output-file
-/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/tests/unit/.qt_plugins/Qt6_QmlPlugins_Imports_tst_unit.cmake
--importPath
-/home/kamalte/Documents/RouteGuide/build-frontend-Desktop_Qt_6_7_0-Release/tests/unit
--importPath
-/home/kamalte/Qt/6.7.0/gcc_64/./qml
