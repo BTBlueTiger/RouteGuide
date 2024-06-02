@@ -18,6 +18,13 @@ UserModel::UserModel(QObject *parent)
 {
     m_companyMailAdresses.push_back("mydphdl");
     m_companyMailAdresses.push_back("scorp");
+
+    url->setScheme("http");
+    url->setHost("94.16.31.72");
+    url->setPort(8080);
+    m_api->setBaseUrl(*url);
+    headers->append("Content-Type", "application/json");
+    m_api->setCommonHeaders(*headers);
 }
 
 QObject* UserModel::createSingletonInstance(QQmlEngine *engine, QJSEngine *scriptEngine){
@@ -54,19 +61,24 @@ void UserModel::loginAttempt(const QVariantMap& data)
         QObject::connect(response, &QNetworkReply::finished, [=](){
             if(response->error() == QNetworkReply::NoError)
             {
+
                 m_api->setBearerToken(response->readAll());
+                qDebug()<< response->readAll();
                 QNetworkReply * secondResponse = getRequest(m_api->createRequest("/users/me"));
-                QObject::connect(secondResponse, &QNetworkReply::finished, [=]()
+
+                QObject::connect(secondResponse, &QNetworkReply::finished, this, [=]()
                 {
                     QByteArray jsonData = secondResponse->readAll();
                     QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
                     QJsonObject jsonObj = jsonDoc.object();
                     m_user =
                     {
-                        data["email"].toString(),
-                        data["username"].toString()
+                        jsonObj["email"].toString(),
+                        jsonObj["username"].toString()
                     };
-                    if(!data["company"].toString().isEmpty())
+                    qDebug() << jsonObj["email"];
+                    qDebug() << jsonObj["company"];
+                    if(jsonObj["company"].isNull())
                     {
                         m_user->emailT = EMAIL_T::COMPANY;
                     }

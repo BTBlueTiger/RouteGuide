@@ -17,9 +17,9 @@ find_package(Qt6 REQUIRED COMPONENTS
     Core5Compat
     Sql
     Network
+    Positioning
     QuickControls2
 )
-
 
 qt_standard_project_setup(REQUIRES 6.6)
 
@@ -39,33 +39,36 @@ qt_add_qml_module(frontend
         qml/authentification/register/RegisterFormSmall0.qml
         qml/authentification/register/RegisterFormSmall1.qml
 
-        qml/routeguide/RouteGuide.qml
-        qml/routeguide/PlanARoute.qml
+        qml/routeguide/PlanARoute/PlanARoute.qml
+        qml/routeguide/PlanARoute/AddedPage.qml
+        qml/routeguide/PlanARoute/SearchPage.qml
+        qml/routeguide/PlanARoute/PreviewPage.qml
 
-        qml/dialogs/WaypointDialog.qml
+        qml/routeguide/PlanARoute/WaypointFlickable.qml
 
-        qml/routeguide/RoutingMap.qml
+        js/Formatter.js
 
 
     SOURCES
         include/utility/ScreenInfo.h src/utility/ScreenInfo.cpp
-        include/map_control/QLocationSearch.h src/map_control/QLocationSearch.cpp
 
-        include/models/plan_a_route/PlanARouteModel.h src/models/plan_a_route/PlanARouteModel.cpp
-        include/models/plan_a_route/WaypointModel.h src/models/plan_a_route/WaypointModel.cpp
-        include/models/UserModel.h src/models/UserModel.cpp
+        include/connections/AbstractResource.h
 
         include/sqlite/SqliteDatabase.h src/sqlite/SqliteDatabase.cpp
-        include/connections/AbstractResource.h
         include/Constants.h
+
+        include/connections/NominatimRessource.h src/connections/NominatimRessource.cpp
+
+        include/models/UserModel.h src/models/UserModel.cpp
+        include/models/waypoint/WaypointModel.h src/models/waypoint/WaypointModel.cpp
+        include/models/waypoint/WaypointModelItem.h src/models/waypoint/WaypointModelItem.cpp
+        include/models/waypoint/WaypointModelManager.h src/models/waypoint/WaypointModelManager.cpp
+
 
     RESOURCES
         qtquickcontrols2.conf
+
 )
-
-
-
-
 
 set_target_properties(frontend PROPERTIES
     WIN32_EXECUTABLE TRUE
@@ -90,13 +93,17 @@ target_link_libraries(frontend PRIVATE
 )
 
 add_subdirectory(modules/ValidationTextfield)
-target_link_libraries(frontend PRIVATE ValidationTextfieldplugin)
+
+target_link_libraries(frontend PRIVATE
+    ValidationTextfieldplugin
+)
 
 
 set(MY_UNITTESTS TRUE)
 enable_testing()
 if(${MY_UNITTESTS})
     add_subdirectory(tests/unit)
+
 endif()
 add_subdirectory(tests/integration)
 

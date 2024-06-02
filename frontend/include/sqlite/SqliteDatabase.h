@@ -2,7 +2,6 @@
 #define SQLITEDATABASE_H
 
 #include <QSqlDatabase>
-#include "include/models/plan_a_route/PlanARouteModel.h"
 
 class SqliteDatabase
 {

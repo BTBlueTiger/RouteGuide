@@ -12,6 +12,8 @@ Item {
 
     id: loginView
 
+    signal loggedIn();
+
     property int textfieldWidth:  width * 0.8;
     property int textfieldHeight: 60
     property int fontPointSize: 20
@@ -22,7 +24,7 @@ Item {
         target: UserModel
         function onUserChanged() {
             if(UserModel.loggedIn) {
-                stackLayout.push(map)
+                loggedIn()
             } else {
                 wrongUserToolTip.visible = true
                 wrongUserToolTipTimer.start()

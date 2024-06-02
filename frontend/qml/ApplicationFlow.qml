@@ -1,10 +1,12 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtLocation
 
 import "authentification"
 import "authentification/register"
 import "routeguide"
+import "routeguide/PlanARoute"
 
 import UserModel
 
@@ -21,6 +23,19 @@ Item {
 
     property int tabbarHeight: 56
 
+    Plugin {
+        id: mapPlugin
+        name: "osm"
+        PluginParameter {
+            name: "osm.mapping.custom.host"
+
+            // OSM plugin will auto-append if .png isn't suffix, and that screws up apikey which silently
+            // fails authentication (only Wireshark revealed it)
+            value: "http://tile.thunderforest.com/atlas/%z/%x/%y.png?apikey=5e174dbc86e5477b90da4369fabe46f5&fake=.png"
+        }
+    }
+
+    property alias mapPlugin: mapPlugin
 
 
     width: parent.width
@@ -41,18 +56,11 @@ Item {
                 }
             }
         }
-
-        states: [
-            State {
-                name: "Login"
-            },
-            State {
-                name: "Register"
-            }
-        ]
-
         initialItem: Login {
             id: login
+            onLoggedIn: {
+                stackLayout.push(planARoute)
+            }
         }
 
         Component {
@@ -78,17 +86,27 @@ Item {
     }
 
     Component {
-        id: map
-        RoutingMap{
-
-        }
-    }
-    Component {
         id: planARoute
         PlanARoute{
 
         }
     }
+
+    RouteModel {
+        id: routeModel
+        plugin: mapPlugin
+        query: RouteQuery {
+            id: routeQuery
+        }
+        onStatusChanged: {
+            if(routeModel.count > 0) {
+                totalTime = formatTime(routeModel.get(0).travelTime)
+                distance = formatDistance(routeModel.get(0).distance)
+            }
+        }
+    }
+
+
 
 
 
@@ -117,14 +135,6 @@ Item {
             height: tabbarHeight // Height of the bottom navigation bar
             anchors.bottom: parent.bottom // Align the bottom of the bar to the bottom of the parent
             visible: tabbarVisible
-
-            TabButton {
-                text: bigscreen ? "Map" : ""
-                icon.source: "/res/btn/map.svg"
-                onClicked: {
-                    stackLayout.push(map)
-                }
-            }
 
             TabButton {
                 text: bigscreen ? "Plan a Route" : ""

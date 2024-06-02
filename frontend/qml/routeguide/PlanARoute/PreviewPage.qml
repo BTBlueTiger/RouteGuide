@@ -1,53 +1,42 @@
 import QtQuick
+import QtQuick.Controls
 import QtLocation
 import QtPositioning
-import QtQuick.Controls
 
+Rectangle {
 
-Item {
-    Plugin {
-        id: mapPlugin
-        name: "osm"
-        PluginParameter {
-            name: "osm.mapping.custom.host"
+    id: planARoutePreviewPage
 
-            // OSM plugin will auto-append if .png isn't suffix, and that screws up apikey which silently
-            // fails authentication (only Wireshark revealed it)
-            value: "http://tile.thunderforest.com/atlas/%z/%x/%y.png?apikey=5e174dbc86e5477b90da4369fabe46f5&fake=.png"
-        }
-    }
-    RouteModel {
-        id: routeModel
-        plugin: mapPlugin
-        query: RouteQuery {
-            id: routeQuery
-        }
-        onStatusChanged: {
-            console.log(status)
+    //property var center: waypointManager.waypointRoute.center
 
-        }
-    }
 
     Map {
         id: map
         anchors.fill: parent
         plugin: mapPlugin
-        center: QtPositioning.coordinate(52.2125431, 8.7179206)
+        //center: planARoutePreviewPage.center
         zoomLevel: 14
         property geoCoordinate startCentroid
         property int markerCounter: 0
         property var markers: []
 
 
-        activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
+        TapHandler {
+            id: tapHandler
+            property variant lastCoordinate
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
 
-        MapQuickItem {
-            parent: map
-            coordinate: QtPositioning.coordinate(52.2035924, 8.7771954)
-            sourceItem: Image {
-                source: "/res/btn/place.svg"
+            onPressedChanged: (eventPoint, button) => {
+                if (pressed) {
+                    lastCoordinate = view.map.toCoordinate(tapHandler.point.position)
+                }
             }
         }
+
+
+
+
+        activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
 
         Component {
             id: marker
@@ -58,9 +47,9 @@ Item {
             }
         }
 
-        function addMarker(lat, lon)
+
+        function addMarker(pos)
         {
-            var pos = QtPositioning.coordinate(lat, lon)
             var count = map.markers.length
             markerCounter++
             var marker = Qt.createQmlObject('
@@ -139,29 +128,6 @@ Item {
                 line.width: 5
                 smooth: true
                 opacity: 0.8
-            }
-        }
-
-        Item {
-            anchors.centerIn: parent // Center the Item in the parent (ApplicationWindow)
-            TextField {
-                background: Rectangle { color: "#391ee9" }
-                width: 300
-                placeholderText: qsTr("Enter a location here..")
-                anchors.horizontalCenter: parent.horizontalCenter
-                horizontalAlignment: TextInput.AlignHCenter
-                onAccepted: {
-                    console.log("Test")
-                    routeQuery.clearWaypoints();
-                    map.addMarker(52.2125431, 8.7179206)
-                    map.addMarker(52.2035924, 8.7771954)
-                    map.addMarker(52.29755845, 8.903021626602502)
-                    //routeQuery.addWaypoint(QtPositioning.coordinate(52.2035924, 8.7771954))
-                    //routeQuery.addWaypoint(QtPositioning.coordinate(52.29755845, 8.903021626602502))
-                    routeQuery.travelModes = RouteQuery.CarTravel
-                    routeQuery.routeOptimizations = RouteQuery.FastestRoute
-                    routeModel.update();
-                }
             }
         }
 

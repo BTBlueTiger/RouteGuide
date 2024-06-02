@@ -9,19 +9,26 @@
         <file>qml/authentification/register/RegisterFormSmall0.qml</file>
         <file>qml/authentification/register/RegisterFormSmall1.qml</file>
         <file>qml/authentification/register/RegisterFormBig.qml</file>
-        <file>qml/routeguide/PlanARoute.qml</file>
         <file>qml/routeguide/RouteGuide.qml</file>
         <file>res/btn/profile.svg</file>
         <file>res/btn/plan_a_route.svg</file>
         <file>res/btn/map.svg</file>
         <file>res/btn/community.svg</file>
         <file>res/btn/bully.svg</file>
-        <file>qml/dialogs/WaypointDialog.qml</file>
         <file>res/img/logo.jpeg</file>
         <file>res/btn/modify.svg</file>
         <file>res/btn/add_circle.svg</file>
         <file>res/btn/clear.svg</file>
-        <file>qml/routeguide/RoutingMap.qml</file>
         <file>res/btn/place.svg</file>
+        <file>js/Formatter.js</file>
+        <file>res/btn/navigation.svg</file>
+        <file>res/btn/navigation_45.svg</file>
+        <file>qml/routeguide/PlanARoute/SearchPage.qml</file>
+        <file>qml/routeguide/PlanARoute/PreviewPage.qml</file>
+        <file>qml/routeguide/PlanARoute/PlanARoute.qml</file>
+        <file>qml/routeguide/PlanARoute/AddedPage.qml</file>
+        <file>qml/routeguide/PlanARoute/WaypointFlickable.qml</file>
+        <file>res/btn/button_unchecked.svg</file>
+        <file>res/btn/button_checked.svg</file>
     </qresource>
 </RCC>

@@ -1,0 +1,117 @@
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Dialogs
+
+import WaypointManager
+import WaypointModel
+
+Item {
+
+    property int fontPointSize: 20
+    property int pageIndex: 0
+
+    property string searchWaypointModelName: "SearchWaypointModel"
+    property string potentialWaypointModelName: "PotentialWaypointModel"
+
+
+    property WaypointModel searchWaypointModel : waypointManager.createWaypointModel(searchWaypointModelName)
+    property WaypointModel potentialWaypointModel : waypointManager.createWaypointModel(potentialWaypointModelName)
+
+
+
+    id: planARoute
+
+    WaypointManager{
+        id: waypointManager
+    }
+
+    Rectangle {
+        id: rectangle
+        anchors.fill: parent
+
+
+        Rectangle {
+            anchors.fill: parent
+            z: 1
+            Rectangle {
+                anchors{
+                    top: parent.top
+                    right: parent.right
+                    left: parent.left
+                }
+
+                id: tabbarRoot
+
+                width: parent.width
+                height: tabbarHeader.height
+                TabBar {
+
+                    z: 1
+                    id: tabbarHeader
+                    anchors.fill: parent
+                    currentIndex: pageIndex
+                    onCurrentIndexChanged: pageIndex = currentIndex
+                    TabButton {
+                        text: qsTr("Search")
+                    }
+                    TabButton {
+                        text: qsTr("Added Waypoints")
+                    }
+                    TabButton {
+                        text: qsTr("Preview")
+                    }
+                }
+            }
+
+            Rectangle {
+                id: swipeViewRoot
+                color: "black"
+                anchors.top: tabbarRoot.bottom
+                height: parent.height - tabbarRoot.height * 2
+                width: parent.width
+
+                SwipeView {
+                    anchors.fill: parent
+                    onCurrentIndexChanged: {
+                        if(currentIndex == 2) {
+                            if(potentialWaypointModel.rowCount() === 0) {
+                                currentIndex = 1
+                            } else {
+                                waypointManager.createGeoRoute(potentialWaypointModelName)
+                            }
+
+                        }
+                        pageIndex = currentIndex
+                    }
+                    currentIndex: pageIndex
+
+
+                    Page {
+                        SearchPage{
+                            function onitemClicked (item){
+                                console.log(item)
+                                potentialWaypointModel.appendModelItem(item)
+                            }
+                        }
+                    }
+
+                    Page {
+                        title: qsTr("Page 2")
+                        AddedPage{
+
+                        }
+                    }
+
+                    Page {
+                        title: qsTr("Page 3")
+                        PreviewPage {
+
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
