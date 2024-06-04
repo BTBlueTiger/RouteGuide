@@ -19,7 +19,9 @@ ApplicationWindow {
 
     property var screenInfo: ScreenInfo {}
 
-    WaypointManager{ id: waypointManager }
+    WaypointManager{
+        id: waypointManager
+    }
     RoutingManager {id: routingManager }
 
 

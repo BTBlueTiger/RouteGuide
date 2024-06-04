@@ -17,11 +17,28 @@ Rectangle {
     height: parent.height
     width: parent.width
 
+    signal toNavigation()
+
     Rectangle {
+
         width: parent.width
         height: parent.height
 
         Map {
+            Button {
+                text: qsTr("Back")
+                onClicked: {
+                    pageIndex = 1
+                }
+            }
+            Button {
+                id: btnNavigate
+                x: parent.width - btnNavigate.width
+                text: qsTr("Navigate")
+                onClicked:  {
+                   toNavigation()
+                }
+            }
             id: map
             anchors.fill: parent
             plugin: mapPlugin
@@ -34,7 +51,7 @@ Rectangle {
                 line.width: 5
                 line.color: 'blue'
                 // Coordinates will be bound from C++ code
-                path: routingModel.path
+                path: routingModel == null ? [] :  routingModel.path
             }
 
             PinchHandler {

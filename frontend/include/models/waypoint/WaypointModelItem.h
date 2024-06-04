@@ -15,7 +15,6 @@ public:
 
     WaypointModelItem(const QString& name, const QGeoCoordinate& coordinate,
                       QObject* parent = nullptr);
-    ~WaypointModelItem(){}
 
     void setDisplayName(const QString& displayName);
     void setCoordinate(const QGeoCoordinate& coordinate);

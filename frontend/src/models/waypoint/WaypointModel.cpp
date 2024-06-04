@@ -11,21 +11,35 @@ namespace Waypoint
         beginResetModel();
         qDeleteAll(m_waypointModelItems);
         m_waypointModelItems.clear();
-        beginInsertRows(QModelIndex(), rowCount(), array.size() + 1);
-        for(const QJsonValue& value: array)
+
+        QVector<WaypointModelItem*> newItems;
+        newItems.reserve(array.size());
+
+        try
         {
-            m_waypointModelItems.append(
-                new WaypointModelItem(
+            for(const QJsonValue& value: array)
+            {
+                WaypointModelItem* item = new WaypointModelItem(
                     value["display_name"].toString(),
                     QGeoCoordinate(
                         value["lat"].toString().toDouble(),
                         value["lon"].toString().toDouble()),
                     this
-                    )
-                );
+                    );
+                newItems.append(item);
+            }
+
+            m_waypointModelItems = std::move(newItems);
+            beginInsertRows(QModelIndex(), rowCount(), array.size() + 1);
+            endResetModel();
         }
-        endResetModel();
+        catch (...)
+        {
+            qDeleteAll(newItems);
+            throw; // Re-throw the exception after cleanup
+        }
     }
+
 
     void Waypoint::WaypointModel::appendModelItem(WaypointModelItem* item)
     {
@@ -115,7 +129,7 @@ namespace Waypoint
         }
         else if(responseType == ResponseType::Failed)
         {
-            qDebug() << "No Response Data";
+
         }
         else if(responseType == ResponseType::NetworkError)
         {
@@ -138,5 +152,14 @@ namespace Waypoint
         return coordinates;
     }
 
+    bool WaypointModel::isConnectedToLocationRessource() const
+    {
+        return m_isConnected;
+    }
+
+    void WaypointModel::setIsConnectedToLocationRessource()
+    {
+        m_isConnected = true;
+    }
 
 }

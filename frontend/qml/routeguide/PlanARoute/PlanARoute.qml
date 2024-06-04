@@ -20,8 +20,10 @@ Item {
 
 
 
+
     id: planARoute
 
+    signal toNavigation()
 
 
     Rectangle {
@@ -29,43 +31,52 @@ Item {
         anchors.fill: parent
 
 
-        Rectangle {
-            anchors.fill: parent
-            z: 1
+
             Rectangle {
-                anchors{
-                    top: parent.top
-                    right: parent.right
-                    left: parent.left
+                anchors.fill: parent
+                z: 1
+
+                Rectangle {
+                    id: tabbarRoot
+                    anchors {
+                        top: parent.top
+                        right: parent.right
+                        left: parent.left
+                    }
+                    width: parent.width
+                    height: tabbarHeader.height
+
+                    TabBar {
+                        id: tabbarHeader
+
+                        z: 1
+                        anchors.fill: parent
+                        currentIndex: pageIndex
+                        onCurrentIndexChanged: pageIndex = currentIndex
+
+                        TabButton {
+                            text: qsTr("Search")
+
+                        }
+
+                        TabButton {
+                            text: qsTr("Added Waypoints")
+                        }
+
+                        TabButton {
+                            text: qsTr("Preview")
+
+                        }
+                    }
                 }
 
-                id: tabbarRoot
 
-                width: parent.width
-                height: tabbarHeader.height
-                TabBar {
 
-                    z: 1
-                    id: tabbarHeader
-                    anchors.fill: parent
-                    currentIndex: pageIndex
-                    onCurrentIndexChanged: pageIndex = currentIndex
-                    TabButton {
-                        text: qsTr("Search")
-                    }
-                    TabButton {
-                        text: qsTr("Added Waypoints")
-                    }
-                    TabButton {
-                        text: qsTr("Preview")
-                    }
-                }
-            }
 
             Rectangle {
                 id: swipeViewRoot
                 color: "black"
-                anchors.top: tabbarRoot.bottom
+                y: tabbarRoot.y + tabbarRoot.height
                 height: parent.height - tabbarRoot.height * 2
                 width: parent.width
 
@@ -106,6 +117,9 @@ Item {
                             id: previewPage
                             height: parent.height
                             width: parent.width
+                            onToNavigation: {
+                                toNavigation()
+                            }
                         }
                     }
                 }

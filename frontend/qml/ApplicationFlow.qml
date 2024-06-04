@@ -7,6 +7,7 @@ import "authentification"
 import "authentification/register"
 import "routeguide"
 import "routeguide/PlanARoute"
+import "navigation"
 
 import UserModel
 
@@ -22,6 +23,7 @@ Item {
     property bool bigscreen: width > 700 ? true : false
 
     property int tabbarHeight: 56
+
 
     Plugin {
         id: mapPlugin
@@ -41,57 +43,6 @@ Item {
     width: parent.width
     height: parent.height
 
-    StackView {
-        id: stackLayout
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-
-        Connections{
-            target: UserModel
-            function onUserChanged () {
-                if(UserModel.user) {
-                    console.log(UserModel.user)
-                }
-            }
-        }
-        initialItem: Login {
-            id: login
-            onLoggedIn: {
-                stackLayout.push(planARoute)
-            }
-        }
-
-        Component {
-            id: register
-            Page {
-                title: "RouteGuide Register"
-                Loader {
-                    property string registerState: ""
-                    id: registerLoader
-                    anchors.fill: parent
-                    source: {
-                        if(bigscreen){
-                            return "./authentification/register/RegisterFormBig.qml"
-                        } else if(registerState.length == 0) {
-                            return "./authentification/register/RegisterFormSmall0.qml"
-                        } else {
-                            return "./authentification/register/RegisterFormSmall1.qml"
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    Component {
-        id: planARoute
-        PlanARoute{
-
-        }
-    }
-
     RouteModel {
         id: routeModel
         plugin: mapPlugin
@@ -106,7 +57,52 @@ Item {
         }
     }
 
+    StackView {
+        id: stackLayout
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
 
+        initialItem: Login {
+            id: login
+            onLoggedIn: {
+                stackLayout.push(navigation)
+            }
+        }
+    }
+
+    Component {
+        id: register
+        Page {
+            title: "RouteGuide Register"
+            Loader {
+                property string registerState: ""
+                id: registerLoader
+                anchors.fill: parent
+                source: {
+                    if(bigscreen){
+                        return "./authentification/register/RegisterFormBig.qml"
+                    } else if(registerState.length == 0) {
+                        return "./authentification/register/RegisterFormSmall0.qml"
+                    } else {
+                        return "./authentification/register/RegisterFormSmall1.qml"
+                    }
+                }
+            }
+        }
+    }
+
+    Component { id: navigation
+        Navigation{ }
+    }
+
+    Component { id: planARoute
+
+        PlanARoute{
+            onToNavigation: (stackLayout.push(navigation))
+        }
+    }
 
 
 
@@ -135,6 +131,14 @@ Item {
             height: tabbarHeight // Height of the bottom navigation bar
             anchors.bottom: parent.bottom // Align the bottom of the bar to the bottom of the parent
             visible: tabbarVisible
+
+            TabButton {
+                text: bigscreen ? "Map" : ""
+                icon.source: "/res/btn/map.svg"
+                onClicked: {
+                    stackLayout.push(navigation)
+                }
+            }
 
             TabButton {
                 text: bigscreen ? "Plan a Route" : ""

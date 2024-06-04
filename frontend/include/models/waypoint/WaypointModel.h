@@ -32,11 +32,15 @@ namespace Waypoint
         int rowCount(const QModelIndex &parent = QModelIndex()) const override;
         QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
+        bool isConnectedToLocationRessource() const;
+        void setIsConnectedToLocationRessource();
+
     protected:
         QHash<int, QByteArray> roleNames() const override;
 
     private:
         QVector<WaypointModelItem*> m_waypointModelItems;
+        bool m_isConnected;
 
     public slots:
         void onNominatimRessourceResponse(ResponseType responseType, const QJsonArray& data);

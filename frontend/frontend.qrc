@@ -30,5 +30,6 @@
         <file>qml/routeguide/PlanARoute/WaypointFlickable.qml</file>
         <file>res/btn/button_unchecked.svg</file>
         <file>res/btn/button_checked.svg</file>
+        <file>qml/navigation/Navigation.qml</file>
     </qresource>
 </RCC>

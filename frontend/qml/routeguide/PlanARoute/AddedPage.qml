@@ -71,7 +71,7 @@ Rectangle {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
 
-                onTextChanged: waypointManager.searchWithNominatimRessource(text, searchWaypointModelName)
+                onTextChanged: waypointManager.searchWithLocationResource(text, searchWaypointModelName)
 
                 y: searchRectRoot.height / 2 - searchRectRoot.height / 4
                 anchors {

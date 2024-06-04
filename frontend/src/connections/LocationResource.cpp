@@ -8,7 +8,7 @@ LocationResource::LocationResource(QObject *parent): AbstractResource(parent)
     url->setHost("192.168.178.23");
     url->setPort(8080);
     m_api->setBaseUrl(*url);
-
+    qDebug() << url.use_count();
 }
 
 void LocationResource::setSearch(const QString& search)
@@ -26,7 +26,6 @@ void LocationResource::searchQ()
         return;
     QString requestString = "search?q=";
     requestString += m_search;
-    qDebug() << requestString;
     QNetworkReply *reply = getRequest(m_api->createRequest(requestString));
     connect(reply, &QNetworkReply::finished, this, &LocationResource::networkRequestFinished);
 }
@@ -53,6 +52,7 @@ void LocationResource::networkRequestFinished() {
             {
                 emit networkResponse(ResponseType::Success, jsonArray);
             }
+            reply->deleteLater();
         }
         reply->deleteLater();
     } else {
