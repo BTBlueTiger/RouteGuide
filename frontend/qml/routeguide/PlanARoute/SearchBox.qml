@@ -57,6 +57,10 @@ Rectangle {
         id: btnNavigate
         icon.source: "/res/btn/navigation_45.svg"
         y: searchRectRoot.height / 2 - searchRectRoot.height / 4
+        onClicked: {
+            toNavigation()
+        }
+
         MouseArea{
             onHoveredChanged: {
                 btnNavigateToolTip.visible = !btnNavigateToolTip.visible

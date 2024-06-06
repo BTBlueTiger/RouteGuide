@@ -24,12 +24,10 @@ Flickable {
 
     flickableDirection: Flickable.VerticalFlick
     contentWidth: waypointFlickable.width
-    contentHeight: mapVisible === "defined" ?
+    contentHeight: mapVisible ?
                        (waypointFlickable.height * .4) * cardRepeater.count + tabbarHeight * 2
                               :
                        displayNameLabel === defined ? displayNameLabel.height * 1.2 : 0
-
-
 
 
     Flow {

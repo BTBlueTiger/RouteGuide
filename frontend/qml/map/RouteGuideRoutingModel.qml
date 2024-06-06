@@ -10,13 +10,13 @@ RouteModel {
         id: routeQuery
     }
 
-    property var mapPlugin
     property var coordinatesToRoute
 
     plugin: mapPlugin
 
     onCoordinatesToRouteChanged: {
-        for(var i = 0; i < coordinates.length; i++){
+        console.log("Hrello")
+        for(var i = 0; i < coordinatesToRoute.length; i++){
             routeQuery.addWaypoint(coordinatesToRoute[i])
         }
         routeModel.update()

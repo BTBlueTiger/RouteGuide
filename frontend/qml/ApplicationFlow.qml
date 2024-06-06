@@ -76,6 +76,7 @@ Item {
             onToNavigation:
             {
                 stackLayout.clear()
+                bottomNavBar.currentIndex = 0
                 stackLayout.push(navigation)
             }
         }

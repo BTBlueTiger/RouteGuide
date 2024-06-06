@@ -3,8 +3,37 @@ import QtQuick 2.15
 import QtLocation
 import QtPositioning
 
+import QtSensors
+
 Map {
 
+
+    Compass {
+        id: compass  // Assign an ID to the Compass element for reference
+
+        active : true
+    }
+
+    Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        onTriggered: {
+            var angleDiff = compass.reading ? compass.reading.azimuth - map.rotation : 0
+            marker.rotation = angleDiff + (360 / 4)
+        }
+    }
+
+
+    MapItemView {
+        model: routingModel
+        delegate: MapRoute {
+            route: routeData
+            line.color: "blue"
+            line.width: 5
+            smooth: true
+        }
+    }
 
     id: map
     anchors.fill: parent
@@ -14,6 +43,17 @@ Map {
     property var startCentroid
 
     activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
+
+    MapQuickItem {
+        id: marker
+        sourceItem: Image{
+            source: "/res/btn/navigation.svg"
+        }
+        coordinate: {
+            center
+        }
+
+    }
 
 
     PinchHandler {
@@ -26,10 +66,13 @@ Map {
             map.zoomLevel += Math.log2(delta)
             map.alignCoordinateToPoint(map.startCentroid, pinch.centroid.position)
         }
+        /*
         onRotationChanged: (delta) => {
             map.bearing -= delta
             map.alignCoordinateToPoint(map.startCentroid, pinch.centroid.position)
         }
+
+    */
         grabPermissions: PointerHandler.TakeOverForbidden
     }
     WheelHandler {

@@ -56,7 +56,7 @@ Rectangle {
             }
 
             MapItemView {
-                model: routeModel
+                model: routingModel
                 delegate: MapRoute {
                     route: routeData
                     line.color: "blue"

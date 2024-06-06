@@ -10,6 +10,7 @@ GeoPositionRessource::GeoPositionRessource(QObject* parent) : QObject(parent)
     {
         m_source->setUpdateInterval(0);
         m_source->startUpdates();
+
         connect(m_source, SIGNAL(positionUpdated(QGeoPositionInfo)), this, SLOT(positionUpdated(QGeoPositionInfo)));
     }
 }
@@ -19,7 +20,9 @@ void GeoPositionRessource::positionUpdated(const QGeoPositionInfo& gpsPos)
     if(m_coordinate != gpsPos.coordinate())
     {
         m_coordinate = gpsPos.coordinate();
+
         emit coordinateChanged();
+
     }
 }
 

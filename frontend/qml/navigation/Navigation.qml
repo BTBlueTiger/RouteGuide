@@ -10,7 +10,9 @@ import GeoPositionRessource
 import "../map"
 import "../../"
 
+
 Rectangle {
     RouteGuideMap{
+        center: GeoPositionRessource.coordinate
     }
 }

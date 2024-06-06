@@ -91,6 +91,7 @@ Item {
                                 var coordinates = potentialWaypointModel.getCoordinates()
                                 waypointManager.clearModels();
                                 previewPage.coordinates = coordinates
+                                routingModel.coordinatesToRoute = coordinates
                             }
                         }
                         pageIndex = currentIndex

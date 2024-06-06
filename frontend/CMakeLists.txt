@@ -19,6 +19,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     Network
     Positioning
     QuickControls2
+    Sensors
 )
 
 qt_standard_project_setup(REQUIRES 6.6)
@@ -99,6 +100,7 @@ target_link_libraries(frontend PRIVATE
     Qt6::Core5Compat
     Qt6::Sql
     Qt6::QuickControls2
+    Qt6::Sensors
 )
 
 add_subdirectory(modules/ValidationTextfield)
