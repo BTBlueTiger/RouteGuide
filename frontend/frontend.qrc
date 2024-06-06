@@ -9,7 +9,6 @@
         <file>qml/authentification/register/RegisterFormSmall0.qml</file>
         <file>qml/authentification/register/RegisterFormSmall1.qml</file>
         <file>qml/authentification/register/RegisterFormBig.qml</file>
-        <file>qml/routeguide/RouteGuide.qml</file>
         <file>res/btn/profile.svg</file>
         <file>res/btn/plan_a_route.svg</file>
         <file>res/btn/map.svg</file>
@@ -31,5 +30,9 @@
         <file>res/btn/button_unchecked.svg</file>
         <file>res/btn/button_checked.svg</file>
         <file>qml/navigation/Navigation.qml</file>
+        <file>qml/map/RouteGuideMapPlugin.qml</file>
+        <file>qml/map/RouteGuideMap.qml</file>
+        <file>qml/map/RouteGuideRoutingModel.qml</file>
+        <file>qml/routeguide/PlanARoute/SearchBox.qml</file>
     </qresource>
 </RCC>

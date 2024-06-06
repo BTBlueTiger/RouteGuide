@@ -5,6 +5,8 @@ import QtPositioning
 
 import WaypointModel
 
+import "../../map"
+
 Flickable {
 
     id: waypointFlickable
@@ -21,8 +23,11 @@ Flickable {
     signal itemClicked(var item, int index)
 
     flickableDirection: Flickable.VerticalFlick
-    contentWidth: waypointFlow.width
-    contentHeight: waypointFlow.height + parent.height * .5
+    contentWidth: waypointFlickable.width
+    contentHeight: mapVisible === "defined" ?
+                       (waypointFlickable.height * .4) * cardRepeater.count + tabbarHeight * 2
+                              :
+                       displayNameLabel === defined ? displayNameLabel.height * 1.2 : 0
 
 
 
@@ -35,6 +40,7 @@ Flickable {
         z: 0
 
         Repeater {
+            id: cardRepeater
             model: waypointFlickable.model
 
             delegate: Rectangle {

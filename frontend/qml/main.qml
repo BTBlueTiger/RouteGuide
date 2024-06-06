@@ -1,5 +1,9 @@
 import QtQuick
 import QtQuick.Controls
+import QtLocation
+import QtPositioning
+
+import "map"
 
 import ScreenInfo
 //! [Set application window size]
@@ -15,16 +19,13 @@ ApplicationWindow {
     id: rootWindow
 
     property string userType: ""
-
-
     property var screenInfo: ScreenInfo {}
 
-    WaypointManager{
-        id: waypointManager
-    }
-    RoutingManager {id: routingManager }
+    property alias mapPlugin: mapPlugin
 
-
+    WaypointManager{ id: waypointManager }
+    RouteGuideMapPlugin{ id: mapPlugin }
+    RouteGuideRoutingModel{ id: routingModel }
 
 
     visible: true
