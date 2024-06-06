@@ -6,6 +6,8 @@ import QtPositioning
 import RoutingModel
 import RoutingManager
 
+import GeoPositionRessource
+
 Rectangle {
 
     id: planARoutePreviewPage
@@ -17,17 +19,6 @@ Rectangle {
 
     height: parent.height
     width: parent.width
-
-    property var center : QtPositioning.coordinate(0, 0 )
-
-
-    RouteModel {
-        id: routeModel
-        plugin : mapPlugin
-        query:  RouteQuery {
-            id: routeQuery
-        }
-    }
 
     onCoordinatesChanged: {
         for(var i = 0; i < coordinates.length; i++){
@@ -56,7 +47,7 @@ Rectangle {
             }
 
             MapItemView {
-                model: routingModel
+                model: routeModel
                 delegate: MapRoute {
                     route: routeData
                     line.color: "blue"
@@ -76,7 +67,7 @@ Rectangle {
             id: map
             anchors.fill: parent
             plugin: mapPlugin
-            center: center
+            center: GeoPositionRessource.coordinate
 
             zoomLevel: 14
             activeMapType: supportedMapTypes[supportedMapTypes.length - 1]

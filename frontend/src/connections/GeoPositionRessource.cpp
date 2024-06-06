@@ -1,4 +1,5 @@
 #include "include/connections/GeoPositionRessource.h"
+#include "include/models/routing/GeoPostionMockResource.h"
 
 
 GeoPositionRessource *GeoPositionRessource::m_instance = nullptr;
@@ -13,6 +14,11 @@ GeoPositionRessource::GeoPositionRessource(QObject* parent) : QObject(parent)
 
         connect(m_source, SIGNAL(positionUpdated(QGeoPositionInfo)), this, SLOT(positionUpdated(QGeoPositionInfo)));
     }
+}
+
+void GeoPositionRessource::setMockResource()
+{
+    m_source = QGeoPositionInfoSource::createDefaultSource(new GeoPositionMockResource);
 }
 
 void GeoPositionRessource::positionUpdated(const QGeoPositionInfo& gpsPos)

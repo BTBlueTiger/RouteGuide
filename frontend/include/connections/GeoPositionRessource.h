@@ -11,12 +11,11 @@
 class GeoPositionRessource : public QObject
 {
     Q_OBJECT
-
-
     Q_PROPERTY(QGeoCoordinate coordinate MEMBER m_coordinate NOTIFY coordinateChanged)
 
 public:
     GeoPositionRessource(QObject *parent = nullptr);
+    Q_INVOKABLE void setMockResource();
     static QObject* createSingletonInstance(QQmlEngine *engine,  QJSEngine *scriptEngine);
 
 private:

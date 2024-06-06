@@ -2,9 +2,12 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Dialogs
+import QtPositioning
 
 import WaypointManager
 import WaypointModel
+
+import GeoPositionRessource
 
 Item {
 
@@ -18,8 +21,25 @@ Item {
     property WaypointModel searchWaypointModel : waypointManager.createWaypointModel(searchWaypointModelName)
     property WaypointModel potentialWaypointModel : waypointManager.createWaypointModel(potentialWaypointModelName)
 
+    property bool fromCurrentPostion: false
 
+    function setWayPoints() {
+        //routeQuery.clearWaypoints()
+        if(fromCurrentPostion){
+            routeQuery.addWaypoint(QtPositioning.coordinate(
+                                       GeoPositionRessource.coordinate.latitude,
+                                       GeoPositionRessource.coordinate.longitude
+                                       ))
+            console.log(routeQuery.waypoints)
+        }
+        var _co = potentialWaypointModel.getCoordinates()
 
+        for(var i = 0; i < _co.length; i++) {
+            routeQuery.addWaypoint(_co[i])
+        }
+        console.log(routeQuery.waypoints)
+        routeModel.update()
+    }
 
     id: planARoute
 
@@ -83,15 +103,11 @@ Item {
                 SwipeView {
                     anchors.fill: parent
                     onCurrentIndexChanged: {
-                        if(currentIndex == 2) {
+                        if(currentIndex === 2) {
                             if(potentialWaypointModel.rowCount() === 0) {
                                 currentIndex = 1
                             } else {
-
-                                var coordinates = potentialWaypointModel.getCoordinates()
-                                waypointManager.clearModels();
-                                previewPage.coordinates = coordinates
-                                routingModel.coordinatesToRoute = coordinates
+                                setWayPoints()
                             }
                         }
                         pageIndex = currentIndex
@@ -102,7 +118,6 @@ Item {
                     Page {
                         SearchPage{
                             function onitemClicked (item){
-                                console.log(item)
                                 potentialWaypointModel.appendModelItem(item)
                             }
                         }
@@ -122,6 +137,7 @@ Item {
                             height: parent.height
                             width: parent.width
                             onToNavigation: {
+                                setWayPoints
                                 toNavigation()
                             }
                         }

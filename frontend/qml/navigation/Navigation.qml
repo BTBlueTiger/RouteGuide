@@ -12,7 +12,10 @@ import "../../"
 
 
 Rectangle {
+    Component.onCompleted: {
+        GeoPositionRessource.setMockResource()
+    }
+
     RouteGuideMap{
-        center: GeoPositionRessource.coordinate
     }
 }

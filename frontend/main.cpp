@@ -15,6 +15,8 @@
 #include "include/models/routing/RoutingModel.h"
 #include "include/models/routing/RoutingManager.h"
 
+#include "include/models/routing/GeoPostionMockResource.h"
+
 #include "include/connections/GeoPositionRessource.h"
 
 Q_IMPORT_QML_PLUGIN(ValidationTextfieldPlugin)
@@ -43,6 +45,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<ScreenInfo>("ScreenInfo", 1, 0, "ScreenInfo");
 
     qmlRegisterSingletonType<GeoPositionRessource>("GeoPositionRessource", 1, 0, "GeoPositionRessource", GeoPositionRessource::createSingletonInstance);
+
+    qmlRegisterType<GeoPositionMockResource>("GeoPositionMockResource", 1, 0, "GeoPositionMockResource");
 
     engine.load(QUrl(QLatin1String("qrc:/qml/main.qml")));
     if (engine.rootObjects().isEmpty())

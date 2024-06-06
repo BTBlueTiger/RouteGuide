@@ -58,7 +58,12 @@ Rectangle {
         icon.source: "/res/btn/navigation_45.svg"
         y: searchRectRoot.height / 2 - searchRectRoot.height / 4
         onClicked: {
-            toNavigation()
+            var stops = planARoute.fromCurrentPostion ? 1 : 0
+            stops += potentialWaypointModel.rowCount()
+            if(stops >= 2) {
+                planARoute.setWayPoints()
+                toNavigation()
+            }
         }
 
         MouseArea{
@@ -75,8 +80,35 @@ Rectangle {
         anchors {
             topMargin: 25
             bottomMargin: 25
-            right: parent.right
+            right: btnFromCurrentPosition.left
             leftMargin: parent.width * .05
+            rightMargin: parent.width * .01
+        }
+    }
+
+    Button {
+        id: btnFromCurrentPosition
+        icon.source: planARoute.fromCurrentPostion ? "/res/btn/layers.svg" : "/res/btn/layers_clear.svg"
+        y: searchRectRoot.height / 2 - searchRectRoot.height / 4
+        onClicked: {
+            planARoute.fromCurrentPostion = !planARoute.fromCurrentPostion
+        }
+        MouseArea{
+            onHoveredChanged: {
+                btnNavigateToolTip.visible = !btnNavigateToolTip.visible
+            }
+        }
+        ToolTip{
+            id: btnFromCurrentPositionToolTip
+            text: planARoute.fromCurrentPostion ? "Plan not from your Postion" : "Plan from your Position"
+            visible: btnFromCurrentPosition.hovered
+            y: btnFromCurrentPosition.y - btnFromCurrentPosition.height
+        }
+        anchors {
+            topMargin: 25
+            bottomMargin: 25
+            right: parent.right
+            leftMargin: parent.width * .01
             rightMargin: parent.width * .05
         }
     }
