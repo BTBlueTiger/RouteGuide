@@ -148,8 +148,8 @@ Flickable {
                     Material.background: "white"
 
                     icon {
-                        source: "/res/btn/add_circle.svg"
-                        color: "green"
+                        source: buttonSource
+                        color: buttonColor
                         width: 50
                         height: 50
 
@@ -158,7 +158,7 @@ Flickable {
                     x: card.width - btnRound.width
                     onClicked: {
                         onItemClickedToolTip.visible = true
-                        itemClicked(model.getModelItem(index), index)
+                        itemClicked(waypointFlickable.model.getModelItem(index), index)
                     }
                 }
             }

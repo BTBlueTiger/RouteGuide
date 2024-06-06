@@ -23,6 +23,8 @@ Rectangle {
         width: parent.width
         height: parent.height
         model: potentialWaypointModel
+        buttonSource: "/res/btn/clear.svg"
+        buttonColor: "red"
         onClickedMessage: "Item is Removed"
         onItemClicked: function itemClicked(_, index) {
             waypointManager.removeItemFromWaypointModel(potentialWaypointModelName, index);

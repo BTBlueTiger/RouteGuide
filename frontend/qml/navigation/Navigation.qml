@@ -5,14 +5,17 @@ import QtQuick.Layouts
 import QtLocation
 import QtPositioning
 
+import GeoPositionRessource
+
 Map {
     id: map
-    height: parent.height
-    width: parent.width
+
     plugin: mapPlugin
-    center: QtPositioning.coordinate(59.91, 10.75) // Oslo
-    zoomLevel: 14
+    center: GeoPositionRessource.coordinate
+    zoomLevel: 50
     property geoCoordinate startCentroid
+
+
 
     PinchHandler {
         id: pinch

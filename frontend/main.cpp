@@ -8,7 +8,6 @@
 
 #include "include/models/UserModel.h"
 
-
 #include "include/models/waypoint/WaypointModel.h"
 #include "include/models/waypoint/WaypointModelItem.h"
 #include "include/models/waypoint/WaypointModelManager.h"
@@ -16,7 +15,7 @@
 #include "include/models/routing/RoutingModel.h"
 #include "include/models/routing/RoutingManager.h"
 
-
+#include "include/connections/GeoPositionRessource.h"
 
 Q_IMPORT_QML_PLUGIN(ValidationTextfieldPlugin)
 
@@ -41,8 +40,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<Routing::RoutingModel>("RoutingModel", 1, 0, "RoutingModel");
     qmlRegisterType<Routing::RoutingManager>("RoutingManager", 1, 0, "RoutingManager");
 
-
     qmlRegisterType<ScreenInfo>("ScreenInfo", 1, 0, "ScreenInfo");
+
+    qmlRegisterSingletonType<GeoPositionRessource>("GeoPositionRessource", 1, 0, "GeoPositionRessource", GeoPositionRessource::createSingletonInstance);
 
     engine.load(QUrl(QLatin1String("qrc:/qml/main.qml")));
     if (engine.rootObjects().isEmpty())

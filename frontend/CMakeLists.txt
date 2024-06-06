@@ -43,8 +43,9 @@ qt_add_qml_module(frontend
         qml/routeguide/PlanARoute/AddedPage.qml
         qml/routeguide/PlanARoute/SearchPage.qml
         qml/routeguide/PlanARoute/PreviewPage.qml
-
         qml/routeguide/PlanARoute/WaypointFlickable.qml
+
+        qml/navigation/Navigation.qml
 
         js/Formatter.js
 
@@ -71,9 +72,10 @@ qt_add_qml_module(frontend
         include/models/routing/RoutingManager.h src/models/routing/RoutingManager.cpp
         include/models/routing/RoutingModel.h src/models/routing/RoutingModel.cpp
 
+        include/connections/GeoPositionRessource.h src/connections/GeoPositionRessource.cpp
+
     RESOURCES
         qtquickcontrols2.conf
-
 
 )
 

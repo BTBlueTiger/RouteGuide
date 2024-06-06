@@ -25,6 +25,11 @@ namespace Waypoint{
         Q_INVOKABLE void removeItemFromWaypointModel(const QString& modelName, int index);
 
         Q_INVOKABLE void searchWithLocationResource(const QString& request, const QString& model);
+        Q_INVOKABLE void clearModels()
+        {
+            qDeleteAll(m_waypointModels);
+            m_waypointModels.clear();
+        }
 
 
     private:

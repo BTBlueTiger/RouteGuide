@@ -18,22 +18,11 @@ Rectangle {
     anchors.fill: parent
 
 
-
-    WaypointFlickable{
-        width: parent.width
-        height: parent.height
-        model: searchWaypointModel
-        onClickedMessage: "Item was added"
-        onItemClicked: function itemClicked(item, _) {
-            waypointManager.addItemToWaypointModel(potentialWaypointModelName, item);
-        }
-    }
-
     Rectangle {
         color: "black"
         height: 120
         id: searchRectRoot
-        anchors.bottom: parent.bottom
+        anchors.top : parent.top
         anchors.right: parent.right
         anchors.left: parent.left
 
@@ -78,4 +67,19 @@ Rectangle {
             }
         }
     }
+
+    WaypointFlickable{
+        y: searchRectRoot.height
+        width: parent.width
+        height: parent.height - searchRectRoot.height
+        model: searchWaypointModel
+        buttonSource: "/res/btn/add_circle.svg"
+        buttonColor: "green"
+        onClickedMessage: "Item was added"
+        onItemClicked: function itemClicked(item, _) {
+            waypointManager.addItemToWaypointModel(potentialWaypointModelName, item);
+        }
+    }
+
+
 }

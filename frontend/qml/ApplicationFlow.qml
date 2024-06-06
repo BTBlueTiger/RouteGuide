@@ -24,6 +24,8 @@ Item {
 
     property int tabbarHeight: 56
 
+    width : parent.width
+    height: parent.height
 
     Plugin {
         id: mapPlugin
@@ -40,22 +42,7 @@ Item {
     property alias mapPlugin: mapPlugin
 
 
-    width: parent.width
-    height: parent.height
 
-    RouteModel {
-        id: routeModel
-        plugin: mapPlugin
-        query: RouteQuery {
-            id: routeQuery
-        }
-        onStatusChanged: {
-            if(routeModel.count > 0) {
-                totalTime = formatTime(routeModel.get(0).travelTime)
-                distance = formatDistance(routeModel.get(0).distance)
-            }
-        }
-    }
 
     StackView {
         id: stackLayout
@@ -67,6 +54,7 @@ Item {
         initialItem: Login {
             id: login
             onLoggedIn: {
+                stackLayout.clear()
                 stackLayout.push(navigation)
             }
         }
@@ -93,6 +81,7 @@ Item {
         }
     }
 
+
     Component { id: navigation
         Navigation{ }
     }
@@ -100,7 +89,11 @@ Item {
     Component { id: planARoute
 
         PlanARoute{
-            onToNavigation: (stackLayout.push(navigation))
+            onToNavigation:
+            {
+                stackLayout.clear()
+                stackLayout.push(navigation)
+            }
         }
     }
 
@@ -136,6 +129,7 @@ Item {
                 text: bigscreen ? "Map" : ""
                 icon.source: "/res/btn/map.svg"
                 onClicked: {
+                    stackLayout.clear()
                     stackLayout.push(navigation)
                 }
             }
@@ -144,12 +138,9 @@ Item {
                 text: bigscreen ? "Plan a Route" : ""
                 icon.source: "/res/btn/plan_a_route.svg"
                 onClicked: {
+                    stackLayout.clear()
                     stackLayout.push(planARoute)
                 }
-            }
-
-            Component.onCompleted: {
-                console.log(UserModel.emailType)
             }
 
             TabButton {

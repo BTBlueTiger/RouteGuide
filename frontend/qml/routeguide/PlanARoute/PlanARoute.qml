@@ -87,7 +87,10 @@ Item {
                             if(potentialWaypointModel.rowCount() === 0) {
                                 currentIndex = 1
                             } else {
-                                previewPage.routingModel = routingManager.createRoutingModel("0", potentialWaypointModel.getCoordinates())
+
+                                var coordinates = potentialWaypointModel.getCoordinates()
+                                waypointManager.clearModels();
+                                previewPage.coordinates = coordinates
                             }
                         }
                         pageIndex = currentIndex

@@ -4,22 +4,7 @@
 
 RouteResource::RouteResource(QObject* parent) : QObject(parent)
 {
-    if(m_routingManager != nullptr)
-        return;
-    QMap<QString,QVariant> params;
-    params["osm.geocoding.host"] = "localhost:8080";
-    m_geoServiceProvider = new QGeoServiceProvider( "osm", params );
-    if (m_geoServiceProvider->error() != QGeoServiceProvider::NoError) {
-        qDebug() << "Error initializing GeoServiceProvider:" << m_geoServiceProvider->errorString();
-    } else {
-        qDebug() << "Service available";
-    }
-    m_routingManager = m_geoServiceProvider->routingManager();
-    if (!m_routingManager) {
-        qDebug() << "Routing manager not available from service provider";
-    } else {
-        qDebug() << "Routing manager available";
-    }
+
 }
 
 void RouteResource::setCoordinates(const QList<QGeoCoordinate>& coordinates)
@@ -57,6 +42,7 @@ void RouteResource::onGeoRouteReply()
 
 void RouteResource::searchQ()
 {
+
     QGeoRouteRequest request(m_coordinates);
     QGeoRouteReply *reply = m_routingManager->calculateRoute(request);
     connect(reply, &QGeoRouteReply::finished, this, &RouteResource::onGeoRouteReply);

@@ -10,12 +10,35 @@ Rectangle {
 
     id: planARoutePreviewPage
 
+    property var coordinates
     //property var center: waypointManager.waypointRoute.center
 
-    property RoutingModel routingModel
+   // property RoutingModel routingModel
 
     height: parent.height
     width: parent.width
+
+    property var center : QtPositioning.coordinate(0, 0 )
+
+
+    RouteModel {
+        id: routeModel
+        plugin : mapPlugin
+        query:  RouteQuery {
+            id: routeQuery
+        }
+    }
+
+    onCoordinatesChanged: {
+        for(var i = 0; i < coordinates.length; i++){
+            if(i == 0) {
+                map.center = coordinates[i]
+            }
+            routeQuery.addWaypoint(coordinates[i])
+        }
+        routeModel.update();
+    }
+
 
     signal toNavigation()
 
@@ -31,28 +54,33 @@ Rectangle {
                     pageIndex = 1
                 }
             }
+
+            MapItemView {
+                model: routeModel
+                delegate: MapRoute {
+                    route: routeData
+                    line.color: "blue"
+                    line.width: 5
+                    smooth: true
+                }
+            }
+
             Button {
                 id: btnNavigate
                 x: parent.width - btnNavigate.width
                 text: qsTr("Navigate")
                 onClicked:  {
-                   toNavigation()
+                   planARoute.toNavigation()
                 }
             }
             id: map
             anchors.fill: parent
             plugin: mapPlugin
-            center: routingModel == null ? QtPositioning.coordinate(0, 0 ) : routingModel.center
+            center: center
+
             zoomLevel: 14
             activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
 
-            MapPolyline {
-                id: routeLine
-                line.width: 5
-                line.color: 'blue'
-                // Coordinates will be bound from C++ code
-                path: routingModel == null ? [] :  routingModel.path
-            }
 
             PinchHandler {
                 id: pinch
