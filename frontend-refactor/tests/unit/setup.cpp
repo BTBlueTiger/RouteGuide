@@ -1,6 +1,8 @@
 #include <QtQml/qqmlextensionplugin.h>
 #include "setup.h"
 
+#include "../../modules/ValidationTextfield/ValidationTextfieldModel.h"
+
 void Setup::applicationAvailable()
 {
     // custom code that does not require QQmlEngine

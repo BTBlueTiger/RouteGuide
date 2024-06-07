@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/icons/profile.svg</file>
+        <file>res/icons/plan_a_route.svg</file>
+        <file>res/icons/place.svg</file>
+        <file>res/icons/navigation_45.svg</file>
+        <file>res/icons/navigation.svg</file>
+        <file>res/icons/my_location.svg</file>
+        <file>res/icons/modify.svg</file>
+        <file>res/icons/menu.svg</file>
+        <file>res/icons/map.svg</file>
+        <file>res/icons/layers_clear.svg</file>
+        <file>res/icons/layers.svg</file>
+        <file>res/icons/free_location.svg</file>
+        <file>res/icons/community.svg</file>
+        <file>res/icons/clear.svg</file>
+        <file>res/icons/button_unchecked.svg</file>
+        <file>res/icons/button_checked.svg</file>
+        <file>res/icons/bully.svg</file>
+        <file>res/icons/arrow_back.svg</file>
+        <file>res/icons/add_circle.svg</file>
+        <file>qml/main.qml</file>
+        <file>qml/RouteGuideFlow.qml</file>
+        <file>qml/RouteGuideFlowForm.ui.qml</file>
+        <file>qml/auth/LoginForm.ui.qml</file>
+        <file>qml/auth/Login.qml</file>
+        <file>res/img/logo.jpeg</file>
+        <file>res/img/background.png</file>
+        <file>qml/RootInfromation.ui.qml</file>
+        <file>qtquickcontrols2.conf</file>
+    </qresource>
+</RCC>

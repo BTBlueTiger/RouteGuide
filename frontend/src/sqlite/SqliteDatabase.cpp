@@ -1,3 +1,4 @@
+/*
 #include "include/sqlite/SqliteDatabase.h"
 #include <QSqlQuery>
 #include <QSqlError>
@@ -89,3 +90,4 @@ bool SqliteDatabase::addEntry(const TableType tableType, const QObject& entry)
         break;
     }
 }
+*/

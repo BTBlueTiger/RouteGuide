@@ -15,10 +15,8 @@ find_package(Qt6 REQUIRED COMPONENTS
     Qml
     Quick
     Core5Compat
-    Sql
     Network
     Positioning
-    QuickControls2
     Sensors
 )
 
@@ -99,8 +97,7 @@ target_link_libraries(frontend PRIVATE
     Qt6::Quick
     Qt6::Network
     Qt6::Core5Compat
-    Qt6::Sql
-    Qt6::QuickControls2
+
     Qt6::Sensors
 )
 

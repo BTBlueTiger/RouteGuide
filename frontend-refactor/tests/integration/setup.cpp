@@ -1,4 +1,4 @@
-#include <QtQml/qqmlextensionplugin.h>
+
 #include "setup.h"
 
 void Setup::applicationAvailable()
@@ -8,11 +8,10 @@ void Setup::applicationAvailable()
 
 void Setup::qmlEngineAvailable(QQmlEngine *engine)
 {
-    engine->addImportPath("../../modules/ValidationTextfield");
+    // custom code that needs QQmlEngine, register QML types, add import paths,...
 }
 
 void Setup::cleanupTestCase()
 {
     // custom code to clean up before destruction starts
 }
-

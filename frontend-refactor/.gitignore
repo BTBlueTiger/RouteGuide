@@ -20,7 +20,7 @@
 *.cmake
 *.timestamp
 
-
+CMakeLists.txt.user
 # Qt-es
 object_script.*.Release
 object_script.*.Debug
@@ -53,10 +53,8 @@ target_wrapper.*
 *.qmlproject.user
 *.qmlproject.user.*
 
-/frontend-refactor*
-
 # QtCreator CMake
-CMakeLists.txt.user*
+
 
 # QtCreator 4.8< compilation database
 compile_commands.json
@@ -75,3 +73,7 @@ build*
 CMakeFiles*
 frontend_autogen*
 *.qmldir
+
+/build
+
+frontend-refactor/build/

@@ -17,5 +17,6 @@ Rectangle {
     }
 
     RouteGuideMap{
+        id: map
     }
 }
