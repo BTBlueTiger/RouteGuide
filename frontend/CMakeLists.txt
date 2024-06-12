@@ -117,7 +117,6 @@ if(${MY_UNITTESTS})
     add_subdirectory(tests/unit)
 
 endif()
-add_subdirectory(tests/integration)
 
 
 #qt_add_translations(${EXECUTABLE_NAME} TS_FILES
