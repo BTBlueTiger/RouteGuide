@@ -29,16 +29,13 @@ jobs:
     - name: install libfuse
       run: sudo apt-get install -y libfuse2
     
-    - name: Install linuxdeployqt
+    - name: AppImage
+      working-directory: ./frontend//build
       run: |
-           wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage" -O linuxdeployqt
-           chmod a+x linuxdeployqt
-    
-
-    
-    - name: Deploy with linuxdeployqt
-      run: |
-        build/Debug/frontend -appimage -qmldir="./frontend/qml"
+          wget -O deploy.AppImage https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
+          chmod +x deploy.AppImage
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${{ github.workspace }}/Qt/5.15.2/gcc_64/lib/
+          ./frontend.AppImage -appimage -no-translations -qmldir=./frontend/qml -extra-plugins=renderers
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
