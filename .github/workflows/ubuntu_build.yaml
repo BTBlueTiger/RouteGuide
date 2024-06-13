@@ -41,8 +41,8 @@ jobs:
           chmod +x linuxdeploy-plugin-qt-x86_64.AppImage
           export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
           export EXTRA_QT_PLUGINS="svg;"
-          cp ./frontend/res/img/logo.jpeg RouteGuide.jpeg 
-          ./linuxdeploy-x86_64.AppImage --appdir build/Debug -i frontend/logo.jpeg -d frontend/route-guide.desktop --plugin qt
+          cp ./frontend/res/img/logo.png RouteGuide.png 
+          ./linuxdeploy-x86_64.AppImage --appdir build/Debug -i frontend/logo.png -d frontend/route-guide.desktop --plugin qt
           mkdir -p ${{env.BUILD_DIR}}/usr/languages && cp -r languages/*.qm ${{env.BUILD_DIR}}/usr/languages
           ./linuxdeploy-x86_64.AppImage --appdir build/Debug --output appimage
 
