@@ -24,3 +24,11 @@ jobs:
 
     - name: Build
       run: cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
+
+    - name: Create AppImage
+      run: | 
+       make INSTALL_ROOT=appdir install
+       wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage" -O linuxdeployqt
+       chmod a+x linuxdeployqt
+       ./linuxdeployqt appdir/usr/share/applications/*.desktop -appimage -bundle-non-qt-libs -extra-plugins=imageformats/libqsvg.so -qmldir="${{env.QML_DIR_NIX}}"
+
