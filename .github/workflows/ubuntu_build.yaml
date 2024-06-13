@@ -11,15 +11,7 @@ jobs:
 
     - name: Install Linux dependencies
       run: sudo apt install ninja-build
-    
-    - name: install libfuse
-      run: sudo apt-get install -y libfuse2
-    
-    - name: Install linuxdeployqt
-      run: |
-        wget https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
-        chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-    
+
     - name: Install Qt for Linux
       uses: jurplel/install-qt-action@v4
       with:
@@ -33,12 +25,20 @@ jobs:
 
     - name: Build
       run: cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
-
+    
+    - name: install libfuse
+      run: sudo apt-get install -y libfuse2
+    
+    - name: Install linuxdeployqt
+      run: |
+        wget https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage  -O linuxdeployqt
+        chmod a+x linuxdeployqt-continuous-x86_64.AppImage
+    
 
     
     - name: Deploy with linuxdeployqt
       run: |
-        ./linuxdeployqt-continuous-x86_64.AppImage build/Debug/frontend -appimage
+        ./linuxdeployqt-continuous-x86_64.AppImage build/Debug/frontend -appimage -qmldir="./frontend/qml"
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
