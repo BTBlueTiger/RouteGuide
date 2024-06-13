@@ -38,7 +38,7 @@ jobs:
           chmod +x deploy.AppImage
           export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/lib/
           export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${{ github.workspace }}/Qt/6.7.0/gcc_64/lib/
-          build/Debug/frontend -appimage -no-translations -qmldir=../frontend/qml -extra-plugins=renderers -qmlimport={{ github.workspace }}/Qt/6.7.0/gcc_64/lib/
+          build/Debug/frontend -appimage  -platform offscreen -no-translations -qmldir=../frontend/qml -extra-plugins=renderers -qmlimport={{ github.workspace }}/Qt/6.7.0/gcc_64/lib/
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
