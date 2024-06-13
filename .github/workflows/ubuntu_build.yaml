@@ -13,7 +13,7 @@ jobs:
       run: sudo apt install ninja-build
       
     - name: Install qt with sudo
-      run: sudo apt-get install -y qt6-base-dev qt6-tools-dev qt6-tools-dev-tools
+      run: sudo apt-get install qt6-base-dev qt6-tools-dev qt6-tools-dev-tools
            
 
     - name: Install Qt for Linux
