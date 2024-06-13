@@ -39,10 +39,10 @@ jobs:
           wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
           chmod +x linuxdeploy-x86_64.AppImage
           chmod +x linuxdeploy-plugin-qt-x86_64.AppImage
-          export PATH=${{env.REPO_DIR}}/Qt/${{env.QT_VERSION}}/gcc_64/libexec:$PATH
+          export PATH=${{ GITHUB_WORKSPACE }}/Qt/6.7.0/gcc_64/libexec:$PATH
           export EXTRA_QT_PLUGINS="svg;"
           cp ./frontend/res/img/logo.jpeg RouteGuide.jpeg 
-          ./linuxdeploy-x86_64.AppImage --appdir build/Debug -e RouteGuide -i RouteGuide.png --plugin qt
+          ./linuxdeploy-x86_64.AppImage --appdir build/Debug --plugin qt
           mkdir -p ${{env.BUILD_DIR}}/usr/languages && cp -r languages/*.qm ${{env.BUILD_DIR}}/usr/languages
           ./linuxdeploy-x86_64.AppImage --appdir build/Debug -e RouteGuide --output appimage
 
