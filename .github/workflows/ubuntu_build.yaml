@@ -27,7 +27,7 @@ jobs:
       run: cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
 
     - name: Install LinuxDeployQt
-      uses: miurahr/install-linuxdeployqt-action@v0
+      uses: miurahr/install-linuxdeployqt-action@v1
     
     - name: Create App Image
       run: linuxdeployqt-continuous-x86_64.AppImage build/Debug/
