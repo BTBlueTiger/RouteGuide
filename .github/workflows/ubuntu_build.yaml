@@ -11,11 +11,7 @@ jobs:
 
     - name: Install Linux dependencies
       run: sudo apt install ninja-build
-      
-    - name: Install qt with sudo
-      run: sudo apt install qt6-base-dev qt6-tools-dev qt6-tools-dev-tools
-           
-
+  
     - name: Install Qt for Linux
       uses: jurplel/install-qt-action@v4
       with:
