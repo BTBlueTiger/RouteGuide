@@ -3,5 +3,5 @@ Type=Application
 Name=RouteGuide
 Comment=RouteGuide ci-cd
 Exec=RouteGuide
-Icon=RouteGuideIcon
+Icon=logo
 Categories=Office;
