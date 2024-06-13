@@ -13,6 +13,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt install qtbase5-dev
+        sudo apt install ninja-build
 
     - name: Install Qt for Linux
       uses: jurplel/install-qt-action@v4
