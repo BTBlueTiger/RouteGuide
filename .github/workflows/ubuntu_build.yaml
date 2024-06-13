@@ -38,7 +38,7 @@ jobs:
     
     - name: Deploy with linuxdeployqt
       run: |
-        ./linuxdeployqt-continuous-x86_64.AppImage build/Debug/frontend -appimage -qmldir="./frontend/qml"
+        build/Debug/frontend -appimage -qmldir="./frontend/qml"
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
