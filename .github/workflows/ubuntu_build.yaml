@@ -13,7 +13,7 @@ jobs:
       run: sudo apt install ninja-build
       
     - name: Install qt with sudo
-      run: sudo apt-get install qt6-base-dev qt6-tools-dev qt6-tools-dev-tools
+      run: sudo apt install qt6-base-dev qt6-tools-dev qt6-tools-dev-tools
            
 
     - name: Install Qt for Linux
@@ -24,7 +24,7 @@ jobs:
         host: 'linux'
         target: 'desktop'
         arch: 'linux_gcc_64'
-        modules: 'qtpositioning qtlocation qtconnectivity qtimageformats qtnetworkauth qtsensors qt5compat'
+        modules: 'qtpositioning qtlocation qtconnectivity qtimageformats qtsensors qt5compat'
         cache: "true"
 
     - name: Build
