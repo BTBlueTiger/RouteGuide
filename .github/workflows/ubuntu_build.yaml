@@ -35,11 +35,11 @@ jobs:
     
     - name: AppImage
       run: |
-          wget -O deploy.AppImage https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
-          chmod +x deploy.AppImage
-          export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/lib/
-          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${{ github.workspace }}/Qt/6.7.0/gcc_64/lib/
-          ./deploy.AppImage build/Debug/frontend -appimage  -platform offscreen -no-translations -qmldir=../frontend/qml -qmlimport={{ github.workspace }}/Qt/6.7.0/gcc_64/lib/
+          wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+          wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
+          chmod +x linuxdeploy-x86_64.AppImage
+          chmod +x linuxdeploy-plugin-qt-x86_64.AppImage
+          ./linuxdeploy-x86_64.AppImage build/Debug/frontend -appimage -platform offscreen -no-translations -qmldir=../frontend/qml -qmlimport={{ github.workspace }}/Qt/6.7.0/gcc_64/lib/
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
