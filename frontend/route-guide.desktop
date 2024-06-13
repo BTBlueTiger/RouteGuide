@@ -2,6 +2,6 @@
 Type=Application
 Name=RouteGuide
 Comment=RouteGuide ci-cd
-Exec=route-guide
+Exec=build/Debug/frontend
 Icon=logo
 Categories=Office;
