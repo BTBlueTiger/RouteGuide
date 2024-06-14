@@ -62,7 +62,7 @@ jobs:
           export EXTRA_QT_PLUGINS="svg;"
          
          
-          ./linuxdeploy-x86_64.AppImage --appdir frontend/build/appdir --custom-apprun frontend/build/appdir -i frontend/${{env.UNIXNAME}}.png -d frontend/${{env.UNIXNAME}}.desktop 
+          ./linuxdeploy-x86_64.AppImage --appdir frontend/build/appdir --custom-apprun frontend/build/appdir/RouteGuide -i frontend/${{env.UNIXNAME}}.png -d frontend/${{env.UNIXNAME}}.desktop 
           find ${{env.BUILD_DIR}}
           ./linuxdeploy-x86_64.AppImage --appdir frontend/build/appdir  --output appimage
 
