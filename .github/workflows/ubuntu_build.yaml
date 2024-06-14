@@ -44,7 +44,7 @@ jobs:
 
     - name: '👷 Compile'
       run: |
-          cmake /frontend -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr
+          cmake ./frontend -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr
           make -j$(nproc)
           make DESTDIR=appdir -j$(nproc) install ; find appdir/
 
