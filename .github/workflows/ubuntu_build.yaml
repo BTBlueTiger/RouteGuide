@@ -44,7 +44,7 @@ jobs:
 
     - name: '👷 Compile'
       run: |
-          cmake . -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr
+          cmake ./frontend -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr
           cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build
           make -j$(nproc)
           make DESTDIR=appdir -j$(nproc) install ; find appdir/
