@@ -2,9 +2,9 @@ name: 🐧 Linux Build
 
 on: [push]
 
-defaults:
-  run:
-    working-directory: frontend    #only our frontend build
+# defaults:
+ # run:
+    # working-directory: frontend    #only our frontend build
 env:
   BUILD_DIR: 'build'
   EXECUTABLE: "RouteGuide"
@@ -43,14 +43,13 @@ jobs:
         cache: "true"
 
     - name: '👷 Compile'
-      run: |
-        cmake -S . -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
+      run: cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
-        path: ../build/Debug/
+        path: build/Debug/
 
     - name: '💂‍♂️ Install Linuxdeploy'
       run: |
