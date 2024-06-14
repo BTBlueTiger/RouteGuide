@@ -60,11 +60,7 @@ jobs:
       run: |
           export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
           export EXTRA_QT_PLUGINS="svg;"
-          
-          mkdir ${{env.UNIXNAME}}
-
-          
-          chmod +x build/Debug/frontend
+         
          
           ./linuxdeploy-x86_64.AppImage --appdir frontend/build -i frontend/${{env.UNIXNAME}}.png -d frontend/${{env.UNIXNAME}}.desktop 
           find ${{env.BUILD_DIR}}
