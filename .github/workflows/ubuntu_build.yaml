@@ -61,7 +61,7 @@ jobs:
           cp logo.png ${{env.UNIXNAME}}.png 
           mkdir ${{env.UNIXNAME}}
           
-          ./linuxdeploy-x86_64.AppImage --appdir ${{env.BUILD_DIR}} -e ${{env.BUILD_DIR}}/frontend -i ${{env.UNIXNAME}}.png -d PBE.QOwnNotes.desktop --plugin qt
+          ./linuxdeploy-x86_64.AppImage --appdir ${{env.BUILD_DIR}} -e ${{env.BUILD_DIR}}/frontend -i ${{env.UNIXNAME}}.png -d ${{env.BUILD_DIR}}.desktop --plugin qt
           mkdir -p ${{env.BUILD_DIR}}/usr/languages && cp -r languages/*.qm ${{env.BUILD_DIR}}/usr/languages
 
           find ${{env.BUILD_DIR}}
