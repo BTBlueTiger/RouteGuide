@@ -46,6 +46,12 @@ jobs:
       run: |
         cmake -S . -B build -G "Ninja Multi-Config" && cmake --build ${{env.BUILD_DIR}} --config Debug
 
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-artifacts
+        path: build/Debug/
+
     - name: '💂‍♂️ Install Linuxdeploy'
       run: |
           wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
