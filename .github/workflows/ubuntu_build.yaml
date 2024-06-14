@@ -62,8 +62,8 @@ jobs:
 
           
           chmod +x frontend
-          mkdir -p $usr
-          mkdir -p $usr/bin
+          mkdir -p $/usr
+          mkdir -p $/usr/bin
 
           cp ${BUILD_DIR}/Debug/frontend ./usr/bin
 
