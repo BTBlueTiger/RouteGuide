@@ -58,8 +58,8 @@ jobs:
           chmod +x build/Debug/frontend
           export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
           export EXTRA_QT_PLUGINS="svg;"
-          cp logo.png RouteGuide.png 
-          mkdir route-guide
+          cp logo.png ${{env.UNIXNAME}}.png 
+          mkdir ${{env.UNIXNAME}}
           
           ./linuxdeploy-x86_64.AppImage --appdir ${{env.BUILD_DIR}} -e ${{env.UNIXNAME}} -i ${{env.UNIXNAME}}.png -d PBE.QOwnNotes.desktop --plugin qt
           mkdir -p ${{env.BUILD_DIR}}/usr/languages && cp -r languages/*.qm ${{env.BUILD_DIR}}/usr/languages
