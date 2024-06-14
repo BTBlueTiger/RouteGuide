@@ -70,7 +70,7 @@ jobs:
          
           ./linuxdeploy-x86_64.AppImage --appdir frontend/build -i frontend/${{env.UNIXNAME}}.png -d frontend/${{env.UNIXNAME}}.desktop 
           find ${{env.BUILD_DIR}}
-          ./linuxdeploy-x86_64.AppImage --appdir ${{env.BUILD_DIR}} --output appimage
+          ./linuxdeploy-x86_64.AppImage --appdir frontend/build  --output appimage
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
