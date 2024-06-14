@@ -88,7 +88,7 @@ set_target_properties(RouteGuide PROPERTIES
 
 if (ANDROID)
     include(./lib/android_openssl/android_openssl.cmake)
-    add_android_openssl_libraries(frontend)
+    add_android_openssl_libraries(RouteGuide)
 endif()
 
 target_link_libraries(RouteGuide PRIVATE
@@ -106,7 +106,7 @@ target_link_libraries(RouteGuide PRIVATE
 
 add_subdirectory(modules/ValidationTextfield)
 
-target_link_libraries(frontend PRIVATE
+target_link_libraries(RouteGuide PRIVATE
     ValidationTextfieldplugin
 )
 
