@@ -24,11 +24,11 @@ find_package(Qt6 REQUIRED COMPONENTS
 
 qt_standard_project_setup(REQUIRES 6.6)
 
-qt_add_executable(frontend
+qt_add_executable(RouteGuide
     main.cpp frontend.qrc
 )
 
-qt_add_qml_module(frontend
+qt_add_qml_module(RouteGuide
     URI routeguide
     QML_FILES
         qml/main.qml
@@ -81,7 +81,7 @@ qt_add_qml_module(frontend
 
 )
 
-set_target_properties(frontend PROPERTIES
+set_target_properties(RouteGuide PROPERTIES
     WIN32_EXECUTABLE TRUE
     MACOSX_BUNDLE TRUE
 )
@@ -91,7 +91,7 @@ if (ANDROID)
     add_android_openssl_libraries(frontend)
 endif()
 
-target_link_libraries(frontend PRIVATE
+target_link_libraries(RouteGuide PRIVATE
     Qt6::Core
     Qt6::Gui
     Qt6::Location
