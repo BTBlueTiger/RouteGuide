@@ -1,12 +1,26 @@
-name: Ubuntu Build
+name: 🐧 Linux Build
 
 on: [push]
+
+defaults:
+  run:
+    working-directory: frontend    #only our frontend build
+env:
+  BUILD_DIR: 'build'
+  EXECUTABLE: "RouteGuide"
+  APPLICATION: "RouteGuide"
+  UNIXNAME: "RouteGuide"
+  QMAKE_PROJECT: "QOwnNotes.pro"
+  PUBLISHER: "Malte Kanders"
+  REPO_DIR: "/home/runner/work/RouteGuide/"
+  QT_MODULES: 'qtpositioning qtlocation qtconnectivity qtimageformats qtsensors qt5compat'
+  CORES: 16
 
 jobs:
   ubuntu:
     runs-on: ubuntu-20.04
     steps:
-    - name: Checkout repository
+    - name: '🧰 Checkout repository'
       uses: actions/checkout@v4
 
     - name: '⚙️ Install dependencies'
@@ -15,8 +29,9 @@ jobs:
         sudo apt install qtbase5-dev
         sudo apt install desktop-file-utils libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 libxcb-composite0 libxcb-cursor0 libxcb-damage0 libxcb-dpms0 libxcb-dri2-0 libxcb-dri3-0 libxcb-ewmh2 libxcb-glx0 libxcb-present0 libxcb-randr0 libxcb-record0 libxcb-render0 libxcb-res0 libxcb-screensaver0 libxcb-shape0 libxcb-shm0 libxcb-sync1 libxcb-util1 libxkbcommon-x11-0
         sudo apt install ninja-build
+        sudo apt-get install -y libfuse2
 
-    - name: Install Qt for Linux
+    - name: '⚙️ Install Linux QT'
       uses: jurplel/install-qt-action@v4
       with:
         aqtversion: '==3.1.*'
@@ -24,28 +39,35 @@ jobs:
         host: 'linux'
         target: 'desktop'
         arch: 'linux_gcc_64'
-        modules: 'qtpositioning qtlocation qtconnectivity qtimageformats qtsensors qt5compat'
+        modules: ${{ env.QT_MODULES }}
         cache: "true"
 
-    - name: Build
-      run: cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
-    
-    - name: install libfuse
-      run: sudo apt-get install -y libfuse2
-    
-    - name: AppImage
+    - name: '👷 Compile'
       run: |
-          chmod +x build/Debug/frontend
+        CONFIG += DEBUG PREFIX=/usr
+        cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
+
+    - name: '💂‍♂️ Install Linuxdeploy'
+      run: |
           wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
           wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
           chmod +x linuxdeploy-x86_64.AppImage
           chmod +x linuxdeploy-plugin-qt-x86_64.AppImage
+    
+    - name: '🌀 App Image'
+      run: |
+          chmod +x build/Debug/frontend
           export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
           export EXTRA_QT_PLUGINS="svg;"
-          cp frontend/logo.png RouteGuide.png 
+          cp logo.png RouteGuide.png 
           mkdir route-guide
           
-          ./linuxdeploy-x86_64.AppImage --appdir build/Debug -i frontend/logo.png -d frontend/route-guide.desktop --plugin qt
+          ./linuxdeploy-x86_64.AppImage --appdir ${{env.BUILD_DIR}} -e ${{env.UNIXNAME}} -i ${{env.UNIXNAME}}.png -d PBE.QOwnNotes.desktop --plugin qt
+          mkdir -p ${{env.BUILD_DIR}}/usr/languages && cp -r languages/*.qm ${{env.BUILD_DIR}}/usr/languages
+
+          find ${{env.BUILD_DIR}}
+
+          ./linuxdeploy-x86_64.AppImage --appdir ${{env.BUILD_DIR}} --output appimage
 
 #          ./linuxdeploy-x86_64.AppImage --appdir build/Debug --output appimage
 
