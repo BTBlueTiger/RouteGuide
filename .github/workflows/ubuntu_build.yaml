@@ -61,7 +61,7 @@ jobs:
           
           mkdir ${{env.UNIXNAME}}
 
-          cp build/frontend ${{env.UNIXNAME}}
+          cp ${BUILD_DIR}/Debug/${frontend} ./
           
           ./linuxdeploy-x86_64.AppImage --appdir ${{env.BUILD_DIR}} -i ./${{env.UNIXNAME}}.png -d ${{env.UNIXNAME}}.desktop 
           mkdir -p ${{env.BUILD_DIR}}/usr/languages && cp -r languages/*.qm ${{env.BUILD_DIR}}/usr/languages
