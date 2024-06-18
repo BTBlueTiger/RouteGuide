@@ -46,10 +46,10 @@ jobs:
       run: | 
        cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
        
-       sudo cp ./frontend/RouteGuide.png ./frontend/build/Debug/
-       sudo cp ./frontend/RouteGuide.desktop ./frontend/build/Debug/
+       sudo cp ./frontend/RouteGuide.png /build/Debug/
+       sudo cp ./frontend/RouteGuide.desktop /build/Debug/
 
-       sudo cd /frontend/build/Debug/
+       sudo cd /build/Debug/
 
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/bin:$PATH
