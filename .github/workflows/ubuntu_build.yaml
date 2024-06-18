@@ -43,6 +43,9 @@ jobs:
         cache: "true"
 
     - name: '👷 Compile'
+      env: 
+        QTDIR: ${{ env.QT_PATH }}
+        LD_LIBRARY_PATH: ${{ env.QT_PATH }}/lib:$LD_LIBRARY_PATH
       run: | 
        cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Release 
        
@@ -53,6 +56,10 @@ jobs:
 
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/bin:$PATH
+
+        echo "${{ env.QT_PATH }}/bin" >> $GITHUB_PATH
+        echo "${{ env.QT_PATH }}/libexec" >> $GITHUB_PATH
+        echo "${{ env.QT_PATH }}/lib" >> $GITHUB_ENV
        
        wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
        wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
@@ -60,7 +67,7 @@ jobs:
        chmod +x linuxdeploy-plugin-qt-x86_64.AppImage
 
        ./linuxdeploy-x86_64.AppImage --appdir appdir --output appimage --plugin qt 
-          
+
      #sudo mkdir appdir
      #cmake ./frontend -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
      #make -j$(nproc)
