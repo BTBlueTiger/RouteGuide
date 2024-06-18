@@ -46,8 +46,8 @@ jobs:
       run: | 
        cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
        
-       sudo cp ./frontend/RouteGuide.png /build/Debug/
-       sudo cp ./frontend/RouteGuide.desktop /build/Debug/
+       sudo cp ./frontend/RouteGuide.png build/Debug/
+       sudo cp ./frontend/RouteGuide.desktop build/Debug/
 
        sudo cd /build/Debug/
 
