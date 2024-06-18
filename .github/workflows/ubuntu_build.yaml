@@ -49,7 +49,7 @@ jobs:
        sudo cp ./frontend/RouteGuide.png build/Debug/
        sudo cp ./frontend/RouteGuide.desktop build/Debug/
 
-       sudo cd /build/Debug/
+       cd build/Debug/
 
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/bin:$PATH
