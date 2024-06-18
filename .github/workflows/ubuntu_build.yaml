@@ -63,7 +63,7 @@ jobs:
 
        sudo chmod +x RouteGuide 
 
-       ./linuxdeploy-x86_64.AppImage --appdir appdir -e RouteGuide  -i ${{env.UNIXNAME}}.png -d ${{env.UNIXNAME}}.desktop --output appimage --plugin qt
+       ./linuxdeploy-x86_64.AppImage --appdir appdir -e RouteGuide  -i ${{env.UNIXNAME}}.png -d ${{env.UNIXNAME}}.desktop --output appimage
 
      #sudo mkdir appdir
      #cmake ./frontend -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
