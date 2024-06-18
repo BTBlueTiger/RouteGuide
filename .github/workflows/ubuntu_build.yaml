@@ -66,14 +66,14 @@ jobs:
           cd build/Release/
           sudo chmod +x RouteGuide 
           ./linuxdeploy-x86_64.AppImage \
-            --appdir appdir \                    # Directory for AppDir structure
-            -e RouteGuide \                      # Executable to include (ensure correct path)
-            -i ${{env.UNIXNAME}}.png \           # Icon file (ensure environment variable is set)
-            -d ${{env.UNIXNAME}}.desktop \       # Desktop entry file (ensure environment variable is set)
-            --output appimage \                  # Output format
-            -qmldir=/frontend/qml \              # QML directory (ensure correct path)
-            -bundle-non-qt-libs \                # Bundle non-Qt libraries
-            -verbose 3                           # Verbose level 3 for detailed output
+            --appdir appdir \
+            -e RouteGuide  \
+            -i ${{env.UNIXNAME}}.png \
+            -d ${{env.UNIXNAME}}.desktop \
+            --output appimage \
+            -bundle-non-qt-libs \
+            -verbose 3 
+
           rm linuxdeploy-x86_64.AppImage
           rm linuxdeploy-plugin-qt-x86_64.AppImage
     
