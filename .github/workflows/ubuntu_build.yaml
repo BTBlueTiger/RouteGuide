@@ -71,8 +71,7 @@ jobs:
             -i ${{env.UNIXNAME}}.png \
             -d ${{env.UNIXNAME}}.desktop \
             --output appimage \
-            -bundle-non-qt-libs \
-            -verbose 3 
+            -bundle-non-qt-libs 
 
           rm linuxdeploy-x86_64.AppImage
           rm linuxdeploy-plugin-qt-x86_64.AppImage
