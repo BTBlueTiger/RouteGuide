@@ -57,16 +57,13 @@ jobs:
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/bin:$PATH
 
-        echo "${{ env.QT_PATH }}/bin" >> $GITHUB_PATH
-        echo "${{ env.QT_PATH }}/libexec" >> $GITHUB_PATH
-        echo "${{ env.QT_PATH }}/lib" >> $GITHUB_ENV
        
-       wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-       wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
-       chmod +x linuxdeploy-x86_64.AppImage
-       chmod +x linuxdeploy-plugin-qt-x86_64.AppImage
+     #wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+     #wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
+     #chmod +x linuxdeploy-x86_64.AppImage
+     #chmod +x linuxdeploy-plugin-qt-x86_64.AppImage
 
-       ./linuxdeploy-x86_64.AppImage --appdir appdir -i ${{env.UNIXNAME}}.png -d ${{env.UNIXNAME}}.desktop --output appimage
+     #./linuxdeploy-x86_64.AppImage --appdir appdir -i ${{env.UNIXNAME}}.png -d ${{env.UNIXNAME}}.desktop --output appimage
 
      #sudo mkdir appdir
      #cmake ./frontend -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
@@ -78,7 +75,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
-        path: build/Release/
+        path: .
 
     # - name: '💂‍♂️ Install Linuxdeploy'
     
