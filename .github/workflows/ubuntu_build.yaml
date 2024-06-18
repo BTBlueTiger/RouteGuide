@@ -60,6 +60,7 @@ jobs:
        cmake --build build --config Release 
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/bin:$PATH
+       export EXTRA_QT_PLUGINS="svg;"
 
     - name: '💂‍♂️ Install Linuxdeploy'
       run: |
