@@ -70,8 +70,7 @@ jobs:
             -e RouteGuide  \
             -i ${{env.UNIXNAME}}.png \
             -d ${{env.UNIXNAME}}.desktop \
-            --output appimage \
-            --list-plugins   
+            --output appimage 
 
           rm linuxdeploy-x86_64.AppImage
           rm linuxdeploy-plugin-qt-x86_64.AppImage
