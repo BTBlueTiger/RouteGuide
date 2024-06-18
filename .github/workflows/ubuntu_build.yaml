@@ -65,7 +65,7 @@ jobs:
 
           cd build/Release/
           sudo chmod +x RouteGuide 
-          ./linuxdeploy-x86_64.AppImage --appdir appdir -e RouteGuide  -i ${{env.UNIXNAME}}.png -d ${{env.UNIXNAME}}.desktop --output appimage
+          ./linuxdeploy-x86_64.AppImage --appdir appdir -e RouteGuide  -i ${{env.UNIXNAME}}.png -d ${{env.UNIXNAME}}.desktop --output appimage -qmldir=/frontend/qml -bundle-non-qt-libs -verbose 3
           rm linuxdeploy-x86_64.AppImage
           rm linuxdeploy-plugin-qt-x86_64.AppImage
     
