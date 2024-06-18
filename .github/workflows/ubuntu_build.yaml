@@ -43,11 +43,28 @@ jobs:
         cache: "true"
 
     - name: '👷 Compile'
-      run: |
-          sudo mkdir appdir
-          cmake ./frontend -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr
-          make -j$(nproc)
-          make DESTDIR=appdir -j$(nproc) install ; find appdir/
+      run: | 
+       cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
+       
+       sudo cp ./frontend/Routeguide.png ./frontend/build/Debug/
+       sudo cp ./frontend/Routeguide.desktop ./frontend/build/Debug/
+
+       sudo cd /frontend/build/Debug/
+
+       export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
+       export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/bin:$PATH
+       
+       wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+       wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
+       chmod +x linuxdeploy-x86_64.AppImage
+       chmod +x linuxdeploy-plugin-qt-x86_64.AppImage
+
+       ./linuxdeploy-x86_64.AppImage RouteGuide -appimage
+          
+     #sudo mkdir appdir
+     #cmake ./frontend -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr
+     #make -j$(nproc)
+     #make DESTDIR=appdir -j$(nproc) install ; find appdir/
 
      
     - name: Upload build artifacts
@@ -56,18 +73,8 @@ jobs:
         name: build-artifacts
         path: build/Debug/
 
-    - name: '💂‍♂️ Install Linuxdeploy'
-      run: |
-          wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-          wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
-          chmod +x linuxdeploy-x86_64.AppImage
-          chmod +x linuxdeploy-plugin-qt-x86_64.AppImage
+    # - name: '💂‍♂️ Install Linuxdeploy'
     
-    - name: '🌀 App Image'
-      run: |
-          export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
-          export EXTRA_QT_PLUGINS="svg;"
-        
-          ./linuxdeploy-x86_64.AppImage --appdir appdir --output appimage --plugin qt 
+    #- name: '🌀 App Image'
         
 
