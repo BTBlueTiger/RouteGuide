@@ -44,7 +44,7 @@ jobs:
 
     - name: '👷 Compile'
       run: | 
-       cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Release -DCMAKE_INSTALL_PREFIX=/usr
+       cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Release 
        
        sudo cp ./frontend/RouteGuide.png build/Release/
        sudo cp ./frontend/RouteGuide.desktop build/Release/
