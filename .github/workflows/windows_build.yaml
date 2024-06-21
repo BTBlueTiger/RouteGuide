@@ -1,32 +1,21 @@
-name: ❄️ Windows Build
+name: Windows Build
 
 on: [push]
-
-env:
-  BUILD_DIR: 'build'
-  EXECUTABLE: "RouteGuide"
-  APPLICATION: "RouteGuide"
-  UNIXNAME: "RouteGuide"
-  QMAKE_PROJECT: "QOwnNotes.pro"
-  PUBLISHER: "Malte Kanders"
-  REPO_DIR: "/home/runner/work/RouteGuide/"
-  QT_MODULES: 'qtpositioning qtlocation qtconnectivity qtimageformats qtsensors qt5compat'
 
 jobs:
   windows:
     runs-on: windows-latest
-    
     steps:
-    - name: '🧰 Checkout repository'
+    - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: '👻 Install Ninja'
+    - name: Install Ninja
       run: choco install ninja
     
-    - name: '⚙️ Setup MSVC'
+    - name: Setup MSVC
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: '⚙️ Install Qt for Windows'
+    - name: Install Qt for Windows
       uses: jurplel/install-qt-action@v4
       with:
         aqtversion: '==3.1.*'
@@ -36,13 +25,5 @@ jobs:
         arch: 'win64_msvc2019_64'
         modules: 'qtpositioning qtlocation qtconnectivity qtimageformats qtnetworkauth qtsensors qt5compat'
 
-    - name: '👷 Compile'
-      run: |
-        cmake -S ./frontend -B build -G "Ninja Multi-Config" 
-        cmake --build build --config Debug 
-
-    - name: '⭐ Upload build artifacts'
-      uses: actions/upload-artifact@v2
-      with:
-        name: build-artifacts
-        path: ./build/Debug
+    - name: Build
+      run: cmake -S ./frontend-refactor -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
