@@ -52,8 +52,8 @@ jobs:
     steps:
     - name: 'build ValidationTextField'
       run: |
-        ${{ github.workspace }}/Qt/Tools/CMake/bin/cmake --build ${{ github.workspace }}/build/validation --target all
-        ${{ github.workspace }}/build/validation/modules/ValidationTextfield/tst_ValidationTextField
+        ${{ QT_ROOT_DIR }}/Qt/Tools/CMake/bin/cmake --build ${{ github.workspace }}/build/validation --target all
+        ${{ QT_ROOT_DIR }}/build/validation/modules/ValidationTextfield/tst_ValidationTextField
   
   upload_artifact:
     runs-on: ubuntu-20.04
