@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(frontend LANGUAGES CXX)
+project(RouteGuide LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -26,28 +26,28 @@ find_package(Qt6 6.4 REQUIRED COMPONENTS
 qt_standard_project_setup(REQUIRES 6.4)
 
 # add the main executable and the .qrc for qml and ressources
-qt_add_executable(frontend
+qt_add_executable(RouteGuide
     main.cpp routeguide.qrc
 )
 
-qt_add_qml_module(frontend
+qt_add_qml_module(RouteGuide
     URI routeguide
     SOURCES
         include/utility/ScreenInfo.h src/utility/ScreenInfo.cpp
         #include/ressource/AbstractRessource.h src/ressource/AbstractRessource.cpp
 )
 
-set_target_properties(frontend PROPERTIES
+set_target_properties(RouteGuide PROPERTIES
     WIN32_EXECUTABLE TRUE
     MACOSX_BUNDLE TRUE
 )
 
 if (ANDROID)
     include(./lib/android_openssl/android_openssl.cmake)
-    add_android_openssl_libraries(frontend)
+    add_android_openssl_libraries(RouteGuide)
 endif()
 
-target_link_libraries(frontend PRIVATE
+target_link_libraries(RouteGuide PRIVATE
     #qt core modules
     Qt6::Quick
     Qt6::Core
@@ -64,7 +64,7 @@ add_subdirectory(modules)
 
 
 
-target_link_libraries(frontend PRIVATE
+target_link_libraries(RouteGuide PRIVATE
     ValidationTextfieldplugin
     AbstractRessource
 )
