@@ -1,3 +1,4 @@
+/*
 #include "include/models/routing/GeoPostionMockResource.h"
 
 GeoPositionMockResource::GeoPositionMockResource(QObject *parent)
@@ -14,7 +15,7 @@ void GeoPositionMockResource::stopUpdates() {
     timer->stop();
 }
 
-void GeoPositionMockResource::requestUpdate(int /*timeout*/) {
+void GeoPositionMockResource::requestUpdate(int ) {
     emitPosition();
 }
 
@@ -30,3 +31,5 @@ QGeoPositionInfo GeoPositionMockResource::createMockPosition() const {
     info.setAttribute(QGeoPositionInfo::GroundSpeed, 10.0); // Example speed (10 m/s)
     return info;
 }
+
+*/
