@@ -72,4 +72,8 @@ jobs:
           rm linuxdeploy-plugin-qt-x86_64.AppImage
     
      
-
+    - name: '⭐ Upload build artifacts'
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-artifacts
+        path: ./build/Release
