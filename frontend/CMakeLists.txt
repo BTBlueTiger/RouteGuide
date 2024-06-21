@@ -86,6 +86,8 @@ set_target_properties(RouteGuide PROPERTIES
 )
 
 if (ANDROID)
+    set(QT_HOST_PATH "../Qt/6.6.0/gcc_64/")
+    set(QT_FORCE_BUILD_TOOLS=ON)
     include(./lib/android_openssl/android_openssl.cmake)
     add_android_openssl_libraries(RouteGuide)
 endif()
