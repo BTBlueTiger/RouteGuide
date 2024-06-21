@@ -48,7 +48,9 @@ jobs:
        export EXTRA_QT_PLUGINS="svg;"
        
        echo "Running ValidationTextField tests"
-       
+
+       Xvfb :99 -ac &
+       export DISPLAY=:99
        ./build/modules/ValidationTextfield/Release/tst_ValidationTextField
        
     - name: '💂‍♂️ Install Linuxdeploy'
