@@ -52,7 +52,7 @@ jobs:
         LD_LIBRARY_PATH: ${{ env.QT_PATH }}/lib:$LD_LIBRARY_PATH
         QT_HOST_PATH: ${{ github.workspace }}/Qt/6.6.0/gcc_64/
       run: | 
-       cmake -S ./frontend -B build -G "Ninja Multi-Config" -DQT_HOST_PATh=${{ github.workspace }}/Qt/6.6.0/gcc_64/
+       cmake -S ./frontend -B build -G "Ninja Multi-Config" qt-host-path  ${{ github.workspace }}/Qt/6.6.0/gcc_64/
        cmake --build build --config Release 
        export PATH=${{ github.workspace }}/Qt/6.6.0/gcc_64/libexec:$PATH
        export PATH=${{ github.workspace }}/Qt/6.6.0/gcc_64/bin:$PATH
