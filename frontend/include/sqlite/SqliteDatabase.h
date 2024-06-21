@@ -1,3 +1,4 @@
+/*
 #ifndef SQLITEDATABASE_H
 #define SQLITEDATABASE_H
 
@@ -27,3 +28,4 @@ private:
 };
 
 #endif // SQLITEDATABASE_H
+*/
