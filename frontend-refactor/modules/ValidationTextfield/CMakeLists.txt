@@ -4,6 +4,7 @@ project(ValidationTextfield VERSION 0.1 LANGUAGES CXX)
 
 set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
+
 qt_add_library(ValidationTextfield STATIC)
 qt_add_library(ValidationTextfieldModel STATIC)
 
@@ -28,7 +29,7 @@ file(GLOB_RECURSE QML_FILES *.qml)
 
 
 
-add_executable(tst_unit main.cpp
+add_executable(tst_ValidationTextField main.cpp
                setup.cpp setup.h
                tst_validationTextfield.qml
 )
@@ -40,7 +41,7 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS QuickTest Qml)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS QuickTest Qml)
 
 
-target_link_libraries(tst_unit PRIVATE
+target_link_libraries(tst_ValidationTextField PRIVATE
                       Qt${QT_VERSION_MAJOR}::QuickTest
                       Qt${QT_VERSION_MAJOR}::Qml
 

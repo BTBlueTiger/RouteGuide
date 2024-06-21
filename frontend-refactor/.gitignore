@@ -20,6 +20,8 @@
 *.cmake
 *.timestamp
 
+CMakeCache.txt
+
 CMakeLists.txt.user
 # Qt-es
 object_script.*.Release
