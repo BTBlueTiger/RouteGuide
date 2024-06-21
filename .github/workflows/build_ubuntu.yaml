@@ -46,19 +46,11 @@ jobs:
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/bin:$PATH
        export EXTRA_QT_PLUGINS="svg;"
   
-  test_modules:
-    runs-on: ubuntu-20.04
-    needs: build_ubuntu
-    steps:
     - name: 'build ValidationTextField'
       run: |
         /Qt/Tools/CMake/bin/cmake --build ${{ github.workspace }}/build/validation --target all
         /build/validation/modules/ValidationTextfield/tst_ValidationTextField
   
-  upload_artifact:
-    runs-on: ubuntu-20.04
-    needs: build_ubuntu
-    steps:
     - name: '💂‍♂️ Install Linuxdeploy'
       run: |
         cd build/Release/
