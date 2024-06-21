@@ -48,6 +48,7 @@ jobs:
   
   test_modules:
     runs-on: ubuntu-20.04
+    needs: build_ubuntu
     steps:
     - name: 'build ValidationTextField'
       run: |
@@ -56,6 +57,7 @@ jobs:
   
   upload_artifact:
     runs-on: ubuntu-20.04
+    needs: build_ubuntu
     steps:
     - name: '💂‍♂️ Install Linuxdeploy'
       run: |
