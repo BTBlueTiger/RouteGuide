@@ -4,6 +4,7 @@ on: [push]
 
 env:
   BUILD_DIR: 'build'
+  BRANCH: 'dev_frontend-refactor'
   EXECUTABLE: "RouteGuide"
   APPLICATION: "RouteGuide"
   UNIXNAME: "RouteGuide"
@@ -61,8 +62,8 @@ jobs:
      #make DESTDIR=appdir -j$(nproc) install ; find appdir/
     - name: '🌀 App Image'
       run: |
-         sudo cp ./frontend/RouteGuide.png build/Release/
-         sudo cp ./frontend/RouteGuide.desktop build/Release/
+         sudo cp ./{ env.BRANCH }/RouteGuide.png build/Release/
+         sudo cp ./{ BRANCH }/RouteGuide.desktop build/Release/
           cd build/Release/
           sudo chmod +x RouteGuide 
           ./linuxdeploy-x86_64.AppImage \
