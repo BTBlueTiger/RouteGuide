@@ -46,7 +46,7 @@ jobs:
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/bin:$PATH
        export EXTRA_QT_PLUGINS="svg;"
 
-       echo ./frontend-refactor/modules/build/Release/modules/ValidationTextfield/tst_ValidationTextField
+       cat ./frontend-refactor/modules/build/Release/modules/ValidationTextfield/tst_ValidationTextField
        
     - name: '💂‍♂️ Install Linuxdeploy'
       run: |
