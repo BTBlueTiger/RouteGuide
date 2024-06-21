@@ -4,7 +4,6 @@ on: [push]
 
 env:
   BUILD_DIR: 'build'
-  BRANCH: 'dev_frontend-refactor'
   EXECUTABLE: "RouteGuide"
   APPLICATION: "RouteGuide"
   UNIXNAME: "RouteGuide"
@@ -15,7 +14,7 @@ env:
   CORES: 16
 
 jobs:
-  build_ubuntu:
+  ubuntu:
     runs-on: ubuntu-20.04
     steps:
     - name: '🧰 Checkout repository'
@@ -46,9 +45,6 @@ jobs:
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/bin:$PATH
        export EXTRA_QT_PLUGINS="svg;"
-  
-
-  
     - name: '💂‍♂️ Install Linuxdeploy'
       run: |
         cd build/Release/
@@ -80,4 +76,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
-        path: .
+        path: ./build/Release
+
