@@ -27,15 +27,14 @@ jobs:
         sudo apt install ninja-build
     
     - name: '⚙️ Install Linux QT'
-      uses: jurplel/install-qt-action@v4
+      uses: jurplel/install-qt-action@v3
       with:
         aqtversion: '==3.1.*'
         version: '6.6.0'
         host: 'linux'
         target: 'desktop'
-        arch: 'linux_gcc_64'
+        arch: 'gcc_64'
         modules: 'qtconnectivity qtimageformats qtlocation qtnetworkauth qtpositioning qtsensors qt5compat'
-        cache: "true"
         
     - name: '⚙️ Install Android QT'
       uses: jurplel/install-qt-action@v3
