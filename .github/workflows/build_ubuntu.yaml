@@ -34,7 +34,6 @@ jobs:
         arch: 'linux_gcc_64'
         modules: ${{ env.QT_MODULES }}
         cache: "true"
-        archives: 'qttools'
 
     - name: '👷 Compile'
       env: 
