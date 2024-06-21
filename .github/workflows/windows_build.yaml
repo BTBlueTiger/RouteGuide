@@ -26,4 +26,4 @@ jobs:
         modules: 'qtpositioning qtlocation qtconnectivity qtimageformats qtnetworkauth qtsensors qt5compat'
 
     - name: Build
-      run: cmake -S ./frontend-refactor -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
+      run: cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Debug
