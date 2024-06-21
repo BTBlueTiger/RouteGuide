@@ -24,6 +24,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt install ninja-build
+        sudo apt-get install -y libxcb-cursor-dev
     - name: '⚙️ Install Linux QT'
       uses: jurplel/install-qt-action@v4
       with:
