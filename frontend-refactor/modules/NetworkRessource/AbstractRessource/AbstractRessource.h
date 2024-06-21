@@ -83,6 +83,9 @@ protected:
     std::shared_ptr<QUrl> m_url;                       ///< Service URL.
     std::shared_ptr<QHttpHeaders> m_headers;           ///< HTTP headers for requests.
 
+private:
+    int checkedSharedRessources() const;
+
 };
 
 

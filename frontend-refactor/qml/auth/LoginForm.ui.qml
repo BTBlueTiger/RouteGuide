@@ -12,8 +12,32 @@ Item {
     property alias btnLogin: btnLogin
     property alias btnSignUp: btnSignUpMouseArea
 
+    property alias userName: textFieldUsername
+    property alias userPassword: textFieldPassword
+
+    property alias wrongCredentialsToolTip: wrongCredentialsToolTip
+    property alias wrongCredentialsToolTipTimer: wrongCredentialsToolTipTimer
+
     id: loginform
     anchors.fill: parent
+
+
+    ToolTip {
+        id: wrongCredentialsToolTip
+        text: "Username or Password are wrong"
+        visible: false
+        x: parent.width / 2 - wrongCredentialsToolTip.width / 2
+        y: parent.height / 2 - wrongCredentialsToolTip.height / 2
+
+
+        Timer {
+            id: wrongCredentialsToolTipTimer
+            interval: 4000 // 4 sec
+            onTriggered: wrongCredentialsToolTip.visible = false
+        }
+    }
+
+
     ColumnLayout{
         x: 0
         y: 0
@@ -23,6 +47,7 @@ Item {
             source: "/res/img/background.png"
             fillMode: Image.PreserveAspectCrop
 
+            // Place Holder for Profil Picture, not a prototyp target
             Rectangle {
                 y: textFieldUsername.y - 300
                 x: textFieldUsername.x + ((textFieldUsername.width - width) / 2)
@@ -67,11 +92,11 @@ Item {
                     }
             }
 
-            // User Name Login
+            // Username
             ValidationTextfield{
+                id: textFieldUsername
                 horizontalAlignment: Text.AlignHCenter
                 font.pointSize: 20
-                id: textFieldUsername
                 width: 300
                 height: 60
                 placeholderText: qsTr("Username")
@@ -79,6 +104,7 @@ Item {
                 y: loginform.height / 2
             }
 
+            //Password
             TextField {
                 id: textFieldPassword
                 x: textFieldUsername.x
@@ -92,6 +118,7 @@ Item {
                 font.pointSize: 20
             }
 
+            //Login Button
             Button {
                 id: btnLogin
                 x: textFieldPassword.x
@@ -114,6 +141,7 @@ Item {
                 font.pixelSize: 20
             }
 
+            // 'Register'
             Text {
                 id: btnSignUp
                 x: btnLogin.x + btnLogin.width - width

@@ -3,7 +3,8 @@
 #include <QtQml/qqmlextensionplugin.h>
 
 #include "include/utility/ScreenInfo.h"
-#include "include/ressource/AbstractRessource.h"
+#include "modules/Models/UserModel/UserModel.h"
+
 
 
 
@@ -18,9 +19,8 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<ScreenInfo>("ScreenInfo", 1, 0, "ScreenInfo");
 
-
-    AbstractRessource a;
-
+    qmlRegisterUncreatableType<UserModel::EMAIL_T>("EMAIL_T", 1, 0, "EMAIL_T", "");
+    qmlRegisterSingletonType<UserModel>("UserModel", 1, 0, "UserModel", UserModel::createSingletonInstance);
 
 
     const QUrl url(u"qrc:/qml/main.qml"_qs);

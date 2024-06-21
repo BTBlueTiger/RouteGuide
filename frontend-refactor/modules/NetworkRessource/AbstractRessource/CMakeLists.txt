@@ -4,7 +4,7 @@ project(AbstractRessource VERSION 0.1 LANGUAGES CXX)
 
 set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-add_library(AbstractRessource STATIC
+add_library(AbstractRessource SHARED
     AbstractRessource.h AbstractRessource.cpp
 )
 

@@ -7,3 +7,4 @@ set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 add_subdirectory(ValidationTextfield)
 add_subdirectory(NetworkRessource)
+add_subdirectory(Models)

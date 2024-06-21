@@ -67,6 +67,7 @@ add_subdirectory(modules)
 target_link_libraries(RouteGuide PRIVATE
     ValidationTextfieldplugin
     AbstractRessource
+    UserModel
 )
 
 install(TARGETS ${EXECUTABLE_NAME}
