@@ -40,7 +40,7 @@ jobs:
         QTDIR: ${{ env.QT_PATH }}
         LD_LIBRARY_PATH: ${{ env.QT_PATH }}/lib:$LD_LIBRARY_PATH
       run: | 
-       cmake -S ./frontend -B build -G "Ninja Multi-Config" 
+       cmake -S ./frontend-refactor -B build -G "Ninja Multi-Config" 
        cmake --build build --config Release 
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
        export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/bin:$PATH
@@ -72,9 +72,4 @@ jobs:
           rm linuxdeploy-plugin-qt-x86_64.AppImage
     
      
-    - name: '⭐ Upload build artifacts'
-      uses: actions/upload-artifact@v2
-      with:
-        name: build-artifacts
-        path: ./build/Release
 
