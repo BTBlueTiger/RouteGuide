@@ -74,7 +74,6 @@ qt_add_qml_module(RouteGuide
         include/models/routing/RoutingModel.h src/models/routing/RoutingModel.cpp
 
         include/connections/GeoPositionRessource.h src/connections/GeoPositionRessource.cpp
-        include/models/routing/GeoPostionMockResource.h src/models/routing/GeoPostionMockResource.cpp
 
     RESOURCES
         qtquickcontrols2.conf
