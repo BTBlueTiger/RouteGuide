@@ -1,3 +1,4 @@
+/*
 #ifndef GEOPOSTIONMOCKRESOURCE_H
 #define GEOPOSTIONMOCKRESOURCE_H
 
@@ -26,3 +27,4 @@ private:
 };
 
 #endif // GEOPOSTIONMOCKRESOURCE_H
+*/
