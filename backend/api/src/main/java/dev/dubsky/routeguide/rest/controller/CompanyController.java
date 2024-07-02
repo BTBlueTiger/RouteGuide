@@ -1,9 +1,7 @@
 package dev.dubsky.routeguide.rest.controller;
 
-import dev.dubsky.routeguide.rest.dto.UserDTO;
 import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.service.CompanyService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

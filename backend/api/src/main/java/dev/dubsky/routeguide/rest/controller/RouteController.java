@@ -1,16 +1,10 @@
 package dev.dubsky.routeguide.rest.controller;
 
-import dev.dubsky.routeguide.rest.dto.UserDTO;
 import dev.dubsky.routeguide.rest.model.Route;
-import dev.dubsky.routeguide.rest.service.RouteService;
 import dev.dubsky.routeguide.rest.service.impl.RouteServiceImpl;
 import dev.dubsky.routeguide.rest.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

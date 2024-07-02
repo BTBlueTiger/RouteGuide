@@ -9,7 +9,6 @@ import dev.dubsky.routeguide.rest.model.Route;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.persistence.AddressRepository;
 import dev.dubsky.routeguide.rest.persistence.RouteRepository;
-import dev.dubsky.routeguide.rest.persistence.UserRepository;
 import dev.dubsky.routeguide.rest.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +17,6 @@ import java.util.List;
 
 @Service
 public class RouteServiceImpl implements RouteService {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private RouteRepository routeRepository;

@@ -1,8 +1,6 @@
 package dev.dubsky.routeguide.rest.persistence;
 
-import dev.dubsky.routeguide.rest.dto.UserDTO;
 import dev.dubsky.routeguide.rest.model.Company;
-import dev.dubsky.routeguide.rest.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
