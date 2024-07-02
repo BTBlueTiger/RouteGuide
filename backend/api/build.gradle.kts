@@ -19,6 +19,9 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://projectlombok.org/edge-releases")
+    }
 }
 
 dependencies {
@@ -35,8 +38,8 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
 
     // Lombok
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
+    compileOnly("org.projectlombok:lombok:edge-SNAPSHOT")
+    annotationProcessor("org.projectlombok:lombok:edge-SNAPSHOT")
 
     // RabbitMQ
     testImplementation("org.springframework.amqp:spring-rabbit-test")
