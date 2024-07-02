@@ -39,7 +39,7 @@ public class UserServiceTests {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         user = new User();
         user.setId(1L);
         user.setUsername("dubsky");
