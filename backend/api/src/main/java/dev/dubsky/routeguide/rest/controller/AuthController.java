@@ -3,6 +3,8 @@ package dev.dubsky.routeguide.rest.controller;
 import dev.dubsky.routeguide.rest.jwt.JwtTokenUtil;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.UserService;
+import dev.dubsky.routeguide.rest.utility.CLog;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,13 +38,13 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody Map<String, String> user) {
-        System.out.println("Login method called with username: " + user.get("username"));
+        CLog.out(0, "Login method called with username: " + user.get("username"));
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.get("username"), user.get("password"))
         );
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user.get("username"));
         String token = jwtTokenUtil.generateToken(userDetails);
-        System.out.println("Generated Token: " + token);
+        CLog.out(0, "Generated Token: " + token + " for user: " + user.get("username"));
         return token;
     }
 
