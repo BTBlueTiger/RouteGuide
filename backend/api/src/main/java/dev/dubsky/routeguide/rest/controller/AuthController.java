@@ -30,7 +30,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String registerUser(@RequestBody User user) {
-        userService.save(user);
+        userService.create(user);
         return "User registered successfully";
     }
 

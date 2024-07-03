@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-    public User save(User user) {
+    public User create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreation(java.time.Instant.now());
         if (user.getRole() == null) {
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    public User saveChanges(User user) {
+    public User save(User user) {
         return userRepository.save(user);
     }
 
