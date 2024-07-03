@@ -4,6 +4,8 @@ package dev.dubsky.routeguide.rest.utility;
  * Class for colored console output
  */
 public class CLog {
+
+    public static boolean DEBUG = true;
     private static final String RESET = "\033[0m";
     private static final String GREEN = "\033[92m";
     private static final String YELLOW = "\033[93m";
@@ -15,6 +17,9 @@ public class CLog {
      * @param text text to print
      */
     public static void out(int colorCode, String text) {
+        if (!DEBUG) {
+            return;
+        }
         String color;
         switch (colorCode) {
             case 0:
