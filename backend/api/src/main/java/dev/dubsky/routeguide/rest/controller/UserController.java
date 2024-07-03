@@ -28,7 +28,7 @@ public class UserController {
     public UserDTO setEmail(@RequestHeader("Authorization") String token, @RequestBody String email) {
         User user = userService.getCurrentUser(token);
         user.setEmail(email);
-        return new UserDTO(userService.save(user));
+        return new UserDTO(userService.saveMail(user));
     }
 
     @PutMapping("/me/setPassword")

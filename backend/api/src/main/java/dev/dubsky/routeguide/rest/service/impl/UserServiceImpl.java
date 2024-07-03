@@ -5,6 +5,8 @@ import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.persistence.UserRepository;
 import dev.dubsky.routeguide.rest.service.UserService;
+import dev.dubsky.routeguide.rest.utility.CLog;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -55,16 +57,28 @@ public class UserServiceImpl implements UserService {
         }
         String email = user.getEmail();
         String emailAfterAt = email.substring(email.indexOf("@"));
-        System.out.println("Registering user with email ending: " + emailAfterAt);
+        CLog.out(0, "User ["+ user.getUsername() +"] registered with email ending: " + emailAfterAt);
         Company company = companyService.checkIfMailExists(emailAfterAt);
         if (company != null) {
-            System.out.println("Company found: " + company.getName());
+            CLog.out(0, "Company found: " + company.getName());
             user.setCompany(company);
         }
         return userRepository.save(user);
     }
 
     public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    public User saveMail(User user) {
+        CLog.out(0, "User ["+ user.getUsername() +"] changed email to : " + user.getEmail());
+        Company company = companyService.checkIfMailExists(user.getEmail());
+        if (company != null) {
+            CLog.out(0, "Company found: " + company.getName());
+            user.setCompany(company);
+        } else {
+            user.setCompany(null);
+        }
         return userRepository.save(user);
     }
 
