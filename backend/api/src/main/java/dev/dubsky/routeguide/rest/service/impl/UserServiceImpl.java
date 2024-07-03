@@ -72,11 +72,14 @@ public class UserServiceImpl implements UserService {
 
     public User saveMail(User user) {
         CLog.out(0, "User ["+ user.getUsername() +"] changed email to : " + user.getEmail());
-        Company company = companyService.checkIfMailExists(user.getEmail());
+        String email = user.getEmail();
+        String emailAfterAt = email.substring(email.indexOf("@"));
+        Company company = companyService.checkIfMailExists(emailAfterAt);
         if (company != null) {
             CLog.out(0, "Company found: " + company.getName());
             user.setCompany(company);
         } else {
+            CLog.out(2, "Company not found");
             user.setCompany(null);
         }
         return userRepository.save(user);
