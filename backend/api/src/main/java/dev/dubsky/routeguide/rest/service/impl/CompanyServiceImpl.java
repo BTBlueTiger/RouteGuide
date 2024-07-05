@@ -17,24 +17,29 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyRepository companyRepository;
 
     @Override
-    public Company getCompany() {
-        return companyRepository.getCompany();
-    }
-
-    @Override
     public List<Company> getAllCompanies() {
-        return companyRepository.getAllCompanies();
+        return companyRepository.findAll();
     }
-
-//    @Override
-//    public List<UserDTO> getUsers() {
-//        return companyRepository.getUsers();
-//    }
 
     @Override
     public Company checkIfMailExists(String mail) {
         CLog.out(0, "Checking if mail exists: " + mail);
         return companyRepository.findByMailEnding(mail).orElse(null);
+    }
+
+    @Override
+    public Company getCompanyById(Long id) {
+        return companyRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Company getCompanyByMailEnding(String mailEnding) {
+        return companyRepository.findByMailEnding(mailEnding).orElse(null);
+    }
+
+    @Override
+    public Company getCompanyByName(String name) {
+        return companyRepository.findByName(name).orElse(null);
     }
 
 }

@@ -10,6 +10,8 @@ import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.persistence.AddressRepository;
 import dev.dubsky.routeguide.rest.persistence.RouteRepository;
 import dev.dubsky.routeguide.rest.service.RouteService;
+import dev.dubsky.routeguide.rest.utility.CLog;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,10 +50,11 @@ public class RouteServiceImpl implements RouteService {
                 List<Address> cachedAddresses = addressRepository.findFirstByFullAddress(fullAddress);
                 Address cachedAddress = !cachedAddresses.isEmpty() ? cachedAddresses.get(0) : null;
                 if (cachedAddress != null) {
-                    System.out.println("Using cached address for: " + fullAddress);
+                    CLog.out(0, "Using cached address for: " + fullAddress);
                     address.setLatitude(cachedAddress.getLatitude());
                     address.setLongitude(cachedAddress.getLongitude());
                 } else {
+                    CLog.out(1, "Geocoding address for: " + fullAddress);
                     GeocodingResult[] results = GeocodingApi.geocode(context, fullAddress).await();
                     if (results.length > 0) {
                         address.setLatitude(results[0].geometry.location.lat);
