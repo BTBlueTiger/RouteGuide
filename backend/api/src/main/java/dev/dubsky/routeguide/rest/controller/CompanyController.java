@@ -1,5 +1,6 @@
 package dev.dubsky.routeguide.rest.controller;
 
+import dev.dubsky.routeguide.rest.dto.UserDTO;
 import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.CompanyService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,10 +42,10 @@ public class CompanyController {
         return companyService.getCompanyById(id).getOwner();
     }
 
-//    @GetMapping("/getUsers")
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public List<UserDTO> getUsers() {
-//        return companyService.getUsers();
-//    }
+    @GetMapping("/get_users")
+    @PreAuthorize("hasRole('USER')")
+    public List<UserDTO> getUsers(@RequestHeader("Authorization") String token) {
+        return companyService.getUsers(token);
+    }
 
 }

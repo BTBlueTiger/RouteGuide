@@ -13,4 +13,5 @@ public interface UserService {
     User save(User user);
     User saveMail(User user);
     void deleteById(Long id);
+    List<User> findByCompany(Long companyId);
 }

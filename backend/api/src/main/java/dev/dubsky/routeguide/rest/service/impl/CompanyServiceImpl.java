@@ -1,11 +1,14 @@
 package dev.dubsky.routeguide.rest.service.impl;
 
+import dev.dubsky.routeguide.rest.dto.UserDTO;
 import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.persistence.CompanyRepository;
 import dev.dubsky.routeguide.rest.service.CompanyService;
+import dev.dubsky.routeguide.rest.service.UserService;
 import dev.dubsky.routeguide.rest.utility.CLog;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,10 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    @Lazy
+    private UserService userService;
 
     @Override
     public List<Company> getAllCompanies() {
@@ -42,4 +49,15 @@ public class CompanyServiceImpl implements CompanyService {
         return companyRepository.findByName(name).orElse(null);
     }
 
+    @Override
+    public Company getCompanyByOwner(Long ownerId) {
+        return companyRepository.findByOwner(ownerId).orElse(null);
+    }
+
+    @Override
+    public List<UserDTO> getUsers(String token) {
+        Company company = getCompanyByOwner(userService.getCurrentUser(token).getId());
+        CLog.out(0, "Getting users for company: " + company.getName());
+        return userService.findByCompany(company.getId().longValue()).stream().map(UserDTO::new).toList();
+    }
 }

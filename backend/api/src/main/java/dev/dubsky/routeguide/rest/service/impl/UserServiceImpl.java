@@ -89,4 +89,9 @@ public class UserServiceImpl implements UserService {
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
+
+    @Override
+    public List<User> findByCompany(Long companyId) {
+        return userRepository.findByCompanyId(companyId).orElse(null);
+    }
 }
