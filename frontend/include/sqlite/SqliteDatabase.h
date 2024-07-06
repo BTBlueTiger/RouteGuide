@@ -1,6 +1,7 @@
-/*
 #ifndef SQLITEDATABASE_H
 #define SQLITEDATABASE_H
+
+/*
 
 #include <QSqlDatabase>
 
@@ -26,6 +27,7 @@ public:
 private:
     QSqlDatabase m_db;
 };
-
-#endif // SQLITEDATABASE_H
 */
+#endif // SQLITEDATABASE_H
+
+

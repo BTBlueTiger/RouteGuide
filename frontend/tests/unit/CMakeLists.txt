@@ -43,3 +43,4 @@ target_link_libraries(tst_unit PRIVATE
                       ValidationTextfieldModelplugin
                       ValidationTextfieldplugin
                   )
+

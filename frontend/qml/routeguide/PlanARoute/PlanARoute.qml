@@ -30,7 +30,8 @@ Item {
                                        GeoPositionRessource.coordinate.latitude,
                                        GeoPositionRessource.coordinate.longitude
                                        ))
-            console.log(routeQuery.waypoints)
+
+
         }
         var _co = potentialWaypointModel.getCoordinates()
 

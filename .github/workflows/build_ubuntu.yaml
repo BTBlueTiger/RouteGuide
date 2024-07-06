@@ -1,0 +1,86 @@
+name: 🐧 Linux Build
+
+on: [push]
+
+env:
+  BUILD_DIR: 'build'
+  EXECUTABLE: "RouteGuide"
+  APPLICATION: "RouteGuide"
+  UNIXNAME: "RouteGuide"
+  PUBLISHER: "Malte Kanders"
+  REPO_DIR: "/home/runner/work/RouteGuide/"
+  QT_MODULES: 'qtpositioning qtlocation qtconnectivity qtimageformats qtsensors qt5compat'
+  CORES: 16
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: '🧰 Checkout repository'
+      uses: actions/checkout@v4
+
+    - name: '⚙️ Install dependencies'
+      run: |
+        sudo apt-get update
+        sudo apt install ninja-build
+        sudo apt-get install -y libxcb-cursor-dev
+        sudo apt-get install -y build-essential libgl1-mesa-dev xvfb libxcb-cursor0
+        sudo apt-get install libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 libegl1-mesa
+    - name: '⚙️ Install Linux QT'
+      uses: jurplel/install-qt-action@v4
+      with:
+        aqtversion: '==3.1.*'
+        version: '6.7.0'
+        host: 'linux'
+        target: 'desktop'
+        arch: 'linux_gcc_64'
+        modules: ${{ env.QT_MODULES }}
+        cache: "true"
+
+    - name: '👷 Compile'
+      env: 
+        QTDIR: ${{ env.QT_PATH }}
+        LD_LIBRARY_PATH: ${{ env.QT_PATH }}/lib:$LD_LIBRARY_PATH
+      run: | 
+       cmake -S ./frontend-refactor -B build -G "Ninja Multi-Config" 
+       cmake --build build --config Release 
+       export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/libexec:$PATH
+       export PATH=${{ github.workspace }}/Qt/6.7.0/gcc_64/bin:$PATH
+       export EXTRA_QT_PLUGINS="svg;"
+       
+       echo "Running ValidationTextField tests"
+
+       # ./build/modules/ValidationTextfield/Release/tst_ValidationTextField
+       
+    - name: '💂‍♂️ Install Linuxdeploy'
+      run: |
+        cd build/Release/
+        wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+        wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
+        chmod +x linuxdeploy-x86_64.AppImage
+        chmod +x linuxdeploy-plugin-qt-x86_64.AppImage
+     #sudo mkdir appdir
+     #cmake ./frontend -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+     #make -j$(nproc)
+     #make DESTDIR=appdir -j$(nproc) install ; find appdir/
+    - name: '🌀 App Image'
+      run: |
+         sudo cp ./frontend-refactor/RouteGuide.png build/Release/
+         sudo cp ./frontend-refactor/RouteGuide.desktop build/Release/
+          cd build/Release/
+          sudo chmod +x RouteGuide 
+          ./linuxdeploy-x86_64.AppImage \
+            --appdir appdir \
+            -e RouteGuide  \
+            -i ${{env.UNIXNAME}}.png \
+            -d ${{env.UNIXNAME}}.desktop \
+            --output appimage 
+          rm linuxdeploy-x86_64.AppImage
+          rm linuxdeploy-plugin-qt-x86_64.AppImage
+    
+     
+    - name: '⭐ Upload build artifacts'
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-artifacts
+        path: .

@@ -101,7 +101,6 @@ Map {
             }
         }
         coordinate: followGPS ? center : lastCenter
-
     }
 
 
