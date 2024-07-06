@@ -73,40 +73,45 @@ Prüfbarkeit |-|-|-|X|
 ## 2.4 Graphische Benutzerschnittstelle
 #### Übersicht
 ![Mockup mit Graph](mockups/RouteGuideFull.png)
-#### Login
+#### Login +
 ![Login](mockups/LoginScreen.png)
 Use Cases: 1, 2, 3
-#### Map
+#### Map +
 ![Map](mockups/Map.png)
 Use Cases: 5, 6, 7, 8
-#### Passwort vergessen
+#### Passwort vergessen -
 ![Passwort Vergessen](mockups/ForgotPasswort.png)
 Use Case: 1
-#### Neuer Nutzer, erste Seite
+#### Neuer Nutzer, erste Seite +
 ![Neuer User 0](mockups/NewUser0.png)
-#### Neuer Nutzer, zweite Seite
+#### Neuer Nutzer, zweite Seite +
 ![Neuer User 1](mockups/NewUser1.png)
 Use Case: 4
-#### Route planen, erste Seite
+#### Route planen, erste Seite +
 ![Plan a Route 0](mockups/PlanARoute0.png)
-#### Route planen, zweite Seite
+#### Route planen, zweite Seite +
 ![Plan a Route 1](mockups/PlanARoute1.png)
 Use Cases: 16, 17, 18, 19
-#### Profil, erste Seite
+#### Profil, erste Seite -
 ![Profile 0](mockups/Profile0.png)
 Use Case: 10, 11, 12, 13, 14
-#### Profil, zweite Seite
+#### Profil, zweite Seite -
 ![Profile 1](mockups/Profile1.png)
 Use Cases: 15
-#### Community
+#### Community -
 ![Community](mockups/Community.png)
 Use Cases: 11, 14
-#### Job Spezifisch
+#### Job Spezifisch -
 ![Job Specific](mockups/JopSpecific.png)
 Use Cases: 22, 23, 24
 
 Fehlendes: 
 21, 25
+
+## Nicht geschaffte Features:
+Passwort vergessen 
+Profil, erste Seite und zweite Seite
+Community oder Jobspezifische Use Cases
 
 ## 2.5 Anforderungen im Detail
 
