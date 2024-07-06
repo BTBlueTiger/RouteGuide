@@ -28,33 +28,8 @@ qt_add_executable(RouteGuide
 
 qt_add_qml_module(RouteGuide
     URI routeguide
-    QML_FILES
-        qml/main.qml
-        qml/ApplicationFlow.qml
-
-        qml/authentification/Login.qml
-
-        qml/authentification/register/RegisterFormBig.qml
-        qml/authentification/register/RegisterFormSmall0.qml
-        qml/authentification/register/RegisterFormSmall1.qml
-
-        qml/routeguide/PlanARoute/PlanARoute.qml
-        qml/routeguide/PlanARoute/AddedPage.qml
-        qml/routeguide/PlanARoute/SearchPage.qml
-        qml/routeguide/PlanARoute/PreviewPage.qml
-        qml/routeguide/PlanARoute/WaypointFlickable.qml
-
-        qml/navigation/Navigation.qml
-
-        js/Formatter.js
-
 
     SOURCES
-        include/utility/ScreenInfo.h src/utility/ScreenInfo.cpp
-
-
-
-        include/sqlite/SqliteDatabase.h src/sqlite/SqliteDatabase.cpp
         include/Constants.h
 
         include/connections/AbstractResource.h
@@ -63,7 +38,6 @@ qt_add_qml_module(RouteGuide
         include/connections/LocationResource.h src/connections/LocationResource.cpp
         include/connections/RouteResource.h src/connections/RouteResource.cpp
 
-        include/models/UserModel.h src/models/UserModel.cpp
         include/models/waypoint/WaypointModel.h src/models/waypoint/WaypointModel.cpp
         include/models/waypoint/WaypointModelItem.h src/models/waypoint/WaypointModelItem.cpp
         include/models/waypoint/WaypointModelManager.h src/models/waypoint/WaypointModelManager.cpp
@@ -102,10 +76,13 @@ target_link_libraries(RouteGuide PRIVATE
     Qt6::Sensors
 )
 
-add_subdirectory(modules/ValidationTextfield)
+add_subdirectory(modules)
 
 target_link_libraries(RouteGuide PRIVATE
     ValidationTextfieldplugin
+    AbstractRessource
+    UserModel
+    ScreenInfoplugin
 )
 
 

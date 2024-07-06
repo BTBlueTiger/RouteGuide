@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterSingletonType<GeoPositionRessource>("GeoPositionRessource", 1, 0, "GeoPositionRessource", GeoPositionRessource::createSingletonInstance);
 
-    qmlRegisterType<GeoPositionMockResource>("GeoPositionMockResource", 1, 0, "GeoPositionMockResource");
+
 
     engine.load(QUrl(QLatin1String("qrc:/qml/main.qml")));
     if (engine.rootObjects().isEmpty())

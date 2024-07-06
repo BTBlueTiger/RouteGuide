@@ -18,7 +18,6 @@ GeoPositionRessource::GeoPositionRessource(QObject* parent) : QObject(parent)
 
 void GeoPositionRessource::setMockResource()
 {
-    m_source = QGeoPositionInfoSource::createDefaultSource(new GeoPositionMockResource);
 }
 
 void GeoPositionRessource::positionUpdated(const QGeoPositionInfo& gpsPos)
