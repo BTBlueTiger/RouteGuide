@@ -45,20 +45,17 @@ Dafür muss man zuviel Arbeit investieren um ein Resultat zu erzeugen.
 Aber genau deswegen fand ich es super in so einem Projekt nutzen zu können und es hat mir viel gelehrt.
 
 # Beschreibung von QT mit QML 
-Für jede Komponente die wir auch testen wollen und die wir vom ganzen "abkapseln" wollen erstellen wir ein Modul.
-Ein Modul kann ein reines C++-Modul, ein QML Modul oder eine Mischung aus beidem sein.
-Man testet ein QML Modul mit QTQuick in einer qml File. Ein reines C++ Modul mit QTest.
+- Testbare Komponenten sollten als Lib geschrieben werden, dies macht sie zu eigenständigen Projekten was die größte Entkoppelung bietet
+- Ein Modul kann ein reines C++-Modul, ein QML Modul oder eine Mischung aus beidem sein.
 
 ## C++ Modul
 
-Das C++ Modul soll beispielhaft für auch Qml allein dienen, da auf den Qml Aspekt im nächsten Kapitel eingegangen wird.
+- **Ein reines C++ kann als Modul auch ohne Gui dienen wenn es nur logische Aspekte betrachtet**
 
 ![alt text](https://github.com/BTBlueTiger/RouteGuide/blob/main/docs/diagrams/frontend/Cpp-Modul.png)
 
 ### Die Klasse
-Die _einfache Klasse_ Klasse UserModel hat 3 relevante Methoden die getestet werden sollen.
-Gerade weil sie die Schnittstelle zur Nutzerdatenbank haben soll.
-Diese C++ Klasse wird gewöhnlich implementiert, mit etwas Qt eigenen Eigenschaften, so wie wir es für die Anwendung brauchen.
+- Die _einfache Klasse_ Klasse UserModel hat 3 relevante Methoden die getestet werden sollen können.
 
 ### Die Testklasse
 [Refer to QTs Tutorial](https://doc.qt.io/qt-6/qttestlib-tutorial1-example.html)
@@ -84,6 +81,10 @@ private slots:
 
 };
 ```
+- UserModel beinhaltet öberflächliche drei wichtige Funktionen die getestet werden müssen
+    - login
+    - logout
+    - register      
 
 ##### .cpp
 
@@ -100,23 +101,22 @@ void TestUserModel::test_registerAttempt()
     loginAttempt(map);
     QCOMPARE(loggedIn(), true);
 }
+... Am Ende: 
 
-```
-
-Jede zu testete Methode wird so aufgebaut.
-
-##### Macro
-
-```C++
 // Das Makro sorgt dafür das eine automatische Testklasse erstellt wird
 QTEST_MAIN(TestUserModel)
 // Das .moc ist die generierte Klasse
 #include "test_usermodel.moc"
+
 ```
 
-Das Makro ist eigentlich eine simple main() die alle test funktionen durchläuft.
+- Jede zu testende Methode erhält die standard Inputs
+- Funktionen wie `QCOMPARE(loggedIn(), true);` validieren sie
+- Das Makro steht am Ende, eine simple main() die alle test funktionen durchläuft.
 
-Ein Beispielhaftes CMake für das Cpp Modul sehe so aus:
+
+##### Beispielhaftes CMake für das UserModel
+
 ```CMake
 cmake_minimum_required(VERSION 3.16)
 
@@ -185,20 +185,73 @@ install(TARGETS test_userModel
 
 ```
 
+#### Nutzen in der View-Schicht als Model
+- Das erstellte Model wird als Singleton verfügbargemacht
+- Die Methode "createSingletonInstance" ist Boilerplate in der Klasse
 
-## QML C++ Mixed Modul
+```C++
+    qmlRegisterSingletonType<UserModel>("UserModel", 1, 0, "UserModel", UserModel::createSingletonInstance);
+```
 
-Es soll hier auch das zuvor benutzte form.ui.qml + qml erklärt werden sowie die Bausteine sowie einige des Grundlegenden Qt Framework.
-Aber nur angerissen da es sonst zuviel werden würde.
-Damit sind bestimmte MACROS die das gleiche bewirken könnten aber anders aufgeschrieben werden.
+- Nun Nutzbar in der Kompletten App
+
+```QML
+
+import UserModel
+
+    btnLogin.onClicked: {
+        UserModel.loginAttempt
+        (
+            {
+                ["username"] : userName.text,
+                ["password"] : userPassword.text
+            }
+        )
+    }
+
+    Connections{
+        target: UserModel
+        function onUserChanged() {
+            if(!UserModel.loggedIn) {
+                wrongCredentialsToolTip.visible = true
+            }
+        }
+    }
+```
+
+- Funktionen nun global wie Javascript anzuwenden
+- Connection verbinden Signal und Slots in QML und C++
+
+
+## QML C++ Mixed Modul Beispiel an ValidationTextfield
+
+- kurze grundlegene Erklärung zum Framework
+    - Propertys
+    - Signal and Slot
+    - Erklärung zu form.ui.qml und qml
+      
+
+- ausgelassen werden
+    - MACROS die Ähnliches bewirken
+    - bestimmte Funktionen die das selbe bewirken
+    - Jegliche Funktion die noch nicht bekannt
+ 
 
 ![alt text](https://github.com/BTBlueTiger/RouteGuide/blob/main/docs/diagrams/frontend/QML-Modul.png)
 
 ### Die Model Klasse für die Gui
-Unser Gui besitzt ein Model das in Cpp geschrieben wird. Dadurch besitzen wir die Logik auf der Cpp Seite.
-Wenn auch gleich ein paar Funktionen in einer qml landen können und dürfen.
+- **Model** in C++ geschrieben
+- **Delegate** in .qml geschrieben
+    - Kann Funktionen
+    - Könnte auch Gui sollte es aber nicht    
+- **View** in ui.qml geschrieben
+    - Kann keine Funktionen aufnehmen
+    - vorstellbar wie html    
 
-##### .h des Models
+![Model View architecture in QT](https://doc.qt.io/qt-6/images/modelview-overview.png)
+
+##### Q_PROPERTY
+
 ```C++
 // Wir erben von der Base Klasse QObject
 class ValidationTextfieldModel : public QObject
@@ -215,8 +268,7 @@ class ValidationTextfieldModel : public QObject
 
 ```
 
-Wir erstellen hier Propertys die von qml Dateien sichtbar sein sollen, hier als Beispiel das Property state.
-Man könnte auch mit einem für außen sichtbaren Enum arbeiten.
+- Propertys sind die Verbindungen von C++ zu QML
 
 ```C++
 ...
@@ -246,10 +298,14 @@ private slots:
     void changeColorOnStateChanged();
     void changeOpacityOnStateChanged();
 ```
-Wir definieren getter, setter und die Signal Methode um das Property Beobachten zu können,
-in der .cpp können wir sie ganz normal deklarieren.
+- Definieren getter, setter, signal und slots
+- Signal and Slot ist wie ein ObservablePattern 
 
-Jetzt kommt ein schlauer Clou:
+#### SIGNAL
+- ändert sich ein zustand, wie durch ein WRITE/set lässt sich das signalisieren
+    - setState ändert das model
+    - neuer Status wird gesetzt
+    - keywoard emit sendet das Signal
 
 ```C++
 void ValidationTextfieldModel::setState(const int state)
@@ -260,7 +316,15 @@ void ValidationTextfieldModel::setState(const int state)
     emit stateChanged(); <--- senden
 }
 ```
-Wenn der state sich durch einen Schreibzugriff ändert, dann senden wir das Signal.
+#### SLOT
+
+- slot ist eine art Listener function
+- wird ein slot an eine function gebunden hört sie auf das emit keywoard
+- es braucht im Grunde Parameter
+    - Signalisierende Klasse
+    - Signalisierende Funktion
+    - Zuhörende Klasse
+    - Zuhörende Funktion
 
 ```C++
 ValidationTextfieldModel::ValidationTextfieldModel(QObject* parent) : QObject(parent)
@@ -278,45 +342,10 @@ ValidationTextfieldModel::ValidationTextfieldModel(QObject* parent) : QObject(pa
     connect(this, SIGNAL(stateChanged()), this, SLOT(changeOpacityOnStateChanged()));
 }
 ```
-Durch das verbinden von dem Signal zu einem Slot werden jetzt alle verbundenen Slots aufgerufen
+#### Model View Verkettung 
 
-```C++
-void ValidationTextfieldModel::changeColorOnStateChanged()
-{
-    m_color = getNewColor();
-    emit colorChanged(m_color);
-}
-```
-Diese senden nach ändern ihrer Variable wieder Signale, beispielsweise mit der neuen Farbe.
-Und das auch an unser QML in der ViewSchicht
-
-```QML
-    // Unsere propertys aus dem Model
-    property alias m_color : model.color
-  ...
-```
-
-Dort haben wir zugriff auf die Daten im C++ Model. In der QML Datei.
-Und das delegiert es wieder an das ui.qml unser wirklichen Viewschicht in der Funktionen nichts zu suchen haben.
-
-```QML
-    background: Rectangle {
-        color: m_color
-    ...
-    }
-```
-
-Diese Komponente können wir jetzt nach belieben einbauen.
-
-```QML
-      ValidationTextfield {
-          placeholderText: qsTr("UserName")
-        ....
-      }
-```
-
-Einmal als Gui Komponente in der .ui.qml
-
+- property alias gibt leichten Zugriff von **View** auf **Delegate**
+- 
 ```QML
       property alias userName : textfieldUserName
       ValidationTextfield {
@@ -326,7 +355,10 @@ Einmal als Gui Komponente in der .ui.qml
       }
 ```
 
-und einmal in der .qml Componente um die Daten zu delegieren:
+- username alias im **Delegate** für Funktionen Verfügbar
+- User editiert text im **Delegate**
+- onTextChanged emitiert das **Signal**
+- State verändert sich durch eine bestimmte Vorraussetzung
 ```QML
       userName.onTextChanged: {
       // Verwalten der Variable um beim wechseln von klein auf großen Screen oder anders rum die Variable nicht einfach verloren geht
@@ -335,48 +367,36 @@ und einmal in der .qml Componente um die Daten zu delegieren:
           userName.state = username_state
       }
 ```
+- Slot wird aktiviert da sich state ändert
+
+```C++
+void ValidationTextfieldModel::changeColorOnStateChanged()
+{
+    m_color = getNewColor();
+    emit colorChanged(m_color);
+}
+```
+- Farbe wird durch **Delegate** aufgenommen
+```QML
+    // Unsere propertys aus dem Model
+    property alias m_color : model.color
+  ...
+```
+- Farbe wird an **View** weitergegeben 
+```QML
+    background: Rectangle {
+        color: m_color
+    ...
+    }
+```
+
 
 ### Resultat
 
 Nun haben wir ein Modul das selbst gebaut und auch allein getestet werden kann.
 Zudem können wir es jetzt als Componente in unsere Anwednung einbauen
 
-### Testen von Gui Elementen
 
-Im Prinzip gibt es wieder ein Setup in cpp dateien. Sie laden QML Elemente und setzen die Gui auf.
-```QML
-
-TestCase {
-
-    ValidationTextfield{
-        id: field
-        errorMsg: "Error"
-        placeholderDefault: "Default"
-    }
-
-    function test_initialState() {
-        verify(field.state === ValidationTextfield.ValidationState.Default)
-        verify(field.errorMsg === "Error")
-        verify(field.placeholderDefault === "Default")
-    }
-
-}
-
-```
-Mit Cmake, das hier größer wäre baut die Datei dann und läuft durch 
-Entweder mit Console, Skribt oder dem Editor von QT
-```
-Config: Using QtTest library 6.7.2, Qt 6.7.2 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 10.3.1 20210422 (Red Hat 10.3.1-1)), ubuntu 22.04
-PASS   : TestUserModel::initTestCase()
-PASS   : TestUserModel::test_LoginAttempt()
-PASS   : TestUserModel::test_LogoutAttempt()
-FAIL!  : TestUserModel::test_registerAttempt() Compared values are not the same
-   Actual   (registerSuccess()): 0
-   Expected (true)             : 1
-   Loc: [/home/kamalte/Desktop/ToDelete/RouteGuide/frontend/modules/Models/UserModel/test_usermodel.cpp(40)]
-PASS   : TestUserModel::cleanupTestCase()
-Totals: 4 passed, 1 failed, 0 skipped, 0 blacklisted, 1ms
-```
 
 
 ##### Vorteil:
