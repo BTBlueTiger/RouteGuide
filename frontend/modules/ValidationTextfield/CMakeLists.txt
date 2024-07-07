@@ -17,8 +17,9 @@ qt_add_qml_module(ValidationTextfieldModel
 qt_add_qml_module(ValidationTextfield
     URI ValidationTextfield
     VERSION
-    QML_FILES ValidationTextfield.qml
-    SOURCES
+    QML_FILES
+    ValidationTextfieldForm.ui.qml
+    ValidationTextfield.qml
 )
 
 target_link_libraries(ValidationTextfieldModel PRIVATE

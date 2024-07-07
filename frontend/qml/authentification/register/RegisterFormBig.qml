@@ -162,11 +162,6 @@ Item {
                             state = 0
                         }
                     }
-                    ToolTip{
-                        id: toolTip
-                        text: "Not the same password"
-                        visible: false
-                    }
                 }
 
                 Button {

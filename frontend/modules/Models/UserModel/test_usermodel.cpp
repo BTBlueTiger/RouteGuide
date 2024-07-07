@@ -36,8 +36,11 @@ void TestUserModel::test_registerAttempt()
     map["email"] = email;
     map["password"] = password;
     registerAttempt(map);
+    // QCOMPARE testet ob der Fall war ist
     QCOMPARE(registerSuccess(), true);
     map.remove("email");
+    // Der Login sollte nun mit den Daten aus der Registrierung
+    //funktionieren wenn die Registrierung erfolgreich war
     loginAttempt(map);
     QCOMPARE(loggedIn(), true);
 }
