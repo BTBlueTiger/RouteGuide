@@ -1,5 +1,7 @@
 package dev.dubsky.routeguide.rest.service.impl;
 
+import dev.dubsky.advancedlog.AdvLogger;
+import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.jwt.JwtTokenUtil;
 import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.model.User;
@@ -57,10 +59,10 @@ public class UserServiceImpl implements UserService {
         }
         String email = user.getEmail();
         String emailAfterAt = email.substring(email.indexOf("@"));
-        CLog.out(0, "User ["+ user.getUsername() +"] registered with email ending: " + emailAfterAt);
+        AdvLogger.output(Color.GREEN, "User ["+ user.getUsername() +"] registered with email ending: " + emailAfterAt);
         Company company = companyService.checkIfMailExists(emailAfterAt);
         if (company != null) {
-            CLog.out(0, "Company found: " + company.getName());
+            AdvLogger.output(Color.GREEN, "Company found: " + company.getName());
             user.setCompany(company);
         }
         return userRepository.save(user);
@@ -71,15 +73,15 @@ public class UserServiceImpl implements UserService {
     }
 
     public User saveMail(User user) {
-        CLog.out(0, "User ["+ user.getUsername() +"] changed email to : " + user.getEmail());
+        AdvLogger.output(Color.GREEN, "User ["+ user.getUsername() +"] changed email to : " + user.getEmail());
         String email = user.getEmail();
         String emailAfterAt = email.substring(email.indexOf("@"));
         Company company = companyService.checkIfMailExists(emailAfterAt);
         if (company != null) {
-            CLog.out(0, "Company found: " + company.getName());
+            AdvLogger.output(Color.GREEN, "Company found: " + company.getName());
             user.setCompany(company);
         } else {
-            CLog.out(2, "Company not found");
+            AdvLogger.output(Color.RED, "Company not found");
             user.setCompany(null);
         }
         return userRepository.save(user);

@@ -1,5 +1,7 @@
 package dev.dubsky.routeguide.rest.service.impl;
 
+import dev.dubsky.advancedlog.AdvLogger;
+import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.dto.UserDTO;
 import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.persistence.CompanyRepository;
@@ -30,7 +32,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company checkIfMailExists(String mail) {
-        CLog.out(0, "Checking if mail exists: " + mail);
+        AdvLogger.output(Color.GREEN, "Checking if mail exists: " + mail);
         return companyRepository.findByMailEnding(mail).orElse(null);
     }
 
@@ -57,7 +59,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public List<UserDTO> getUsers(String token) {
         Company company = getCompanyByOwner(userService.getCurrentUser(token).getId());
-        CLog.out(0, "Getting users for company: " + company.getName());
+        AdvLogger.output(Color.GREEN, "Getting users for company: " + company.getName());
         return userService.findByCompany(company.getId().longValue()).stream().map(UserDTO::new).toList();
     }
 }

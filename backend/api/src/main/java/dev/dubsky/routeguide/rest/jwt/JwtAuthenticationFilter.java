@@ -9,6 +9,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import dev.dubsky.advancedlog.AdvLogger;
+import dev.dubsky.advancedlog.Color;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,10 +43,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
-                logger.warn("Unable to get JWT Token", e);
+                AdvLogger.output(Color.RED,"Unable to get JWT Token");
             }
         } else {
-            logger.warn("JWT Token does not begin with Bearer String");
+            AdvLogger.output(Color.RED,"JWT Token does not begin with Bearer String");
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

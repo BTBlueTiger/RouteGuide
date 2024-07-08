@@ -1,5 +1,7 @@
 package dev.dubsky.routeguide.rest.controller;
 
+import dev.dubsky.advancedlog.AdvLogger;
+import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.dto.UserDTO;
 import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.model.User;
@@ -38,7 +40,7 @@ public class CompanyController {
     @GetMapping("/get_owner/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public User getOwner(@PathVariable Long id) {
-        CLog.out(0, "Getting owner for company: " + companyService.getCompanyById(id).getName());
+        AdvLogger.output(Color.GREEN, "Getting owner for company: " + companyService.getCompanyById(id).getName());
         return companyService.getCompanyById(id).getOwner();
     }
 

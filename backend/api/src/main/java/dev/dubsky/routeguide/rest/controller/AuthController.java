@@ -1,5 +1,7 @@
 package dev.dubsky.routeguide.rest.controller;
 
+import dev.dubsky.advancedlog.AdvLogger;
+import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.jwt.JwtTokenUtil;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.UserService;
@@ -38,13 +40,13 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody Map<String, String> user) {
-        CLog.out(0, "Login method called with username: " + user.get("username"));
+        AdvLogger.output(Color.GREEN, "Login method called with username: " + user.get("username"));
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.get("username"), user.get("password"))
         );
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user.get("username"));
         String token = jwtTokenUtil.generateToken(userDetails);
-        CLog.out(0, "Generated Token: " + token + " for user: " + user.get("username"));
+        AdvLogger.output(Color.GREEN, "Generated Token: " + token + " for user: " + user.get("username"));
         return token;
     }
 

@@ -3,6 +3,9 @@ package dev.dubsky.routeguide.rest.service.impl;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
+
+import dev.dubsky.advancedlog.AdvLogger;
+import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.config.EnvReader;
 import dev.dubsky.routeguide.rest.model.Address;
 import dev.dubsky.routeguide.rest.model.Route;
@@ -10,7 +13,6 @@ import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.persistence.AddressRepository;
 import dev.dubsky.routeguide.rest.persistence.RouteRepository;
 import dev.dubsky.routeguide.rest.service.RouteService;
-import dev.dubsky.routeguide.rest.utility.CLog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,11 +52,11 @@ public class RouteServiceImpl implements RouteService {
                 List<Address> cachedAddresses = addressRepository.findFirstByFullAddress(fullAddress);
                 Address cachedAddress = !cachedAddresses.isEmpty() ? cachedAddresses.get(0) : null;
                 if (cachedAddress != null) {
-                    CLog.out(0, "Using cached address for: " + fullAddress);
+                    AdvLogger.output(Color.GREEN, "Using cached address for: " + fullAddress);
                     address.setLatitude(cachedAddress.getLatitude());
                     address.setLongitude(cachedAddress.getLongitude());
                 } else {
-                    CLog.out(1, "Geocoding address for: " + fullAddress);
+                    AdvLogger.output(Color.YELLOW, "Geocoding address for: " + fullAddress);
                     GeocodingResult[] results = GeocodingApi.geocode(context, fullAddress).await();
                     if (results.length > 0) {
                         address.setLatitude(results[0].geometry.location.lat);
