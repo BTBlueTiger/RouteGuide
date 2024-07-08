@@ -22,6 +22,14 @@ repositories {
     maven {
         url = uri("https://projectlombok.org/edge-releases")
     }
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/DubskySteam/AdvancedLog")
+        credentials {
+            username = System.getenv("USERNAME")
+            password = System.getenv("TOKEN")
+        }
+    }
 }
 
 dependencies {
@@ -56,6 +64,9 @@ dependencies {
     // Google
     implementation("com.google.maps:google-maps-services:2.2.0")
     implementation("org.slf4j:slf4j-simple:1.7.25")
+
+    // AdvancedLog
+    implementation("dev.dubsky:advancedlog:0.1.2")
 }
 
 tasks.withType<Test> {
