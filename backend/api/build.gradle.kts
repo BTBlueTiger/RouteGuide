@@ -66,7 +66,7 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:1.7.25")
 
     // AdvancedLog
-    implementation("dev.dubsky:advancedlog:0.1.2")
+    implementation("dev.dubsky:advancedlog:0.1.3")
 }
 
 tasks.withType<Test> {
