@@ -13,9 +13,7 @@ Map {
     id: map
 
 
-    Button {
-
-    }
+    property SaveARoute saveARoute : SaveARoute {}
 
     Repeater {
         model: waypointManager.getWaypointModel(potentialWaypointModelName) === null
@@ -26,11 +24,48 @@ Map {
             anchorPoint.y: icon.height
             sourceItem: Image {
                 id: icon
-                source: "qrc:/res/btn/map.svg"  // Path to your marker icon
+                source: "/res/btn/map.svg"  // Path to your marker icon
                 width: 40
                 height: 40
             }
         }
+    }
+
+
+    Button {
+        id: btnOpenMenu
+        anchors {
+            top: parent.top
+            left: parent.left
+            margins: 10
+        }
+        icon.source: "/res/btn/menu.svg"
+        icon {
+            height: 50
+            width: 50
+            color: "blue"
+        }
+        onClicked: menu.open()
+        Menu {
+                id: menu
+
+                MenuItem {
+                    text: "New..."
+                    onClicked: {
+                        routeQuery.clearWaypoints()
+                        if(waypointManager.getWaypointModel(potentialWaypointModelName) !== null) {
+                            waypointManager.getWaypointModel(potentialWaypointModelName).clearCoordinates()
+                        }
+                    }
+                }
+                MenuItem {
+                    text: "Save"
+                    onClicked: saveARoute.open()
+                }
+                MenuItem {
+                    text: "Delete"
+                }
+            }
     }
 
     Button {
@@ -39,7 +74,7 @@ Map {
         anchors {
             top: parent.top
             right: parent.right
-            margins: 10 // Adjust margins as needed
+            margins: 10
         }
         icon.source: map.followGPS ? "/res/btn/my_location.svg" : "/res/btn/free_location.svg"
         icon {

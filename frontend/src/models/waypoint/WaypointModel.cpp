@@ -163,4 +163,9 @@ namespace Waypoint
         m_isConnected = true;
     }
 
+    void WaypointModel::clearCoordinates()
+    {
+        m_waypointModelItems.clear();
+    }
+
 }
