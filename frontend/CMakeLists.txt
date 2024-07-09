@@ -57,10 +57,15 @@ set_target_properties(RouteGuide PROPERTIES
 )
 
 if (ANDROID)
-    set(QT_HOST_PATH "../Qt/6.6.0/gcc_64/")
     set(QT_FORCE_BUILD_TOOLS=ON)
-    include(./lib/android_openssl/android_openssl.cmake)
-    add_android_openssl_libraries(RouteGuide)
+    include(FetchContent)
+    FetchContent_Declare(
+        android_openssl
+        DOWNLOAD_EXTRACT_TIMESTAMP true
+        URL https://github.com/KDAB/android_openssl/archive/refs/heads/master.zip
+    )
+    FetchContent_MakeAvailable(android_openssl)
+    include(${android_openssl_SOURCE_DIR}/android_openssl.cmake)
 endif()
 
 target_link_libraries(RouteGuide PRIVATE

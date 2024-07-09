@@ -44,7 +44,10 @@ add_executable(tst_ValidationTextField main.cpp
 
 add_test(NAME tst_validationTextfield COMMAND tst_validationTextfield)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS QuickTest Qml)
+set(QT_HOST_PATH "" CACHE PATH "Installed Qt host directory path, used for cross compiling.")
+
+
+find_package(QT NAMES Qt6  REQUIRED COMPONENTS QuickTest Qml)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS QuickTest Qml)
 
 

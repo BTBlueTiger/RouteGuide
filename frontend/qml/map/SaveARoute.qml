@@ -136,10 +136,10 @@ Dialog {
         routeApiRessource.createRoute
                 (
                     {
-                    ["name"] : textfieldRouteName.text,
-                    ["adresses"] : addresses,
-                    ["group"] : group_id,
-                    ["public"] : buttonPrivate.isClicked ? "true" : "false"
+                        ["name"] : textfieldRouteName.text,
+                        ["adresses"] : addresses,
+                        ["group"] : group_id,
+                        ["public"] : buttonPrivate.isClicked ? "true" : "false"
                     }
                 )
 
