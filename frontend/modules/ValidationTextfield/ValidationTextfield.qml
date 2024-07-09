@@ -6,6 +6,7 @@ ValidationTextfieldForm {
 
     ValidationTextfieldModel{ id: model }
 
+    // Unsere propertys aus dem Model
     property alias state : model.state
     property alias m_opacity : model.opacity
     property alias m_color : model.color

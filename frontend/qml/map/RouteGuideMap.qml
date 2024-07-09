@@ -7,7 +7,31 @@ import QtSensors
 
 import GeoPositionRessource
 
+import UserModel
+
 Map {
+    id: map
+
+
+    Button {
+
+    }
+
+    Repeater {
+        model: waypointManager.getWaypointModel(potentialWaypointModelName) === null
+               ? [] :  waypointManager.getWaypointModel(potentialWaypointModelName).getCoordinates()
+        delegate: MapQuickItem{
+            coordinate: model.modelData
+            anchorPoint.x: icon.width / 2
+            anchorPoint.y: icon.height
+            sourceItem: Image {
+                id: icon
+                source: "qrc:/res/btn/map.svg"  // Path to your marker icon
+                width: 40
+                height: 40
+            }
+        }
+    }
 
     Button {
         id: tbtnFollowGPS
@@ -73,12 +97,10 @@ Map {
             line.width: 5
             smooth: true
         }
-        onModelChanged: {
-            console.log("Changed")
-        }
     }
 
-    id: map
+
+
     anchors.fill: parent
     plugin: mapPlugin
     center: QtPositioning.coordinate(52.2125431, 8.7179206)
@@ -100,8 +122,10 @@ Map {
                 NumberAnimation { duration: 100; easing.type: Easing.InOutQuad }
             }
         }
-        coordinate: followGPS ? center : lastCenter
+        coordinate: followGPS ? center : QtPositioning.coordinate(0, 0)
     }
+
+
 
 
     PinchHandler {

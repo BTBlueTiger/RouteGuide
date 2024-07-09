@@ -14,17 +14,14 @@ Item {
     property int fontPointSize: 20
     property int pageIndex: 0
 
-    property string searchWaypointModelName: "SearchWaypointModel"
-    property string potentialWaypointModelName: "PotentialWaypointModel"
-
-
     property WaypointModel searchWaypointModel : waypointManager.createWaypointModel(searchWaypointModelName)
     property WaypointModel potentialWaypointModel : waypointManager.createWaypointModel(potentialWaypointModelName)
 
     property bool fromCurrentPostion: false
 
     function setWayPoints() {
-        //routeQuery.clearWaypoints()
+
+        routeQuery.clearWaypoints()
         if(fromCurrentPostion){
             routeQuery.addWaypoint(QtPositioning.coordinate(
                                        GeoPositionRessource.coordinate.latitude,
@@ -38,6 +35,7 @@ Item {
         for(var i = 0; i < _co.length; i++) {
             routeQuery.addWaypoint(_co[i])
         }
+        waypoints = routeQuery.waypoints
         console.log(routeQuery.waypoints)
         routeModel.update()
     }

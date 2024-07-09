@@ -42,6 +42,7 @@ namespace Waypoint
         QVector<WaypointModelItem*> m_waypointModelItems;
         bool m_isConnected;
 
+
     public slots:
         void onNominatimRessourceResponse(ResponseType responseType, const QJsonArray& data);
     };

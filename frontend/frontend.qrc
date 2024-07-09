@@ -32,11 +32,11 @@
         <file>qml/navigation/Navigation.qml</file>
         <file>qml/map/RouteGuideMapPlugin.qml</file>
         <file>qml/map/RouteGuideMap.qml</file>
-        <file>qml/map/RouteGuideRoutingModel.qml</file>
         <file>qml/routeguide/PlanARoute/SearchBox.qml</file>
         <file>res/btn/layers_clear.svg</file>
         <file>res/btn/layers.svg</file>
         <file>res/btn/my_location.svg</file>
         <file>res/btn/free_location.svg</file>
+        <file>qml/authentification/LoginForm.ui.qml</file>
     </qresource>
 </RCC>

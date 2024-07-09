@@ -10,7 +10,7 @@
 
 #define WRONG_LOGIN true
 #define IS_COMPANY false
-#define WITH_API true
+#define WITH_API false
 
 UserModel *UserModel::m_instance = nullptr;
 
@@ -56,19 +56,22 @@ void UserModel::loginAttempt(const QVariantMap& data)
 {
     if(WITH_API)
     {
+        // Nachricht  erstellen
         QNetworkReply* response = postRequest(
             *qVariantMapToQByteArray(data),
             m_api->createRequest("/auth/login")
             );
-
+        // Verbinden von der angekommenen Nachricht
         QObject::connect(response, &QNetworkReply::finished, [=](){
             if(response->error() == QNetworkReply::NoError)
             {
-
+                // Setzen vom Token wenn Nachricht ok
                 m_api->setBearerToken(response->readAll());
-                qDebug()<< response->readAll();
+
+                // Fragen nach UserDaten
                 QNetworkReply * secondResponse = getRequest(m_api->createRequest("/users/me"));
 
+                //Verbinden der des Users mit den mit den Daten aus dem Reply
                 QObject::connect(secondResponse, &QNetworkReply::finished, this, [=]()
                                  {
                                      QByteArray jsonData = secondResponse->readAll();
@@ -79,8 +82,7 @@ void UserModel::loginAttempt(const QVariantMap& data)
                                              jsonObj["email"].toString(),
                                              jsonObj["username"].toString()
                                          };
-                                     qDebug() << jsonObj["email"];
-                                     qDebug() << jsonObj["company"];
+
                                      if(jsonObj["company"].isNull())
                                      {
                                          m_user->emailT = EMAIL_T::COMPANY;
@@ -89,7 +91,7 @@ void UserModel::loginAttempt(const QVariantMap& data)
                                      {
                                          m_user->emailT = EMAIL_T::PRIVATE;
                                      }
-                                     qDebug() << jsonObj;
+
                                      emit userChanged();
                                  });
             } else {
@@ -104,9 +106,12 @@ void UserModel::loginAttempt(const QVariantMap& data)
                 data["email"].toString(),
                 "Dummy",
             };
-        qDebug() << m_user->emailT;
         emit userChanged();
     }
+    // userChanged kommt in der QML an
+    // Wenn der user keine Daten hat gilt er als nicht eingeloggt
+    // Hat er Daten gilt er als eingeloggt
+    // bool UserModel::loggedIn() const
 }
 
 
@@ -121,6 +126,7 @@ UserModel::EMAIL_T UserModel::emailType(const QString& email)
     QRegularExpression mailREX("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b", QRegularExpression::CaseInsensitiveOption);
     QRegularExpressionMatch match = mailREX.match(email);
 
+    // Überprüfen der Richtigkeit der Email
     if (match.hasMatch()) {
         QStringList splittedString = email.split("@");
         if (splittedString.size() != 2) {

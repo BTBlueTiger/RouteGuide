@@ -38,7 +38,7 @@ namespace Waypoint{
 
     signals:
         void waypointRoutChanged();
-
+        void onWayPointModelChanged();
     public slots:
 
 

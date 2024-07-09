@@ -6,7 +6,6 @@ import QtPositioning
 import "map"
 
 import ScreenInfo
-//! [Set application window size]
 
 import ValidationTextfield
 import QtTest
@@ -19,10 +18,17 @@ ApplicationWindow {
     id: rootWindow
 
     property string userType: ""
-    property var screenInfo: ScreenInfo {}
+    property ScreenInfo screenInfo
+
+    property var waypoints : []
 
 
-    WaypointManager{ id: waypointManager }
+    property string searchWaypointModelName: "SearchWaypointModel"
+    property string potentialWaypointModelName: "PotentialWaypointModel"
+    WaypointManager{
+        id: waypointManager
+    }
+
 
     Plugin {
         id: mapPlugin
@@ -38,15 +44,20 @@ ApplicationWindow {
             //value: "http:192.168.178.23:7070/tile/%z/%x/%y.png"
         }
     }
+
+
     RouteModel {
         id: routeModel
-
         query: RouteQuery{
             id: routeQuery
         }
-        plugin: mapPlugin
 
+
+        plugin: mapPlugin
     }
+
+
+
 
 
 

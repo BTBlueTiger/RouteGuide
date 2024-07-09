@@ -11,8 +11,13 @@ find_package(Qt6 REQUIRED COMPONENTS Qml)
 
 # Erstelle das Modul/Library das später zum Hauptprojekt hinzugefügt werden soll
 
-add_library(UserModel STATIC
-    UserModel.cpp UserModel.h
+qt_add_library(UserModel STATIC)
+
+qt_add_qml_module(UserModel
+    URI UserModel
+    SOURCES
+    UserModel.cpp
+    UserModel.h
 
 )
 

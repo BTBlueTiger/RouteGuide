@@ -149,6 +149,7 @@ namespace Waypoint
         {
             coordinates.append(item->coordinate());
         }
+        qDebug() << "Calling";
         return coordinates;
     }
 

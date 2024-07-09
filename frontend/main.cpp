@@ -6,7 +6,8 @@
 
 #include "include/utility/ScreenInfo.h"
 
-#include "include/models/UserModel.h"
+
+#include "modules/Models/UserModel/UserModel.h"
 
 #include "include/models/waypoint/WaypointModel.h"
 #include "include/models/waypoint/WaypointModelItem.h"
@@ -20,6 +21,8 @@
 #include "include/connections/GeoPositionRessource.h"
 
 Q_IMPORT_QML_PLUGIN(ValidationTextfieldPlugin)
+Q_IMPORT_QML_PLUGIN(ScreenInfoPlugin)
+
 
 
 int main(int argc, char *argv[])
@@ -42,7 +45,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Routing::RoutingModel>("RoutingModel", 1, 0, "RoutingModel");
     qmlRegisterType<Routing::RoutingManager>("RoutingManager", 1, 0, "RoutingManager");
 
-    qmlRegisterType<ScreenInfo>("ScreenInfo", 1, 0, "ScreenInfo");
+    //qmlRegisterType<ScreenInfo>("ScreenInfo", 1, 0, "ScreenInfo");
 
     qmlRegisterSingletonType<GeoPositionRessource>("GeoPositionRessource", 1, 0, "GeoPositionRessource", GeoPositionRessource::createSingletonInstance);
 

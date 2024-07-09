@@ -27,6 +27,19 @@ Item {
     width : parent.width
     height: parent.height
 
+    Connections{
+        target: UserModel
+        function onUserChanged() {
+            if(UserModel.loggedIn) {
+                stackLayout.clear()
+                stackLayout.push(navigation)
+            } else {
+                stackLayout.clear()
+                stackLayout.push(login)
+            }
+        }
+    }
+
 
     StackView {
         id: stackLayout
@@ -37,10 +50,6 @@ Item {
 
         initialItem: Login {
             id: login
-            onLoggedIn: {
-                stackLayout.clear()
-                stackLayout.push(navigation)
-            }
         }
     }
 
@@ -67,7 +76,10 @@ Item {
 
 
     Component { id: navigation
-        Navigation{ }
+        Navigation{
+            mapWayPoints: waypoints
+
+        }
     }
 
     Component { id: planARoute
