@@ -18,6 +18,7 @@ namespace Waypoint
         Q_INVOKABLE void remove(int);
         Q_INVOKABLE void appendModelItem(WaypointModelItem*);
         Q_INVOKABLE WaypointModelItem* getModelItem(int index);
+        Q_INVOKABLE QVariantList getWayPointInformations() const;
         Q_INVOKABLE QList<QGeoCoordinate> getCoordinates() const;
         Q_INVOKABLE void clearCoordinates();
 

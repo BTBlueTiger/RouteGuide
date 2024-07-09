@@ -8,6 +8,7 @@
 
 
 #include "modules/Models/UserModel/UserModel.h"
+#include "modules/NetworkRessource/RouteApiRessource/RouteApiRessource.h"
 
 #include "include/models/waypoint/WaypointModel.h"
 #include "include/models/waypoint/WaypointModelItem.h"
@@ -37,6 +38,8 @@ int main(int argc, char *argv[])
 
     qmlRegisterSingletonType<UserModel>("UserModel", 1, 0, "UserModel", UserModel::createSingletonInstance);
     qmlRegisterUncreatableType<UserModel::EMAIL_T>("EMAIL_T", 1, 0, "EMAIL_T", "");
+
+    qmlRegisterType<RouteApiRessource>("RouteApiRessource", 1, 0, "RouteApiRessource");
 
     qmlRegisterType<Waypoint::WaypointModelItem>("WaypointModelItem", 1, 0, "WaypointModelItem");
     qmlRegisterType<Waypoint::WaypointModel>("WaypointModel", 1, 0, "WaypointModel");

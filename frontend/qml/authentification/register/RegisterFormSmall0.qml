@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import "../../custom_controls"
+import ValidationTextfield
 
 import UserModel
 

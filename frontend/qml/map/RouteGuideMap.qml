@@ -53,9 +53,11 @@ Map {
                     text: "New..."
                     onClicked: {
                         routeQuery.clearWaypoints()
+                        routeModel.update()
                         if(waypointManager.getWaypointModel(potentialWaypointModelName) !== null) {
                             waypointManager.getWaypointModel(potentialWaypointModelName).clearCoordinates()
                         }
+                        map.update()
                     }
                 }
                 MenuItem {

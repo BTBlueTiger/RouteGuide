@@ -3,11 +3,17 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import UserModel
 
+import ValidationTextfield
+
+import RouteApiRessource
+
 Dialog {
+
+    property RouteApiRessource routeApiRessource : RouteApiRessource {}
 
     property int fontPointSize: 24
     id: saveARouteDialog
-    height: rootWindow.height * 0.6
+    height: rootWindow.height * 0.75
     width: rootWindow.width * 0.8
     x: rootWindow.width / 2 - saveARouteDialog.width / 2
     y: rootWindow.height / 2 - saveARouteDialog.height / 2
@@ -16,7 +22,7 @@ Dialog {
     // Header
     header: Item {
         id: headerItem
-        height: saveARouteDialog.height * 0.2
+        height: saveARouteDialog.height * 0.05
         width: parent.width
             Text {
                 y: headerItem.height / 2 - height/ 2
@@ -30,50 +36,70 @@ Dialog {
     // Content
     contentItem: Item {
         width: saveARouteDialog.width
-        height: saveARouteDialog.height * 0.6
-            ColumnLayout {
-                anchors.fill: parent
-                x: saveARoute.width / 2 - width / 2
-                TextField {
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pointSize: fontPointSize
-                    id: textfieldUserName
-                    width: saveARouteDialog.width * .8
-                    placeholderText: qsTr("Route Name")
-                }
-
-                Button {
-                    font.pointSize: fontPointSize
-                    id: buttonHiker
-                    height: 70
-                    Layout.fillWidth: true
-                    text: qsTr("Hiker")
-                    property bool isClicked: false
-                    onClicked: isClicked = buttonClicked(button3, 2, isClicked)
-                }
-
-
-                Button {
-                    font.pointSize: fontPointSize
-                    id: buttonSportler
-                    height: 70
-                    width: parent.width * .8
-                    text: qsTr("Sportler")
-                    property bool isClicked: false
-                    onClicked: isClicked = buttonClicked(button3, 2, isClicked)
-                }
-
-                Button {
-                    font.pointSize: fontPointSize
-                    id: buttonTourist
-                    height: 70
-                    width: parent.width * .8
-                    text: qsTr("Tourist")
-                    property bool isClicked: false
-                    onClicked: isClicked = buttonClicked(button3, 2, isClicked)
+        height: saveARouteDialog.height * 0.8
+        ColumnLayout {
+            anchors.fill: parent
+            x: saveARoute.width / 2 - width / 2
+            ValidationTextfield{
+                horizontalAlignment: Text.AlignHCenter
+                font.pointSize: fontPointSize
+                id: textfieldRouteName
+                Layout.fillWidth: true
+                placeholderText: qsTr("Route Name")
+                errorMsg: "You have to enter a route name with more than 3 letters"
+                onTextChanged: {
+                    if(textfieldRouteName.text.length <= 3) {
+                        textfieldRouteName.state = 1;
+                    } else if(textfieldRouteName.text.length > 3) {
+                        textfieldRouteName.state = 2;
+                    } else {
+                        textfieldRouteName.state = 0
+                    }
                 }
             }
 
+            Button {
+                font.pointSize: fontPointSize
+                id: buttonHiker
+                height: 30
+                Layout.fillWidth: true
+                text: qsTr("Hiker")
+                property bool isClicked: false
+                Material.background : isClicked ? Material.primary : Material.rippleColor
+            }
+
+
+            Button {
+                font.pointSize: fontPointSize
+                id: buttonSportler
+                height: 30
+                Layout.fillWidth: true
+                text: qsTr("Sportler")
+                property bool isClicked: false
+                Material.background : isClicked ? Material.primary : Material.rippleColor
+            }
+
+            Button {
+                font.pointSize: fontPointSize
+                id: buttonTourist
+                height: 30
+                Layout.fillWidth: true
+                text: qsTr("Tourist")
+                property bool isClicked: false
+                Material.background : isClicked ? Material.primary : Material.rippleColor
+            }
+
+            Button {
+                property bool isClicked : false
+                font.pointSize: fontPointSize
+                id: buttonPrivate
+                height: 30
+                Layout.fillWidth: true
+                text: isClicked ?  qsTr("Private Route") : qsTr("Public Route")
+                Material.background : isClicked ? Material.primary : Material.rippleColor
+
+            }
+        }
     }
 
     // Footer
@@ -89,6 +115,7 @@ Dialog {
                     saveARouteDialog.accepted()
                     saveARouteDialog.close()
                 }
+                enabled: textfieldRouteName.state === 2
             }
             Button {
                 text: "Cancel"
@@ -101,8 +128,21 @@ Dialog {
     }
 
     onAccepted: {
-        console.log("Accepted: Route Name: " + routeNameField.text + ", Save Location: " + saveLocation.currentText)
-        // Add your save logic here
+
+        var waypointModel = waypointManager.getWaypointModel(potentialWaypointModelName)
+        var addresses = waypointModel.getWayPointInformations()
+        var group_id = ["1"];
+
+        routeApiRessource.createRoute
+                (
+                    {
+                    ["name"] : textfieldRouteName.text,
+                    ["adresses"] : addresses,
+                    ["group"] : group_id,
+                    ["public"] : buttonPrivate.isClicked ? "true" : "false"
+                    }
+                )
+
     }
 
     onRejected: {

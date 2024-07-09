@@ -45,6 +45,7 @@ namespace Waypoint
     {
         beginResetModel();
         WaypointModelItem* m = new WaypointModelItem(item->displayName(), item->coordinate());
+        qDebug() << item->displayName();
         beginInsertRows(QModelIndex(), rowCount(), rowCount());
         m_waypointModelItems.append(m);
         endResetModel();
@@ -149,7 +150,6 @@ namespace Waypoint
         {
             coordinates.append(item->coordinate());
         }
-        qDebug() << "Calling";
         return coordinates;
     }
 
@@ -166,6 +166,20 @@ namespace Waypoint
     void WaypointModel::clearCoordinates()
     {
         m_waypointModelItems.clear();
+    }
+
+    QVariantList WaypointModel::getWayPointInformations() const
+    {
+        QVariantList townNames;
+        for(const WaypointModelItem* item: m_waypointModelItems)
+        {
+            QVariantMap mapInfos;
+            mapInfos["town"] = item->displayName();
+            mapInfos["street"] = "";
+            mapInfos["number"] = "";
+            townNames.append(mapInfos);
+        }
+        return townNames;
     }
 
 }

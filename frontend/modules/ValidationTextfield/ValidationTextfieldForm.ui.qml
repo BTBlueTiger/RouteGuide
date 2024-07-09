@@ -28,7 +28,7 @@ TextField {
         Timer {
             id: errorMsgTooltip
             interval: 4000 // 4 sec
-            onTriggered: tooltip.visible = false
+            onTriggered: toolTip.visible = false
         }
     }
 }

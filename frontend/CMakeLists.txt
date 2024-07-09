@@ -49,8 +49,6 @@ qt_add_qml_module(RouteGuide
 
     RESOURCES
         qtquickcontrols2.conf
-
-
 )
 
 set_target_properties(RouteGuide PROPERTIES
@@ -84,6 +82,7 @@ target_link_libraries(RouteGuide PRIVATE
     AbstractRessource
     UserModel
     ScreenInfoplugin
+    RouteApiRessourceplugin
 )
 
 
