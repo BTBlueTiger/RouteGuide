@@ -3,6 +3,8 @@
 #include <QSslSocket>
 #include <QIcon>
 #include <QtQml/qqmlextensionplugin.h>
+#include <QPermissions>
+#include <QLocationPermission>
 
 #include "include/utility/ScreenInfo.h"
 
@@ -20,10 +22,28 @@
 #include "include/models/routing/GeoPostionMockResource.h"
 
 #include "include/connections/GeoPositionRessource.h"
+#include "private/qandroidextras_p.h"
+
+
 
 Q_IMPORT_QML_PLUGIN(ValidationTextfieldPlugin)
 Q_IMPORT_QML_PLUGIN(ScreenInfoPlugin)
 
+bool checkAndAcquirePermissions( )
+{
+    qDebug() << "Test";
+
+    auto r = QtAndroidPrivate::checkPermission( "ACCESS_COARSE_LOCATION" ).result();
+    if ( r == QtAndroidPrivate::Denied )
+    {
+        r = QtAndroidPrivate::requestPermission( "ACCESS_COARSE_LOCATION" ).result();
+        if ( r == QtAndroidPrivate::Denied )
+        {
+            return false;
+        }
+    }
+    return true;
+}
 
 
 int main(int argc, char *argv[])
@@ -33,7 +53,31 @@ int main(int argc, char *argv[])
     QGuiApplication::setWindowIcon(QIcon(":/res/img/logo.jpeg"));
 
     QQmlApplicationEngine engine;
+    QLocationPermission locationPermission;
+    locationPermission.setAccuracy(QLocationPermission::Approximate);
+    app.requestPermission(locationPermission, [] {});
+    QLocationPermission precise;
+    locationPermission.setAccuracy(QLocationPermission::Precise);
 
+    app.requestPermission(locationPermission, [] {});
+
+    switch (qApp->checkPermission(locationPermission)) {
+    case Qt::PermissionStatus::Undetermined:
+        qDebug() << "Untermined";
+        qApp->requestPermission(locationPermission, [] {
+
+        });
+        break;
+    case Qt::PermissionStatus::Denied:
+        qDebug() << "Denied";
+        break;
+    case Qt::PermissionStatus::Granted:
+        qDebug() << "Granted";
+    default:
+        qDebug() << "Default";
+        break;
+    }
+    qDebug() << "Test";
     qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
 
     qmlRegisterSingletonType<UserModel>("UserModel", 1, 0, "UserModel", UserModel::createSingletonInstance);

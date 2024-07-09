@@ -25,6 +25,7 @@ ApplicationWindow {
 
     property string searchWaypointModelName: "SearchWaypointModel"
     property string potentialWaypointModelName: "PotentialWaypointModel"
+
     WaypointManager{
         id: waypointManager
     }

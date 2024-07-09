@@ -95,8 +95,10 @@ Map {
         target: GeoPositionRessource
         function onCoordinateChanged () {
             if(followGPS) {
+                console.log(center)
                 lastCenter = center
                 center = GeoPositionRessource.coordinate
+                console.log(center)
             }
         }
     }

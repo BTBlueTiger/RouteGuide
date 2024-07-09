@@ -1,11 +1,14 @@
 #include "include/connections/GeoPositionRessource.h"
 #include "include/models/routing/GeoPostionMockResource.h"
-
+#include "qpermissions.h"
+#include <QtCore/private/qandroidextras_p.h>
 
 GeoPositionRessource *GeoPositionRessource::m_instance = nullptr;
 
 GeoPositionRessource::GeoPositionRessource(QObject* parent) : QObject(parent)
 {
+
+
     m_source = QGeoPositionInfoSource::createDefaultSource(0);
     if (m_source)
     {

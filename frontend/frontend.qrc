@@ -40,5 +40,6 @@
         <file>qml/authentification/LoginForm.ui.qml</file>
         <file>res/btn/menu.svg</file>
         <file>qml/map/SaveARoute.qml</file>
+        <file>qml/navigation/NaviLocationPermission.qml</file>
     </qresource>
 </RCC>

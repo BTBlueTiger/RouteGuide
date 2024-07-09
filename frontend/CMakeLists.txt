@@ -57,15 +57,8 @@ set_target_properties(RouteGuide PROPERTIES
 )
 
 if (ANDROID)
-    set(QT_FORCE_BUILD_TOOLS=ON)
-    include(FetchContent)
-    FetchContent_Declare(
-        android_openssl
-        DOWNLOAD_EXTRACT_TIMESTAMP true
-        URL https://github.com/KDAB/android_openssl/archive/refs/heads/master.zip
-    )
-    FetchContent_MakeAvailable(android_openssl)
-    include(${android_openssl_SOURCE_DIR}/android_openssl.cmake)
+    include(./lib/android_openssl/android_openssl.cmake)
+    add_android_openssl_libraries(RouteGuide)
 endif()
 
 target_link_libraries(RouteGuide PRIVATE
@@ -87,7 +80,7 @@ target_link_libraries(RouteGuide PRIVATE
     AbstractRessource
     UserModel
     ScreenInfoplugin
-    RouteApiRessourceplugin
+    RouteApiRessource
 )
 
 
