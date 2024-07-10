@@ -10,5 +10,6 @@ public interface RouteService {
     public Route createRoute(String username, Route route);
     public List<Route> getRoutesByUser(String authorizationToken);
     public List<Route> getPublicRoutes(Long group);
+    public List<Route> getPublicRoutes();
 
 }

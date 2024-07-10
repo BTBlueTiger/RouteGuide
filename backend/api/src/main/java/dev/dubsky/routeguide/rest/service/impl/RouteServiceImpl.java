@@ -86,4 +86,10 @@ public class RouteServiceImpl implements RouteService {
         AdvLogger.output(Color.GREEN, "Found " + routes.size() + " public routes for group: " + group);
         return routes;
     }
+
+    public List<Route> getPublicRoutes() {
+        List<Route> routes = routeRepository.getPublicRoutes();
+        AdvLogger.output(Color.GREEN, "Found " + routes.size() + " public routes");
+        return routes;
+    }
 }
