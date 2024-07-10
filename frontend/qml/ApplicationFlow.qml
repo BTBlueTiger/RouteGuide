@@ -9,6 +9,7 @@ import "routeguide"
 import "routeguide/PlanARoute"
 import "navigation"
 import "profil"
+import "group"
 
 import UserModel
 
@@ -28,6 +29,8 @@ Item {
     width : parent.width
     height: parent.height
 
+    // Will control if a User is logged in or not
+    // only logged in user can "use" the app
     Connections{
         target: UserModel
         function onUserChanged() {
@@ -42,6 +45,7 @@ Item {
     }
 
 
+    // Our Main View
     StackView {
         id: stackLayout
         anchors.top: parent.top
@@ -54,6 +58,7 @@ Item {
         }
     }
 
+    // Register Component
     Component {
         id: register
         Page {
@@ -62,6 +67,9 @@ Item {
                 property string registerState: ""
                 id: registerLoader
                 anchors.fill: parent
+                // Big and small screen
+                // Issues with image forced to this solution
+                // Never doing such thing again !
                 source: {
                     if(bigscreen){
                         return "./authentification/register/RegisterFormBig.qml"
@@ -76,13 +84,14 @@ Item {
     }
 
 
+    // Is like our Map
     Component { id: navigation
         Navigation{
             mapWayPoints: waypoints
-
         }
     }
 
+    // Plan a Route is like the creating Component
     Component { id: planARoute
 
         PlanARoute{
@@ -102,7 +111,16 @@ Item {
         }
     }
 
+    // Its our Community or Company Routes
+    Component {
+        id: savedRoutes
+        SavedRoutes{
 
+        }
+    }
+
+
+    // Only nessacary at the beginning for switching to register and back
 
     ToolBar{
         id: toolbar
@@ -123,7 +141,14 @@ Item {
             }
         }
     }
+
+    // Our Bottom Navigation, here we switch between the main Task of the app
+    // We decide if there is text like "Map" at the bottom by the size of the screen
+    // Directories to bottom tab choice
+    // Map          , Plan A Route  , Community/Company , profil
+    // navigation   , routeguide    , Group             , profil
     TabBar {
+
             id: bottomNavBar
             width: parent.width // Adjust the width as needed
             height: tabbarHeight // Height of the bottom navigation bar
@@ -168,7 +193,8 @@ Item {
                 }
 
                 onClicked: {
-
+                    stackLayout.clear()
+                    stackLayout.push(savedRoutes)
                 }
             }
 

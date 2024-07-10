@@ -43,5 +43,8 @@
         <file>qml/navigation/NaviLocationPermission.qml</file>
         <file>qml/profil/UserProfil.qml</file>
         <file>qml/profil/UserProfilForm.ui.qml</file>
+        <file>qml/group/SavedRoutesForm.ui.qml</file>
+        <file>qml/group/SavedRoutes.qml</file>
+        <file>qml/group/SavedRoutesFlickableForm.ui.qml</file>
     </qresource>
 </RCC>
