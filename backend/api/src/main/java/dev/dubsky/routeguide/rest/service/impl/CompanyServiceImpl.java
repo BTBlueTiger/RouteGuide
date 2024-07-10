@@ -7,7 +7,6 @@ import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.persistence.CompanyRepository;
 import dev.dubsky.routeguide.rest.service.CompanyService;
 import dev.dubsky.routeguide.rest.service.UserService;
-import dev.dubsky.routeguide.rest.utility.CLog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

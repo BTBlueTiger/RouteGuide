@@ -5,7 +5,6 @@ import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.jwt.JwtTokenUtil;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.UserService;
-import dev.dubsky.routeguide.rest.utility.CLog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

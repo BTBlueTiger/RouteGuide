@@ -5,9 +5,10 @@ import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.jwt.JwtTokenUtil;
 import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.model.User;
+import dev.dubsky.routeguide.rest.model.UserGroup;
+import dev.dubsky.routeguide.rest.persistence.UserGroupRepository;
 import dev.dubsky.routeguide.rest.persistence.UserRepository;
 import dev.dubsky.routeguide.rest.service.UserService;
-import dev.dubsky.routeguide.rest.utility.CLog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserGroupRepository userGroupRepository;
 
     @Autowired
     private CompanyServiceImpl companyService;
@@ -95,5 +99,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findByCompany(Long companyId) {
         return userRepository.findByCompanyId(companyId).orElse(null);
+    }
+
+    @Override
+    public UserGroup findGroupByUser(User user) {
+        AdvLogger.output(Color.GREEN, "Finding group for user: " + user.getUsername());
+        UserGroup group = userGroupRepository.findByUser(user);
+        AdvLogger.output(Color.GREEN, "Group found: " + group.getGroup().getName());
+        return userGroupRepository.findByUser(user);
     }
 }

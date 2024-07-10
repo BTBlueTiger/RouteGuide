@@ -39,6 +39,7 @@ public class JwtTokenUtil {
         return claimsResolver.apply(claims);
     }
 
+    @SuppressWarnings("deprecation")
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
                 .setSigningKey(getSigningKey())
