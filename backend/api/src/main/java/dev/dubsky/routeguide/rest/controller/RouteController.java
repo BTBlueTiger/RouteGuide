@@ -27,8 +27,8 @@ public class RouteController {
     @PostMapping("/create")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createRoute(@RequestHeader("Authorization") String authorizationToken, @RequestBody Route route) {
-        AdvLogger.output(Color.GREEN, "Creating route for token: " + authorizationToken);
-        AdvLogger.output(Color.GREEN, "Route: " + "User: " + userService.getCurrentUser(authorizationToken).getUsername());
+        AdvLogger.output(Color.GREEN, "[ROUTES] Creating route for token: " + authorizationToken);
+        AdvLogger.output(Color.GREEN, "[ROUTES] Route: " + "User: " + userService.getCurrentUser(authorizationToken).getUsername());
         Route newRoute = routeService.createRoute(authorizationToken, route);
         if (newRoute == null) {
             return ResponseEntity.badRequest().body("Route creation failed");
@@ -40,13 +40,13 @@ public class RouteController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getRoutes(@RequestHeader("Authorization") String authorizationToken) {
         AdvLogger.output(Color.GREEN, authorizationToken);
-        AdvLogger.output(Color.GREEN, "Getting routes for token: " + authorizationToken);
-        AdvLogger.output(Color.GREEN, "User: " + userService.getCurrentUser(authorizationToken).getUsername());
+        AdvLogger.output(Color.GREEN, "[ROUTES] Getting routes for token: " + authorizationToken);
+        AdvLogger.output(Color.GREEN, "[ROUTES] User: " + userService.getCurrentUser(authorizationToken).getUsername());
         List<Route> routes = routeService.getRoutesByUser(authorizationToken);
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found");
         }
-        return ResponseEntity.ok(routeService.getRoutesByUser(authorizationToken));
+        return ResponseEntity.ok(routes);
     }
 
     @GetMapping("/get_routes/{group_id}")
@@ -58,7 +58,7 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found for group: " + group_id);
         }
-        return ResponseEntity.ok(routeService.getPublicRoutes(group_id));
+        return ResponseEntity.ok(routes);
     }
 
     @GetMapping("/get_routes")
@@ -70,7 +70,7 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found");
         }
-        return ResponseEntity.ok(routeService.getPublicRoutes());
+        return ResponseEntity.ok(routes);
     }
 
     @GetMapping("/get_routes_auto")
@@ -84,6 +84,6 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found for group: " + group.getName());
         }
-        return ResponseEntity.ok(routeService.getPublicRoutes(Long.valueOf(group.getId())));
+        return ResponseEntity.ok(routes);
     }
 }

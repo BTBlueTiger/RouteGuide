@@ -78,18 +78,20 @@ public class RouteServiceImpl implements RouteService {
 
     public List<Route> getRoutesByUser(String authorizationToken) {
         User user = userService.getCurrentUser(authorizationToken);
-        return routeRepository.findByUserId(user.getId());
+        List<Route> routes = routeRepository.findByUserId(user.getId());
+        AdvLogger.output(Color.GREEN, "[ROUTES] Found " + routes.size() + " routes for user: " + user.getUsername());
+        return routes;
     }
 
     public List<Route> getPublicRoutes(Long group) {
         List<Route> routes = routeRepository.getPublicRoutesByGroup(group);
-        AdvLogger.output(Color.GREEN, "Found " + routes.size() + " public routes for group: " + group);
+        AdvLogger.output(Color.GREEN, "[ROUTES] Found " + routes.size() + " public routes for group: " + group);
         return routes;
     }
 
     public List<Route> getPublicRoutes() {
         List<Route> routes = routeRepository.getPublicRoutes();
-        AdvLogger.output(Color.GREEN, "Found " + routes.size() + " public routes");
+        AdvLogger.output(Color.GREEN, "[ROUTES] Found " + routes.size() + " public routes");
         return routes;
     }
 }
