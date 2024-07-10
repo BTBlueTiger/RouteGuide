@@ -3,7 +3,7 @@
 
 ### Version & Build Info
 
-![](https://img.shields.io/badge/Current%20Version-1.6-green?style=for-the-badge&logo=git)
+![](https://img.shields.io/badge/Current%20Version-1.6.2-green?style=for-the-badge&logo=git)
 
 ![TeamCity build status](http://94.16.31.72:8111/app/rest/builds/buildType:id:RouteGuide_BuildApi,branch:name:dev/statusIcon.svg)
 

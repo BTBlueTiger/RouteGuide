@@ -44,7 +44,7 @@ public class RouteServiceImpl implements RouteService {
     public Route createRoute(String authorizationToken, Route route) {
         User user = userService.getCurrentUser(authorizationToken);
         route.setUser(user);
-        route.setGroup(userService.findGroupByUser(user).getGroup());
+        route.setGroup(user.getGroup());
 
         GeoApiContext context = getGeoApiContext();
 

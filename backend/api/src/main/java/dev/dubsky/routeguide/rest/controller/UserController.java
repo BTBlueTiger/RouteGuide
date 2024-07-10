@@ -30,7 +30,7 @@ public class UserController {
     @PreAuthorize("hasRole('USER')")
     public Group getGroup(@RequestHeader("Authorization") String token) {
         AdvLogger.output(Color.GREEN, "Getting group for user: " + userService.getCurrentUser(token).getUsername());
-        return userService.findGroupByUser(userService.getCurrentUser(token)).getGroup();
+        return userService.getCurrentUser(token).getGroup();
     }
 
     @PutMapping("/me/setEmail")
