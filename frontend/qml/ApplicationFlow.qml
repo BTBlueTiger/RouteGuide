@@ -8,6 +8,7 @@ import "authentification/register"
 import "routeguide"
 import "routeguide/PlanARoute"
 import "navigation"
+import "profil"
 
 import UserModel
 
@@ -94,6 +95,13 @@ Item {
         }
     }
 
+    Component {
+        id: userProfil
+        UserProfil {
+
+        }
+    }
+
 
 
     ToolBar{
@@ -169,7 +177,8 @@ Item {
                 text: bigscreen ? "Profile" : ""
                 icon.source: "/res/btn/profile.svg"
                 onClicked: {
-
+                    stackLayout.clear()
+                    stackLayout.push(userProfil)
                 }
             }
 

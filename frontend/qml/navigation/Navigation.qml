@@ -32,12 +32,6 @@ Rectangle {
     }
 
 
-    NaviLocationPermission{
-        id: locationPermission
-    }
-    Component.onCompleted: {
-        locationPermission.open()
-    }
 
     Connections{
         target: GeoPositionRessource

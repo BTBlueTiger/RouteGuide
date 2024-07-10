@@ -19,6 +19,8 @@ public:
      */
     Q_INVOKABLE bool createRoute(const QVariantMap&);
 
+
+
 };
 
 #endif // ROUTERESSOURCE_H

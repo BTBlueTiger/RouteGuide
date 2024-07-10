@@ -1,7 +1,6 @@
 #include "include/connections/GeoPositionRessource.h"
 #include "include/models/routing/GeoPostionMockResource.h"
 #include "qpermissions.h"
-#include <QtCore/private/qandroidextras_p.h>
 
 GeoPositionRessource *GeoPositionRessource::m_instance = nullptr;
 

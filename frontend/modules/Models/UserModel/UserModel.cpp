@@ -39,7 +39,27 @@ QObject* UserModel::createSingletonInstance(QQmlEngine *engine, QJSEngine *scrip
 
 QString UserModel::user() const
 {
-    return m_user ? m_user->email : QString();
+    return m_user ? m_user->userName : QString();
+}
+
+QString UserModel::group() const
+{
+    if(m_user.has_value())
+    {
+        switch (m_user.value().gr) {
+        case HIKER:
+            return "Hiker";
+        case SPORTLER:
+            return "Sportler";
+        case TOURIST:
+            return "Tourist";
+        case P_COMPANY:
+            return "Company";
+        default:
+            return "Error";
+        }
+    }
+    return QString();
 }
 
 bool UserModel::loggedIn() const
@@ -92,6 +112,7 @@ void UserModel::loginAttempt(const QVariantMap& data)
                                          m_user->emailT = EMAIL_T::PRIVATE;
                                      }
 
+
                                      emit userChanged();
                                  });
             } else {
@@ -105,6 +126,8 @@ void UserModel::loginAttempt(const QVariantMap& data)
             {
                 data["email"].toString(),
                 "Dummy",
+                PRIVATE,
+                SPORTLER
             };
         emit userChanged();
     }
@@ -138,8 +161,9 @@ UserModel::EMAIL_T UserModel::emailType(const QString& email)
             return EMAIL_T::ERROR;
         }
 
+
         QVector<QString>::const_iterator it = std::find(m_companyMailAdresses.cbegin(), m_companyMailAdresses.cend(), endPart[0]);
-        return it != m_companyMailAdresses.cend() ? EMAIL_T::COMPANY : EMAIL_T::PRIVATE;
+        return it != m_companyMailAdresses.cend() ? EMAIL_T::PRIVATE : EMAIL_T::COMPANY ;
     }
     return EMAIL_T::ERROR;
 }
@@ -201,3 +225,5 @@ void UserModel::setEmail_t(int type)
     m_email_t = type;
     emit email_tChanged(m_email_t);
 }
+
+

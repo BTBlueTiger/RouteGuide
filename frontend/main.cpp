@@ -22,28 +22,11 @@
 #include "include/models/routing/GeoPostionMockResource.h"
 
 #include "include/connections/GeoPositionRessource.h"
-#include "private/qandroidextras_p.h"
 
 
 
 Q_IMPORT_QML_PLUGIN(ValidationTextfieldPlugin)
 Q_IMPORT_QML_PLUGIN(ScreenInfoPlugin)
-
-bool checkAndAcquirePermissions( )
-{
-    qDebug() << "Test";
-
-    auto r = QtAndroidPrivate::checkPermission( "ACCESS_COARSE_LOCATION" ).result();
-    if ( r == QtAndroidPrivate::Denied )
-    {
-        r = QtAndroidPrivate::requestPermission( "ACCESS_COARSE_LOCATION" ).result();
-        if ( r == QtAndroidPrivate::Denied )
-        {
-            return false;
-        }
-    }
-    return true;
-}
 
 
 int main(int argc, char *argv[])

@@ -10,6 +10,7 @@
 class UserModel : public AbstractRessource {
     Q_OBJECT
     Q_PROPERTY(QString user READ user NOTIFY userChanged)
+    Q_PROPERTY(QString group READ group NOTIFY groupChanged)
     Q_PROPERTY(bool loggedIn READ loggedIn NOTIFY userChanged)
     Q_PROPERTY(bool registerSuccess READ registerSuccess NOTIFY registerSuccessChanged)
 
@@ -31,14 +32,18 @@ public:
     enum PREMIUM_GROUPS {
         HIKER,
         SPORTLER,
-        TOURIST
+        TOURIST,
+        P_COMPANY
     };
     Q_ENUM(PREMIUM_GROUPS)
+
+
 
     explicit UserModel(QObject *parent = nullptr);
     static QObject* createSingletonInstance(QQmlEngine *engine,  QJSEngine *scriptEngine);
 
     QString user() const;
+    QString group() const;
     bool loggedIn() const;
     bool registerSuccess() const;
     int email_t() const;
@@ -55,11 +60,13 @@ public:
     Q_INVOKABLE void changePremiumGroup(int group);
 
 private:
-    static UserModel *m_instance;
     struct User{
         QString email, userName;
         EMAIL_T emailT;
+        PREMIUM_GROUPS gr;
     };
+    static UserModel *m_instance;
+
 
     QVector<int> premiumGroups;;
     QString m_loginPath, m_logoutPath;
@@ -74,6 +81,7 @@ private:
 
 signals:
     void userChanged();
+    void groupChanged();
     void registerSuccessChanged();
     void premiumGroupsChanged(QVector<int>);
     void email_tChanged(int);

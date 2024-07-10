@@ -41,5 +41,7 @@
         <file>res/btn/menu.svg</file>
         <file>qml/map/SaveARoute.qml</file>
         <file>qml/navigation/NaviLocationPermission.qml</file>
+        <file>qml/profil/UserProfil.qml</file>
+        <file>qml/profil/UserProfilForm.ui.qml</file>
     </qresource>
 </RCC>

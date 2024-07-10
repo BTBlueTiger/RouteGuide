@@ -34,7 +34,6 @@ bool RouteApiRessource::createRoute(const QVariantMap& data)
         QObject::connect(response, &QNetworkReply::finished, [=](){
             if(response->error() == QNetworkReply::NoError)
             {
-
                 return true;
             }
             else
