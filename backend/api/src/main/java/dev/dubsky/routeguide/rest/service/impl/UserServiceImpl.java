@@ -51,6 +51,17 @@ public class UserServiceImpl implements UserService {
     }
 
     public User create(User user) {
+
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            AdvLogger.output(Color.RED, "Username already exists: " + user.getUsername());
+            return null;
+        }
+
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            AdvLogger.output(Color.RED, "Email already exists: " + user.getEmail());
+            return null;
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreation(java.time.Instant.now());
         if (user.getRole() == null) {

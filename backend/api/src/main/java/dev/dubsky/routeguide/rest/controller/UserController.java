@@ -3,10 +3,10 @@ package dev.dubsky.routeguide.rest.controller;
 import dev.dubsky.advancedlog.AdvLogger;
 import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.dto.UserDTO;
-import dev.dubsky.routeguide.rest.model.Group;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,28 +25,34 @@ public class UserController {
     public UserDTO getCurrentUser(@RequestHeader("Authorization") String token) {
         return new UserDTO(userService.getCurrentUser(token));
     }
-    
+
     @GetMapping("/me/get_group")
     @PreAuthorize("hasRole('USER')")
-    public Group getGroup(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<?> getGroup(@RequestHeader("Authorization") String token) {
         AdvLogger.output(Color.GREEN, "Getting group for user: " + userService.getCurrentUser(token).getUsername());
-        return userService.getCurrentUser(token).getGroup();
+        if (userService.getCurrentUser(token).getGroup() == null) {
+            return ResponseEntity.badRequest().body("No group found");
+        }
+        return ResponseEntity.ok(userService.getCurrentUser(token).getGroup());
     }
 
     @PutMapping("/me/setEmail")
     @PreAuthorize("hasRole('USER')")
-    public UserDTO setEmail(@RequestHeader("Authorization") String token, @RequestBody String email) {
+    public ResponseEntity<?> setEmail(@RequestHeader("Authorization") String token, @RequestBody String email) {
         User user = userService.getCurrentUser(token);
         user.setEmail(email);
-        return new UserDTO(userService.saveMail(user));
+        if (userService.saveMail(user) == null) {
+            return ResponseEntity.badRequest().body("Email update failed");
+        }
+        return ResponseEntity.ok(userService.saveMail(user));
     }
 
     @PutMapping("/me/setPassword")
     @PreAuthorize("hasRole('USER')")
-    public UserDTO setPassword(@RequestHeader("Authorization") String token, @RequestBody String password) {
+    public ResponseEntity<?> setPassword(@RequestHeader("Authorization") String token, @RequestBody String password) {
         User user = userService.getCurrentUser(token);
         user.setPassword(password);
-        return new UserDTO(userService.save(user));
+        return ResponseEntity.ok(userService.save(user));
     }
 
     @GetMapping("/{id}")
