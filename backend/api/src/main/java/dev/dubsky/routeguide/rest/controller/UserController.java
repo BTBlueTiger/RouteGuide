@@ -1,6 +1,9 @@
 package dev.dubsky.routeguide.rest.controller;
 
+import dev.dubsky.advancedlog.AdvLogger;
+import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.dto.UserDTO;
+import dev.dubsky.routeguide.rest.model.Group;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +25,20 @@ public class UserController {
     public UserDTO getCurrentUser(@RequestHeader("Authorization") String token) {
         return new UserDTO(userService.getCurrentUser(token));
     }
+    
+    @GetMapping("/me/get_group")
+    @PreAuthorize("hasRole('USER')")
+    public Group getGroup(@RequestHeader("Authorization") String token) {
+        AdvLogger.output(Color.GREEN, "Getting group for user: " + userService.getCurrentUser(token).getUsername());
+        return userService.findGroupByUser(userService.getCurrentUser(token)).getGroup();
+    }
 
     @PutMapping("/me/setEmail")
     @PreAuthorize("hasRole('USER')")
     public UserDTO setEmail(@RequestHeader("Authorization") String token, @RequestBody String email) {
         User user = userService.getCurrentUser(token);
         user.setEmail(email);
-        return new UserDTO(userService.save(user));
+        return new UserDTO(userService.saveMail(user));
     }
 
     @PutMapping("/me/setPassword")

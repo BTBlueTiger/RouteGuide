@@ -1,11 +1,14 @@
 package dev.dubsky.routeguide.rest.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Getter
 @Setter
@@ -32,4 +35,12 @@ public class Route {
 
     @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses;
+
+    @Column(name = "public", nullable = false)
+    private boolean isPublic;
+
+    @Nullable
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "group_id")
+    private Group group;
 }

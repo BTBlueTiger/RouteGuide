@@ -1,13 +1,17 @@
 package dev.dubsky.routeguide.rest.controller;
 
+import dev.dubsky.advancedlog.AdvLogger;
+import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.dto.UserDTO;
 import dev.dubsky.routeguide.rest.model.Company;
+import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.CompanyService;
-import lombok.Getter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +27,7 @@ public class CompanyController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public Company getCompany(@PathVariable Long id) {
-        return companyService.getCompany();
+        return companyService.getCompanyById(id);
     }
 
     @GetMapping("/all")
@@ -32,10 +36,17 @@ public class CompanyController {
         return companyService.getAllCompanies();
     }
 
-//    @GetMapping("/getUsers")
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public List<UserDTO> getUsers() {
-//        return companyService.getUsers();
-//    }
+    @GetMapping("/get_owner/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public User getOwner(@PathVariable Long id) {
+        AdvLogger.output(Color.GREEN, "Getting owner for company: " + companyService.getCompanyById(id).getName());
+        return companyService.getCompanyById(id).getOwner();
+    }
+
+    @GetMapping("/get_users")
+    @PreAuthorize("hasRole('USER')")
+    public List<UserDTO> getUsers(@RequestHeader("Authorization") String token) {
+        return companyService.getUsers(token);
+    }
 
 }

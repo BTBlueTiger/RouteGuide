@@ -1,6 +1,5 @@
 package dev.dubsky.routeguide.rest.jwt;
 
-import dev.dubsky.routeguide.rest.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -40,6 +39,7 @@ public class JwtTokenUtil {
         return claimsResolver.apply(claims);
     }
 
+    @SuppressWarnings("deprecation")
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
                 .setSigningKey(getSigningKey())

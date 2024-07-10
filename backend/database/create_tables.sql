@@ -17,7 +17,8 @@ create table companies
     name        varchar not null
         constraint companies_pk_2
             unique,
-    mail_ending varchar
+    mail_ending varchar,
+    owner_id    integer not null
 );
 
 alter table companies
@@ -41,6 +42,10 @@ create table "user"
 alter table "user"
     owner to admin;
 
+alter table companies
+    add constraint companies_user_user_id_fk
+        foreign key (owner_id) references "user";
+
 create table user_group
 (
     user_id  integer not null
@@ -61,10 +66,14 @@ create table routes
     routes_id serial
         constraint routes_pk
             primary key,
-    user_id   integer not null
+    user_id   integer               not null
         constraint routes_user_user_id_fk
             references "user",
-    name      varchar
+    name      varchar,
+    public    boolean default false not null,
+    group_id  integer
+        constraint routes_group_group_id_fk
+            references "group"
 );
 
 alter table routes
