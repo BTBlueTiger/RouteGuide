@@ -8,9 +8,11 @@ import dev.dubsky.advancedlog.AdvLogger;
 import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.config.EnvReader;
 import dev.dubsky.routeguide.rest.model.Address;
+import dev.dubsky.routeguide.rest.model.Group;
 import dev.dubsky.routeguide.rest.model.Route;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.persistence.AddressRepository;
+import dev.dubsky.routeguide.rest.persistence.GroupRepository;
 import dev.dubsky.routeguide.rest.persistence.RouteRepository;
 import dev.dubsky.routeguide.rest.service.RouteService;
 
@@ -42,6 +44,7 @@ public class RouteServiceImpl implements RouteService {
     public Route createRoute(String authorizationToken, Route route) {
         User user = userService.getCurrentUser(authorizationToken);
         route.setUser(user);
+        route.setGroup(userService.findGroupByUser(user).getGroup());
 
         GeoApiContext context = getGeoApiContext();
 
@@ -76,5 +79,11 @@ public class RouteServiceImpl implements RouteService {
     public List<Route> getRoutesByUser(String authorizationToken) {
         User user = userService.getCurrentUser(authorizationToken);
         return routeRepository.findByUserId(user.getId());
+    }
+
+    public List<Route> getPublicRoutes(Long group) {
+        List<Route> routes = routeRepository.getPublicRoutesByGroup(group);
+        AdvLogger.output(Color.GREEN, "Found " + routes.size() + " public routes for group: " + group);
+        return routes;
     }
 }

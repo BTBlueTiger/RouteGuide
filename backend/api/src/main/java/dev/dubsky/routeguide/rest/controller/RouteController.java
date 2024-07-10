@@ -2,6 +2,7 @@ package dev.dubsky.routeguide.rest.controller;
 
 import dev.dubsky.advancedlog.AdvLogger;
 import dev.dubsky.advancedlog.Color;
+import dev.dubsky.routeguide.rest.model.Group;
 import dev.dubsky.routeguide.rest.model.Route;
 import dev.dubsky.routeguide.rest.service.impl.RouteServiceImpl;
 import dev.dubsky.routeguide.rest.service.impl.UserServiceImpl;
@@ -37,5 +38,13 @@ public class RouteController {
         AdvLogger.output(Color.GREEN, "Getting routes for token: " + authorizationToken);
         AdvLogger.output(Color.GREEN, "User: " + userService.getCurrentUser(authorizationToken).getUsername());
         return routeService.getRoutesByUser(authorizationToken);
+    }
+
+    @GetMapping("/get_routes/{group_id}")
+    @PreAuthorize("hasRole('USER')")
+    public List<Route> getPublicRoutes(@RequestHeader("Authorization") String authorizationToken, @PathVariable Long group_id) {
+        AdvLogger.output(Color.GREEN, "[ROUTES] getPublicRoutes for token: " + authorizationToken);
+        AdvLogger.output(Color.GREEN, "[ROUTES] Target group: " + group_id);
+        return routeService.getPublicRoutes(group_id);
     }
 }
