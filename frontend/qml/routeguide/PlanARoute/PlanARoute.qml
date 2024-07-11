@@ -42,8 +42,6 @@ Item {
         id: rectangle
         anchors.fill: parent
 
-
-
             Rectangle {
                 anchors.fill: parent
                 z: 1
@@ -81,9 +79,6 @@ Item {
                         }
                     }
                 }
-
-
-
 
             Rectangle {
                 id: swipeViewRoot

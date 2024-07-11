@@ -93,7 +93,6 @@ Flickable {
 
                             text:  littlePreviewMap.visible ? model.displayName.split(",").join("\n") : index + 1 + ". " +model.displayName
 
-
                             width: textRect.width
                             color: "black"
                             wrapMode: Text.Wrap

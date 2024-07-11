@@ -80,7 +80,7 @@ DefaultMap {
         onClicked: map.followGPS = !map.followGPS
     }
     property real azimuth : 0
-    property bool followGPS: true
+    property bool followGPS: false
     property var lastCenter: QtPositioning.coordinate(52.2125431, 8.7179206)
 
     Connections{
@@ -124,6 +124,7 @@ DefaultMap {
 
     // Start Marker
     MapQuickItem {
+        visible: followGPS ? true: false
         id: marker
         sourceItem: Image{
             source: "/res/btn/navigation.svg"

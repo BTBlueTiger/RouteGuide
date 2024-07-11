@@ -35,6 +35,9 @@ ApplicationWindow {
     // Global default RouteModel
     // Will display manage to display the "blue" route
     DefaultRouteModel { id: defaultRouteModel }
+    // Global Map
+    //RouteGuideMap { id: defaultMap }
+
 
     visible: true
     width: Qt.platform.os === "android" ? screenInfo.screenResolution().width : 1280

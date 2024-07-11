@@ -29,7 +29,6 @@
         <file>qml/routeguide/PlanARoute/WaypointFlickable.qml</file>
         <file>res/btn/button_unchecked.svg</file>
         <file>res/btn/button_checked.svg</file>
-        <file>qml/navigation/Navigation.qml</file>
         <file>qml/map/RouteGuideMapPlugin.qml</file>
         <file>qml/map/RouteGuideMap.qml</file>
         <file>qml/routeguide/PlanARoute/SearchBox.qml</file>
@@ -52,5 +51,6 @@
         <file>qml/map/DefaultMap.qml</file>
         <file>qml/map/DefaultMapPlugin.qml</file>
         <file>qml/navigation/DefaultRouteModel.qml</file>
+        <file>qml/navigation/Navigation.qml</file>
     </qresource>
 </RCC>
