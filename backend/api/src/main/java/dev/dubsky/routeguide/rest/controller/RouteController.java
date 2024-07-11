@@ -95,6 +95,8 @@ public class RouteController {
         AdvLogger.output(Color.GREEN, "[ROUTES] Creating company route for token: " + authorizationToken);
         if (routeService.getCompanyRouteByName(route.getName()) != null) {
             return ResponseEntity.badRequest().body("Route with name: " + route.getName() + " already exists");
+        } else if (route.getAddresses().isEmpty()) {
+            return ResponseEntity.badRequest().body("Route must have at least one address");
         }
         RouteCompany newRoute = routeService.createCompanyRoute(authorizationToken, route);
         if (newRoute == null) {
