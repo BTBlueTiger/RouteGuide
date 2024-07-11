@@ -91,7 +91,7 @@ Flickable {
                             anchors.centerIn: parent
                             id: displayNameLabel
 
-                            text:  map.visible ? model.displayName.split(",").join("\n") : index + 1 + ". " +model.displayName
+                            text:  littlePreviewMap.visible ? model.displayName.split(",").join("\n") : index + 1 + ". " +model.displayName
 
 
                             width: textRect.width
@@ -112,6 +112,21 @@ Flickable {
                     width: waypointFlickable.width * .6
                     height: parent.height
                     radius: 20
+                    DefaultMap {
+                        id: littlePreviewMap
+                        center: model.coordinate
+                        MapQuickItem{
+                            sourceItem: Image {
+                                source: "/res/btn/place.svg"
+                            }
+                            coordinate: model.coordinate
+                            anchorPoint.x: sourceItem.width / 2
+                            anchorPoint.y: sourceItem.height
+                        }
+                    }
+                }
+
+                    /*
                     Map {
                         id: map
                         zoomLevel: 20
@@ -144,6 +159,7 @@ Flickable {
                         }
                     }
                 }
+                */
 
                 RoundButton {
                     id: btnRound

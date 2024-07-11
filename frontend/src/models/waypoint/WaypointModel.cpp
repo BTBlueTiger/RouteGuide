@@ -40,7 +40,6 @@ namespace Waypoint
         }
     }
 
-
     void Waypoint::WaypointModel::appendModelItem(WaypointModelItem* item)
     {
         beginResetModel();

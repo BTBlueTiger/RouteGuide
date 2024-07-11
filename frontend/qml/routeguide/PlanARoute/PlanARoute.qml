@@ -23,22 +23,13 @@ Item {
 
         routeQuery.clearWaypoints()
         if(fromCurrentPostion){
-            routeQuery.addWaypoint(QtPositioning.coordinate(
-                                       GeoPositionRessource.coordinate.latitude,
-                                       GeoPositionRessource.coordinate.longitude
-                                       ))
-
-
+            routeQuery.addWaypoint(
+                QtPositioning.coordinate(
+                            GeoPositionRessource.coordinate.latitude,
+                            GeoPositionRessource.coordinate.longitude
+                            ))
         }
-        var _co = potentialWaypointModel.coordinates
         routeQuery.waypoints = potentialWaypointModel.coordinates
-        /*
-        for(var i = 0; i < _co.length; i++) {
-            routeQuery.addWaypoint(_co[i])
-        }
-        waypoints = routeQuery.waypoints
-        console.log(routeQuery.waypoints)
-        */
         routeModel.update()
     }
 

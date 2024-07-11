@@ -86,9 +86,7 @@ Item {
 
     // Is like our Map
     Component { id: navigation
-        Navigation{
-            mapWayPoints: waypoints
-        }
+        Navigation {}
     }
 
     // Plan a Route is like the creating Component

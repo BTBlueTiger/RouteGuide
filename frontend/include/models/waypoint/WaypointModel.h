@@ -46,6 +46,8 @@ namespace Waypoint
          */
         QVariantList coordinates() const;
 
+        void setWayPointInformations();
+
         bool isConnectedToLocationRessource() const;
         void setIsConnectedToLocationRessource();
 

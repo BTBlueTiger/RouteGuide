@@ -49,5 +49,8 @@
         <file>qml/group/SavedRoutesFlickable.qml</file>
         <file>qml/navigation/MarkerRepeater.qml</file>
         <file>qml/navigation/BlueRoute.qml</file>
+        <file>qml/map/DefaultMap.qml</file>
+        <file>qml/map/DefaultMapPlugin.qml</file>
+        <file>qml/navigation/DefaultRouteModel.qml</file>
     </qresource>
 </RCC>
