@@ -55,7 +55,7 @@ public class CompanyController {
         User user = userService.getCurrentUser(token);
         List<UserDTO> users = companyService.getUsers(userService, user);
         if (users == null) {
-            return ResponseEntity.badRequest().body("Invalid token");
+            return ResponseEntity.badRequest().body("Invalid token or user is not a company owner");
         }
         return ResponseEntity.ok(users);
     }
