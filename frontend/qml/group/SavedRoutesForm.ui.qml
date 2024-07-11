@@ -6,14 +6,16 @@ import QtPositioning
 import RouteApiRessource
 
 Rectangle {
-    id: rectangle
+    id: savedRoutesFormRoot
     anchors.fill: parent
 
     property RouteApiRessource ressource: RouteApiRessource {}
     property alias swipeView : swipeView
     property alias tabbarHeader : tabbarHeader
-    property alias savedRoutesFlickable : savedRoutesFlickable
+    property alias savedRoutesFlickablePrivate : savedRoutesFlickablePrivate
+    property alias savedRoutesFlickablePublic : savedRoutesFlickablePublic
     property var pageMyRoutesRoutes
+    property int pageIndex : pageIndex
 
         Rectangle {
             anchors.fill: parent
@@ -62,18 +64,23 @@ Rectangle {
                 id: swipeView
                 anchors.fill: parent
                 currentIndex: pageIndex
+                onCurrentIndexChanged: savedRoutesFormRoot.pageIndex = currentIndex
 
 
                 Page {
                     SavedRoutesFlickable{
-                        id: savedRoutesFlickable
+                        id: savedRoutesFlickablePrivate
                         anchors.fill: parent
                         savedRoutesModel: pageMyRoutesRoutes
                     }
                 }
 
                 Page {
-
+                    SavedRoutesFlickable{
+                        id: savedRoutesFlickablePublic
+                        anchors.fill: parent
+                        savedRoutesModel: pageMyRoutesRoutes
+                    }
                 }
 
             }

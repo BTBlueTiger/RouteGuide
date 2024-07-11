@@ -65,7 +65,12 @@ public:
 
     Q_INVOKABLE void changePremiumGroup(int group);
     Q_INVOKABLE bool createRoute(const QVariantMap& data);
-    Q_INVOKABLE void getRoutes();
+    /**
+     * int 0 = public
+     * int 1 = private + public
+     * @brief getRoutes
+     */
+    Q_INVOKABLE void getRoutes(int);
 
 private:
     struct User{

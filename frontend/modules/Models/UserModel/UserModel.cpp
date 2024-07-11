@@ -105,9 +105,15 @@ bool UserModel::createRoute(const QVariantMap& data)
     return false;
 }
 
-void UserModel::getRoutes()
+void UserModel::getRoutes(int type)
 {
-    QNetworkReply * secondResponse = getRequest(m_api->createRequest("/route/get_routes_company_public"));
+    QString route;
+    if(type == 0) {
+        route = "/route/get_routes_company";
+    } else {
+        route = "/route/get_routes_company_public";
+    }
+    QNetworkReply * secondResponse = getRequest(m_api->createRequest(route));
     QVariantList routes;
     m_routes.clear();
     QObject::connect(secondResponse, &QNetworkReply::finished, this, [=]()
@@ -179,6 +185,7 @@ void UserModel::loginAttempt(const QVariantMap& data)
                                      QByteArray jsonData = secondResponse->readAll();
                                      QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
                                      QJsonObject jsonObj = jsonDoc.object();
+                                     qDebug() << jsonObj;
                                      m_user =
                                          {
                                              jsonObj["email"].toString(),
@@ -187,11 +194,13 @@ void UserModel::loginAttempt(const QVariantMap& data)
 
                                      if(jsonObj["company"].isNull())
                                      {
-                                         m_user->emailT = EMAIL_T::COMPANY;
+                                         m_email_t = EMAIL_T::PRIVATE;
+                                         m_user->emailT = EMAIL_T::PRIVATE;
                                      }
                                      else
                                      {
-                                         m_user->emailT = EMAIL_T::PRIVATE;
+                                         m_email_t = EMAIL_T::COMPANY;
+                                         m_user->emailT = EMAIL_T::COMPANY;
                                      }
 
 

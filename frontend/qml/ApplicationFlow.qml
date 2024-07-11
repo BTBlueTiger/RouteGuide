@@ -187,7 +187,7 @@ Item {
             TabButton {
                 text: {
                     if(bigscreen){
-                        if(UserModel.email_t === UserModel.COMPANY) {
+                        if(UserModel.email_t === UserModel.PRIVATE) {
                             return "Community"
                         } else {
                             return "Company"
@@ -196,7 +196,7 @@ Item {
                 }
 
                 icon.source: {
-                    if(UserModel.email_t === UserModel.COMPANY) {
+                    if(UserModel.email_t === UserModel.PRIVATE) {
                         "/res/btn/community.svg"
                     } else {
                         "/res/btn/bully.svg"

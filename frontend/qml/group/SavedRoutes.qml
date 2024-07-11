@@ -10,16 +10,21 @@ SavedRoutesForm {
     property RouteApiRessource ressource: RouteApiRessource {}
 
 
-    property int pageIndex : 0
-
     signal toNavigation()
     swipeView.onCurrentIndexChanged: pageIndex = swipeView.currentIndex
     tabbarHeader.currentIndex: pageIndex
     Component.onCompleted: {
-        UserModel.getRoutes()
+            UserModel.getRoutes(pageIndex)
+
+    }
+
+    onPageIndexChanged: {
+        UserModel.getRoutes(pageIndex)
     }
 
     pageMyRoutesRoutes: UserModel.routes
-    savedRoutesFlickable.onToNavigation: toNavigation()
+
+    savedRoutesFlickablePublic.onToNavigation: toNavigation()
+    savedRoutesFlickablePrivate.onToNavigation: toNavigation()
 
 }
