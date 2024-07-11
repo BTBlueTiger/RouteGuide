@@ -75,13 +75,15 @@ QVariantList RouteApiRessource::getFakeRoutes()
     fakeRoute["name"] = "My parcing slot Uni way";
     fakeRoute["public"] = "true";
     fakeRoute["group"] = group;
-    fakeRoute["adresses"] = addresses;
+    addresses.append(fakeAddress);
 
     fakeAddress.clear();
     fakeAddress["display_string"] = "Porta Markt, Flurweg, Barkhausen, Porta Westfalica, Kreis Minden-Lübbecke, North Rhine – Westphalia, 32457, Germany";
     fakeAddress["long"] = "8.9012467869";
     fakeAddress["lat"] = "52.2593197";
     addresses.append(fakeAddress);
+
+    fakeRoute["adresses"] = addresses;
 
     fakeRoutes.append(fakeRoute);
 

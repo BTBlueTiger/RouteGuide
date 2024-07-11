@@ -121,60 +121,59 @@ Flickable {
                     width: mapRect.width  * .3
 
                     ColumnLayout {
-
                         id: textCol
                         height: mapRect.height
                         width: mapRect.width  * .3
-                    Label {
-                        id: displayNameLabel
-                        text: modelData["name"]
-                        width: textRect.width
-                        color: "white"
-                        wrapMode: Text.Wrap
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        enabled: false
-                        font.bold: true
-                        Layout.alignment: Qt.AlignHCenter
-                    }
+                        Label {
+                            id: displayNameLabel
+                            text: modelData["name"]
+                            width: textRect.width
+                            color: "white"
+                            wrapMode: Text.Wrap
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            enabled: false
+                            font.bold: true
+                            Layout.alignment: Qt.AlignHCenter
+                        }
 
-                    Label {
-                        id: totalDistanceLabel
-                        text: "Total Distance: " + totalDistance
-                        width: textRect.width
-                        color: "white"
-                        wrapMode: Text.Wrap
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        enabled: false
-                        font.bold: true
-                        Layout.alignment: Qt.AlignHCenter
+                        Label {
+                            id: totalDistanceLabel
+                            text: "Total Distance: " + totalDistance
+                            width: textRect.width
+                            color: "white"
+                            wrapMode: Text.Wrap
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            enabled: false
+                            font.bold: true
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+                        Label {
+                            id: totalTimeLabel
+                            text: "Total Time Required: " + totalTravelTime
+                            width: textRect.width
+                            color: "white"
+                            wrapMode: Text.Wrap
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            enabled: false
+                            font.bold: true
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+                        Label {
+                            id: totalStopsLabel
+                            text: "Stops: " + modelData["adresses"].length
+                            width: textRect.width
+                            color: "white"
+                            wrapMode: Text.Wrap
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            enabled: false
+                            font.bold: true
+                            Layout.alignment: Qt.AlignHCenter
+                        }
                     }
-                    Label {
-                        id: totalTimeLabel
-                        text: "Total Time Required: " + totalTravelTime
-                        width: textRect.width
-                        color: "white"
-                        wrapMode: Text.Wrap
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        enabled: false
-                        font.bold: true
-                        Layout.alignment: Qt.AlignHCenter
-                    }
-                    Label {
-                        id: totalStopsLabel
-                        text: "Stops: " + modelData["adresses"].length
-                        width: textRect.width
-                        color: "white"
-                        wrapMode: Text.Wrap
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        enabled: false
-                        font.bold: true
-                        Layout.alignment: Qt.AlignHCenter
-                    }
-}
                 }
 
                 RoundButton {

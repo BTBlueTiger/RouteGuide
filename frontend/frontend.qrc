@@ -51,5 +51,6 @@
         <file>qml/map/DefaultMapPlugin.qml</file>
         <file>qml/navigation/DefaultRouteModel.qml</file>
         <file>qml/navigation/helper.js</file>
+        <file>qml/navigation/PreviewManeuverList.qml</file>
     </qresource>
 </RCC>
