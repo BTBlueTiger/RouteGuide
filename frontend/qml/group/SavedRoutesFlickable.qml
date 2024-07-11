@@ -56,7 +56,7 @@ Flickable {
                 Rectangle {
                     id: mapRect
 
-                    width: flickableRoot.width
+                    width: flickableRoot.width * .8
                     height: flickableRoot.height * .4
                     radius: 20
 
@@ -69,7 +69,10 @@ Flickable {
                             DefaultMapPlugin {
                             id: littlePreviewMapPlugin
                         }
-                        center: QtPositioning.coordinate(modelData["adresses"][0]["latitude"], modelData["adresses"][0]["longitude"])
+                        center:  {
+                            if(modelData["addresses"][0]["latitude"] !== undefined)
+                                QtPositioning.coordinate(modelData["addresses"][0]["latitude"], modelData["addresses"][0]["longitude"])
+                        }
 
                         property alias flickableRouteModel : flickableRouteModel
 
@@ -84,7 +87,9 @@ Flickable {
                                 query: RouteQuery{
                                     id: flickableRouteModelquery
                                     Component.onCompleted: {
-                                        var adresses = modelData["adresses"]
+                                        var adresses = modelData["addresses"]
+
+
                                         for(var i = 0; i < adresses.length; i++) {
                                             flickableRouteModelquery.addWaypoint(
                                                         QtPositioning.coordinate(
@@ -92,6 +97,7 @@ Flickable {
                                                             adresses[i]["longitude"]
                                                                    ))
                                         }
+
                                         flickableRouteModel.update()
                                     }
                                 }
@@ -126,7 +132,7 @@ Flickable {
                         width: mapRect.width  * .3
                         Label {
                             id: displayNameLabel
-                            text: modelData["name"]
+                            text: modelData["name"] === undefined ? "" : modelData["name"]
                             width: textRect.width
                             color: "white"
                             wrapMode: Text.Wrap
@@ -163,7 +169,7 @@ Flickable {
                         }
                         Label {
                             id: totalStopsLabel
-                            text: "Stops: " + modelData["adresses"].length
+                            text: modelData["addresses"] === undefined ? "" : "Stops: " + modelData["addresses"].length + ""
                             width: textRect.width
                             color: "white"
                             wrapMode: Text.Wrap

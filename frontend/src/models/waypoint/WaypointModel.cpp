@@ -45,7 +45,11 @@ namespace Waypoint
         beginResetModel();
         WaypointModelItem* m = new WaypointModelItem(item->displayName(), item->coordinate());
 
-        m_waypointInformations.append(QVariant::fromValue(m));
+        QVariantMap map;
+        map["identifier"] = item->displayName();
+        map["latitude"] = QString::number(item->coordinate().latitude());
+        map["longitude"] = QString::number(item->coordinate().longitude());
+        m_waypointInformations.append(map);
         emit waypointInformationsChanged();
 
         m_coordinates.append(QVariant::fromValue(item->coordinate()));

@@ -42,6 +42,7 @@ Item {
         if (!clicked) {
             //userModel.onGroupSelect(id);
             button.Material.background = Material.primary // Change the color to blue when clicked
+            UserModel.groupID = id
         } else {
             //userModel.onGroupSelect(id);
             button.Material.background = Material.rippleColor
@@ -147,18 +148,16 @@ Item {
                     y: rowLayout.height * 0.65
                     width: textfieldWidth
                     placeholderText: qsTr("Re enter password")
+                    errorMsg: "Not the same password"
                     echoMode: TextInput.Password
 
                     onTextEdited: {
                         if(text !== textFieldPassword.text) {
-                            toolTip.visible = true
                             state = 1
                         } else if(text === textFieldPassword.text) {
-                            toolTip.visible = false
                             state = 2
                         }
                         else {
-                            toolTip.visible = false
                             state = 0
                         }
                     }
@@ -172,12 +171,13 @@ Item {
                     y: rowLayout.height * 0.1
                     width: textfieldWidth
                     text: qsTr("Hiker")
-                    property bool isClicked: false
+                    property bool isClicked: true
+
 
                     enabled: UserModel.emailType(textfieldEmail.text) === UserModel.PRIVATE
 
                     onClicked: {
-                       isClicked = buttonClicked(button1, 0, isClicked)
+                       isClicked = buttonClicked(button1, 1, isClicked)
                     }
                 }
 
@@ -194,9 +194,7 @@ Item {
 
                     enabled: UserModel.emailType(textfieldEmail.text) === UserModel.PRIVATE
 
-                    onClicked: {
-                       isClicked = buttonClicked(button2, 1, isClicked)
-                    }
+                    onClicked: isClicked = buttonClicked(button2, 2, isClicked)
                 }
 
                 Button {
@@ -211,9 +209,7 @@ Item {
 
                     enabled: UserModel.emailType(textfieldEmail.text) === UserModel.PRIVATE
 
-                    onClicked: {
-                       isClicked = buttonClicked(button3, 2, isClicked)
-                    }
+                    onClicked: isClicked = buttonClicked(button2, 3, isClicked)
                 }
 
                 Button {
@@ -251,27 +247,16 @@ Item {
                         textfieldEmail.isValid
                     }
                     onClicked: {
-                        var role = ""
-                        if(UserModel.email_t === UserModel.COMPANY)
-                            role = "company"
-                        else {
-                            if(buttonHiker.isClicked) {
-                                role += "hiker"
-                            }
-                            if(buttonSportler.isClicked) {
-                                role += "sportler"
-                            }
-                            if(buttonTourist.isClicked) {
-                                role += "tourist"
-                            }
-                        }
+
 
                         UserModel.registerAttempt(
                                 {
                                     "email": textfieldEmail.text,
                                     "username": textfieldUserName.text,
                                     "password": textFieldPassword.text,
-                                    "role": role
+                                    "group": {
+                                            "id": UserModel.groupID
+                                        }
                                 }
                             )
                     }

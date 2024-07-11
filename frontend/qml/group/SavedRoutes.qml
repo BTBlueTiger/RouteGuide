@@ -2,6 +2,8 @@ import QtQuick 2.15
 
 import RouteApiRessource
 
+import UserModel
+
 SavedRoutesForm {
 
 
@@ -13,7 +15,11 @@ SavedRoutesForm {
     signal toNavigation()
     swipeView.onCurrentIndexChanged: pageIndex = swipeView.currentIndex
     tabbarHeader.currentIndex: pageIndex
-    pageMyRoutesRoutes: ressource.getFakeRoutes()
+    Component.onCompleted: {
+        UserModel.getRoutes()
+    }
+
+    pageMyRoutesRoutes: UserModel.routes
     savedRoutesFlickable.onToNavigation: toNavigation()
 
 }

@@ -1,16 +1,20 @@
 #include "UserModel.h"
 //#include "include/Constants.h"
 
+
 #include <QtNetwork/qhttpheaders.h>
 #include <QtNetwork/qrestaccessmanager.h>
 #include <QtNetwork/qrestreply.h>
 
 #include <QtCore/qjsondocument.h>
 #include <QtCore/qjsonobject.h>
+#include <QtCore/QJsonArray>
+
+
 
 #define WRONG_LOGIN true
 #define IS_COMPANY false
-#define WITH_API false
+#define WITH_API true
 
 UserModel *UserModel::m_instance = nullptr;
 
@@ -28,6 +32,7 @@ UserModel::UserModel(QObject *parent)
     // setting http headers
     m_headers->append("Content-Type", "application/json");
     m_api->setCommonHeaders(*m_headers);
+    m_companyMailAdresses.append("admin");
 }
 
 QObject* UserModel::createSingletonInstance(QQmlEngine *engine, QJSEngine *scriptEngine){
@@ -70,6 +75,84 @@ bool UserModel::loggedIn() const
 bool UserModel::registerSuccess() const
 {
     return m_registerSuccess;
+}
+
+bool UserModel::createRoute(const QVariantMap& data)
+{
+
+
+    QNetworkReply* response = postRequest(
+        *qVariantMapToQByteArray(data),
+        m_api->createRequest("/route/create_company_route")
+        );
+    // Verbinden von der angekommenen Nachricht
+    qDebug() << data;
+
+    QObject::connect(response, &QNetworkReply::finished, [=](){
+        if(response->error() == QNetworkReply::NoError)
+        {
+
+            qDebug() << "Success";
+            return true;
+        }
+        else
+        {
+            qDebug() << "Failure";
+            return false;
+        }
+    }
+                     );
+    return false;
+}
+
+void UserModel::getRoutes()
+{
+    QNetworkReply * secondResponse = getRequest(m_api->createRequest("/route/get_routes_company_public"));
+    QVariantList routes;
+    m_routes.clear();
+    QObject::connect(secondResponse, &QNetworkReply::finished, this, [=]()
+    {
+        QByteArray jsonData = secondResponse->readAll();
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
+        QJsonArray jsonArr = jsonDoc.array();
+        QVariantMap route;
+        QVariantList routeList;
+
+        for (const QJsonValue &value : jsonArr)
+        {
+            QString name;
+            QVariantMap addressMap;
+            QVariantList addresses;
+            QJsonObject jsonObj = value.toObject();
+            if (jsonObj.contains("name") && jsonObj["name"].isString())
+            {
+                name = jsonObj["name"].toString();
+            }
+            if (jsonObj.contains("addresses") && jsonObj["addresses"].isArray())
+            {
+                QJsonArray addressesArray = jsonObj["addresses"].toArray();
+                for (const QJsonValue &addrValue : addressesArray)
+                {
+                    QJsonObject addrObj = addrValue.toObject();
+                    if (addrObj.contains("identifier") && addrObj["identifier"].isString()) {
+                        addressMap["identifier"] = addrObj["identifier"].toString();
+                    }
+                    addressMap["latitude"] = addrObj["latitude"].toDouble();
+
+                    addressMap["longitude"] = addrObj["longitude"].toDouble();
+
+                    addresses.append(addressMap);
+                }
+                route["addresses"] = addresses;
+                routeList.append(route);
+                addresses.clear();
+            }
+            route.clear();
+        }
+        m_routes = routeList;
+        qDebug() << m_routes;
+        emit routesChanged();
+    });
 }
 
 void UserModel::loginAttempt(const QVariantMap& data)
@@ -163,7 +246,7 @@ UserModel::EMAIL_T UserModel::emailType(const QString& email)
 
 
         QVector<QString>::const_iterator it = std::find(m_companyMailAdresses.cbegin(), m_companyMailAdresses.cend(), endPart[0]);
-        return it != m_companyMailAdresses.cend() ? EMAIL_T::PRIVATE : EMAIL_T::COMPANY ;
+        return it != m_companyMailAdresses.cend() ? EMAIL_T::COMPANY : EMAIL_T::PRIVATE ;
     }
     return EMAIL_T::ERROR;
 }
@@ -195,18 +278,32 @@ void UserModel::changePremiumGroup(int group)
 
 void UserModel::registerAttempt(const QVariantMap& data)
 {
+
+    if(m_email_t == COMPANY){
+        QVariantMap nestedGroup = data["group"].toMap();
+
+        // Step 2: Modify the id value
+        nestedGroup["id"] = 2; // Change the id to the desired value
+
+        // Step 3: Reassign the modified nested map back to the original QVariantMap
+        data["group"] = nestedGroup;
+    }
+
     QNetworkReply* response = postRequest(
         *qVariantMapToQByteArray(data),
         m_api->createRequest("/auth/register")
-        );
+    );
+
     QObject::connect(response, &QNetworkReply::finished, [=](){
         if(response->error() == QNetworkReply::NoError)
         {
+            qDebug() << "No Error";
             m_registerSuccess = true;
             emit registerSuccessChanged();
         }
         else
         {
+            qDebug() << response;
             m_registerSuccess = false;
             emit registerSuccessChanged();
         }

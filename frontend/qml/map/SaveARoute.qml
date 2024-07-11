@@ -5,11 +5,8 @@ import UserModel
 
 import ValidationTextfield
 
-import RouteApiRessource
 
 Dialog {
-
-    property RouteApiRessource routeApiRessource : RouteApiRessource {}
 
     property int fontPointSize: 24
     id: saveARouteDialog
@@ -60,10 +57,10 @@ Dialog {
 
             Button {
                 font.pointSize: fontPointSize
-                id: buttonHiker
+                id: btnType
                 height: 30
                 Layout.fillWidth: true
-                text: UserModel.group
+                text: UserModel.email_t === UserModel.COMPANY ? "Company" : UserModel.group
                 property bool isClicked: false
                 Material.background : isClicked ? Material.primary : Material.rippleColor
             }
@@ -111,17 +108,16 @@ Dialog {
 
         var waypointModel = waypointManager.getWaypointModel(potentialWaypointModelName)
         var addresses = waypointModel.waypointInformations
-        var group_id = UserModel.group;
 
-        routeApiRessource.createRoute
-                (
-                    {
-                        ["identifier"] : textfieldRouteName.text,
-                        ["adresses"] : addresses,
-                        ["group"] : group_id,
-                        ["public"] : buttonPrivate.isClicked ? "true" : "false"
-                    }
-                )
+        UserModel.createRoute
+        (
+            {
+                ["name"] : textfieldRouteName.text,
+                ["isPublic"] : buttonPrivate.isClicked ? false : true,
+                ["addresses"]: addresses
+            },
+
+        )
 
     }
 
