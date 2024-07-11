@@ -4,8 +4,8 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY build/libs/rest-1.6.2.jar /app
+COPY build/libs/rest-1.6.4.jar /app
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "rest-1.6.2.jar"]
+CMD ["java", "-jar", "rest-1.6.4.jar"]
