@@ -14,14 +14,20 @@ Item {
     property int fontPointSize: 20
     property int pageIndex: 0
 
+    // All waypoints we find in our automatic search,
+    // will be refreshed at every key press
     property WaypointModel searchWaypointModel : waypointManager.createWaypointModel(searchWaypointModelName)
+    // Our waypoints that has been added to the route
     property WaypointModel potentialWaypointModel : waypointManager.createWaypointModel(potentialWaypointModelName)
 
     property bool fromCurrentPostion: false
 
     function setWayPoints() {
 
-        routeQuery.clearWaypoints()
+        if(potentialWaypointModel.coordinates.length === 0) return;
+        //Here we using our global RouteModel
+        defaultRouteModel.defaultRouteQuery.clearWaypoints()
+        center = potentialWaypointModel.coordinates[0]
         if(fromCurrentPostion){
             routeQuery.addWaypoint(
                 QtPositioning.coordinate(
@@ -29,8 +35,8 @@ Item {
                             GeoPositionRessource.coordinate.longitude
                             ))
         }
-        routeQuery.waypoints = potentialWaypointModel.coordinates
-        routeModel.update()
+        defaultRouteModel.defaultRouteQuery.waypoints = potentialWaypointModel.coordinates
+        defaultRouteModel.update()
     }
 
     id: planARoute
@@ -56,6 +62,7 @@ Item {
                     width: parent.width
                     height: tabbarHeader.height
 
+                    //Only visible function through some overlays, use swipe
                     TabBar {
                         id: tabbarHeader
 
@@ -64,19 +71,11 @@ Item {
                         currentIndex: pageIndex
                         onCurrentIndexChanged: pageIndex = currentIndex
 
-                        TabButton {
-                            text: qsTr("Search")
+                        TabButton { text: qsTr("Search") }
 
-                        }
+                        TabButton { text: qsTr("Added Waypoints") }
 
-                        TabButton {
-                            text: qsTr("Added Waypoints")
-                        }
-
-                        TabButton {
-                            text: qsTr("Preview")
-
-                        }
+                        TabButton { text: qsTr("Preview") }
                     }
                 }
 
@@ -101,7 +100,6 @@ Item {
                     }
                     currentIndex: pageIndex
 
-
                     Page {
                         SearchPage{
                             function onitemClicked (item){
@@ -109,22 +107,18 @@ Item {
                             }
                         }
                     }
-
                     Page {
                         title: qsTr("Page 2")
-                        AddedPage{
-
-                        }
+                        AddedPage{}
                     }
-
                     Page {
                         title: qsTr("Page 3")
                         PreviewPage {
+
                             id: previewPage
                             height: parent.height
                             width: parent.width
                             onToNavigation: {
-                                setWayPoints
                                 toNavigation()
                             }
                         }

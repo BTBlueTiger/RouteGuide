@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtLocation
+import QtPositioning
 
 import "authentification"
 import "authentification/register"
@@ -10,6 +11,7 @@ import "routeguide/PlanARoute"
 import "navigation"
 import "profil"
 import "group"
+import "map"
 
 import UserModel
 
@@ -36,7 +38,7 @@ Item {
         function onUserChanged() {
             if(UserModel.loggedIn) {
                 stackLayout.clear()
-                stackLayout.push(navigation)
+                stackLayout.push(routeguideMap)
             } else {
                 stackLayout.clear()
                 stackLayout.push(login)
@@ -83,10 +85,15 @@ Item {
         }
     }
 
-
+    //global setting center once! at new route start
+    property var center: QtPositioning.coordinate(52.2125431, 8.7179206)
     // Is like our Map
-    Component { id: navigation
-        Navigation {}
+    Component { id: routeguideMap
+
+        RouteGuideMap {
+            id: defaultMap
+            center: applicationFlow.center
+        }
     }
 
     // Plan a Route is like the creating Component
@@ -97,7 +104,7 @@ Item {
             {
                 stackLayout.clear()
                 bottomNavBar.currentIndex = 0
-                stackLayout.push(navigation)
+                stackLayout.push(routeguideMap)
             }
         }
     }

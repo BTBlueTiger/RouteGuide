@@ -21,7 +21,7 @@ Map {
     plugin: customMapPlugin === undefined ? defaultMapPlugin: customMapPlugin
     center: QtPositioning.coordinate(52.2125431, 8.7179206)
     zoomLevel: 14
-    property var startCentroid
+
 
     activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
 

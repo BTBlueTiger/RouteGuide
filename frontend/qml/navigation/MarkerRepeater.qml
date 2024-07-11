@@ -4,7 +4,7 @@ import QtLocation
 import QtPositioning
 
 Repeater {
-
+    property alias model: model
     delegate: MapQuickItem{
         property alias markers: markers
         id: markers

@@ -14,11 +14,9 @@ import "../navigation"
 DefaultMap {
     id: map
 
-
     MarkerRepeater {
         id: markerRepeater
-        model: waypointManager.getWaypointModel(potentialWaypointModelName) === null
-                       ? [] :  waypointManager.getWaypointModel(potentialWaypointModelName).coordinates
+        model: defaultRouteModel.defaultRouteQuery.waypoints
     }
 
 
