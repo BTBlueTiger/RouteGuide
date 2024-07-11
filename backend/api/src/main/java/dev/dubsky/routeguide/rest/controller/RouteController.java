@@ -2,6 +2,7 @@ package dev.dubsky.routeguide.rest.controller;
 
 import dev.dubsky.advancedlog.AdvLogger;
 import dev.dubsky.advancedlog.Color;
+import dev.dubsky.routeguide.rest.dto.CRouteDTO;
 import dev.dubsky.routeguide.rest.dto.RouteDTO;
 import dev.dubsky.routeguide.rest.model.*;
 import dev.dubsky.routeguide.rest.service.RouteService;
@@ -60,7 +61,7 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found for group: " + group_id);
         }
-        return ResponseEntity.ok(routes);
+        return ResponseEntity.ok(routes.stream().map(CRouteDTO::new).toList());
     }
 
     @GetMapping("/get_routes")
@@ -72,7 +73,7 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found");
         }
-        return ResponseEntity.ok(routes);
+        return ResponseEntity.ok(routes.stream().map(CRouteDTO::new).toList());
     }
 
     @GetMapping("/get_routes_auto")
@@ -86,7 +87,7 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found for group: " + group.getName());
         }
-        return ResponseEntity.ok(routes);
+        return ResponseEntity.ok(routes.stream().map(CRouteDTO::new).toList());
     }
 
     @PostMapping("create_company_route")
