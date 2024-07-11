@@ -10,9 +10,10 @@ SavedRoutesForm {
 
     property int pageIndex : 0
 
+    signal toNavigation()
     swipeView.onCurrentIndexChanged: pageIndex = swipeView.currentIndex
     tabbarHeader.currentIndex: pageIndex
     pageMyRoutesRoutes: ressource.getFakeRoutes()
-
+    savedRoutesFlickable.onToNavigation: toNavigation()
 
 }

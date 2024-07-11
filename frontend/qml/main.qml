@@ -26,6 +26,7 @@ ApplicationWindow {
 
     property string searchWaypointModelName: "SearchWaypointModel"
     property string potentialWaypointModelName: "PotentialWaypointModel"
+    property string savedWayPointModelName: "SavedWayPointModel"
 
     // Global waypointManager
     // Has to handle all oure Models that contains waypoints like in Plan a Route or SavedOnes
@@ -35,9 +36,6 @@ ApplicationWindow {
     // Global default RouteModel
     // Will display manage to display the "blue" route
     DefaultRouteModel { id: defaultRouteModel }
-    // Global Map
-    //RouteGuideMap { id: defaultMap }
-
 
     visible: true
     width: Qt.platform.os === "android" ? screenInfo.screenResolution().width : 1280

@@ -22,7 +22,7 @@ Item {
     property string platform: Qt.platform.os
     property string previousState: ""
 
-    property bool toolbarBackVisible: false
+    property bool toolbarBackVisible: !UserModel.loggedIn
     property bool tabbarVisible: UserModel.loggedIn
     property bool bigscreen: width > 700 ? true : false
 
@@ -121,6 +121,11 @@ Item {
         id: savedRoutes
         SavedRoutes{
             anchors.fill: parent
+            onToNavigation: {
+                stackLayout.clear()
+                bottomNavBar.currentIndex = 0
+                stackLayout.push(routeguideMap)
+            }
         }
     }
 
@@ -129,7 +134,8 @@ Item {
 
     ToolBar{
         id: toolbar
-        position: ToolBar.Footer
+        position: ToolBar.Header
+        height: 56
         anchors.right: parent.right
         anchors.left: parent.left
         contentHeight: toolButton.implicitHeight
@@ -140,7 +146,7 @@ Item {
             Material.background : "#ffffff"
             visible: toolbarBackVisible
             icon.source: "/res/btn/arrow_back"
-            icon.color: "#ffffff"
+            icon.color: "white"
             onClicked: {
                 stackLayout.pop()
             }

@@ -120,6 +120,7 @@ DefaultMap {
     BlueRoute{ model: defaultRouteModel }
 
 
+
     // Start Marker
     MapQuickItem {
         visible: followGPS ? true: false

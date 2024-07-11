@@ -25,6 +25,8 @@ LoginForm {
         }
     }
 
+    btnSignUp.onClicked: stackLayout.push(register)
+
     wrongCredentialsToolTip.onVisibleChanged: wrongCredentialsToolTipTimer.start()
 
 }

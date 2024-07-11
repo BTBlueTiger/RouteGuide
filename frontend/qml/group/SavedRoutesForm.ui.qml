@@ -12,7 +12,7 @@ Rectangle {
     property RouteApiRessource ressource: RouteApiRessource {}
     property alias swipeView : swipeView
     property alias tabbarHeader : tabbarHeader
-
+    property alias savedRoutesFlickable : savedRoutesFlickable
     property var pageMyRoutesRoutes
 
         Rectangle {
@@ -66,6 +66,7 @@ Rectangle {
 
                 Page {
                     SavedRoutesFlickable{
+                        id: savedRoutesFlickable
                         anchors.fill: parent
                         savedRoutesModel: pageMyRoutesRoutes
                     }
