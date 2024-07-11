@@ -1,3 +1,15 @@
+# Erfahrung mit Github Action
+### Positiv:
+- Kostenfrei in public Repos
+- Viele Plugins
+- Konsolen Programm like
+
+### Negativ:
+- nicht "kostenlos"
+- Ohne Caching kann es ewig dauern
+- ob ein Build erfolgreich war sagt nicht immer was aus
+
+
 # Erfahrung mit der QT Umgebung.
 
 ## Das Build-System
