@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import "../../custom_controls"
+import ValidationTextfield
 
 import UserModel
 
@@ -24,6 +24,16 @@ Item {
             z: -1
             source: "/res/img/background.png"
             fillMode: Image.PreserveAspectCrop
+
+            TextField {
+                horizontalAlignment: Text.AlignHCenter
+                font.pointSize: fontPointSize
+                id: textfieldUserName
+                x: xPos
+                y: columnLayout.height * 0.20
+                width: textfieldWidth
+                placeholderText: qsTr("UserName")
+            }
 
             ValidationTextfield{
                 horizontalAlignment: Text.AlignHCenter
@@ -63,9 +73,8 @@ Item {
                 width: textfieldWidth
                 placeholderText: qsTr("Passord")
                 echoMode: TextInput.Password
-
-
             }
+
             ValidationTextfield {
                 horizontalAlignment: Text.AlignHCenter
                 font.pointSize: fontPointSize
