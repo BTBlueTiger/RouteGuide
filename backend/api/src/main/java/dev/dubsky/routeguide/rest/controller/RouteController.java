@@ -2,10 +2,8 @@ package dev.dubsky.routeguide.rest.controller;
 
 import dev.dubsky.advancedlog.AdvLogger;
 import dev.dubsky.advancedlog.Color;
-import dev.dubsky.routeguide.rest.model.Group;
-import dev.dubsky.routeguide.rest.model.Route;
-import dev.dubsky.routeguide.rest.model.RouteCompany;
-import dev.dubsky.routeguide.rest.model.User;
+import dev.dubsky.routeguide.rest.dto.RouteDTO;
+import dev.dubsky.routeguide.rest.model.*;
 import dev.dubsky.routeguide.rest.service.RouteService;
 import dev.dubsky.routeguide.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,7 +100,7 @@ public class RouteController {
         if (newRoute == null) {
             return ResponseEntity.badRequest().body("Route creation failed");
         }
-        return ResponseEntity.ok(newRoute);
+        return ResponseEntity.ok(new RouteDTO(newRoute));
     }
 
     @GetMapping("get_routes_company")
@@ -114,7 +112,7 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found");
         }
-        return ResponseEntity.ok(routes);
+        return ResponseEntity.ok(routes.stream().map(RouteDTO::new).toList());
     }
 
     @GetMapping("get_routes_company_public")
@@ -126,6 +124,6 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found");
         }
-        return ResponseEntity.ok(routes);
+        return ResponseEntity.ok(routes.stream().map(RouteDTO::new).toList());
     }
 }
