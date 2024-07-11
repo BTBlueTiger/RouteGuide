@@ -57,6 +57,12 @@ public class UserServiceImpl implements UserService {
 
     public User create(User user) {
 
+        if (user.getUsername() == null || user.getPassword() == null || user.getEmail() == null) {
+            AdvLogger.output(Color.RED, "User data missing");
+            return null;
+        }
+        AdvLogger.output(Color.GREEN, "Trying to register user: " + user.getUsername());
+
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             AdvLogger.output(Color.RED, "Username already exists: " + user.getUsername());
             return null;
