@@ -1,7 +1,6 @@
 package dev.dubsky.routeguide.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -38,6 +37,6 @@ public class AddressCompany {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "route_id", nullable = false)
-    private RoutesCompany route;
+    private RouteCompany route;
 
 }

@@ -77,7 +77,7 @@ public class RouteServiceImpl implements RouteService {
         return routeRepository.save(route);
     }
 
-    public RoutesCompany createCompanyRoute(String authorizationToken, RoutesCompany route) {
+    public RouteCompany createCompanyRoute(String authorizationToken, RouteCompany route) {
         User user = userService.getCurrentUser(authorizationToken);
         route.setUser(user);
         route.setCompany(user.getCompany());
@@ -111,7 +111,15 @@ public class RouteServiceImpl implements RouteService {
         return routeRepository.getRouteByName(name);
     }
 
-    public RoutesCompany getCompanyRouteByName(String name) {
+    public RouteCompany getCompanyRouteByName(String name) {
         return routesCompanyRepository.getRouteByName(name);
+    }
+
+    public List<RouteCompany> getCompanyRoutes(User user) {
+        return routesCompanyRepository.getCompanyRouteByCompanyAndUser(user, user.getCompany());
+    }
+
+    public List<RouteCompany> getCompanyRoutesPublic(User user) {
+        return routesCompanyRepository.getCompanyRouteByCompanyAndPublic(user.getCompany());
     }
 }

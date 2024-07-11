@@ -1,6 +1,5 @@
 package dev.dubsky.routeguide.rest.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -15,14 +14,13 @@ import java.util.List;
 @Entity
 @Table(name = "routes_company")
 @NamedQueries({
-        @NamedQuery(name = "RoutesCompany.getRoutesByUser", query = "SELECT r FROM RoutesCompany r WHERE r.user.username = :username"),
-        @NamedQuery(name = "RoutesCompany.getRouteById", query = "SELECT r FROM RoutesCompany r WHERE r.id = :id"),
-        @NamedQuery(name = "RoutesCompany.getRoutesByCompany", query = "SELECT r FROM RoutesCompany r WHERE r.company.id = :id"),
-        @NamedQuery(name = "RoutesCompany.getRoutesByCompanyAndUser", query = "SELECT r FROM RoutesCompany r WHERE r.company.id = :id AND r.user.username = :username"),
-        @NamedQuery(name = "RoutesCompany.getPublicRoutes", query = "SELECT r FROM RoutesCompany r WHERE r.publicField = true"),
-        @NamedQuery(name = "RoutesCompany.getRouteByName", query = "SELECT r FROM RoutesCompany r WHERE r.name = :name")
+        @NamedQuery(name = "RouteCompany.getCompanyRoutes", query = "SELECT r FROM RouteCompany r WHERE r.user = :user"),
+        @NamedQuery(name = "RouteCompany.getCompanyRoutesPublic", query = "SELECT r FROM RouteCompany r WHERE r.user = :user AND r.publicField = true"),
+        @NamedQuery(name = "RouteCompany.getCompanyRouteByName", query = "SELECT r FROM RouteCompany r WHERE r.name = :name"),
+        @NamedQuery(name = "RouteCompany.getCompanyRouteByCompanyAndUser", query = "SELECT r FROM RouteCompany r WHERE r.company = :company AND r.user = :user"),
+        @NamedQuery(name = "RouteCompany.getCompanyRouteByCompanyAndPublic", query = "SELECT r FROM RouteCompany r WHERE r.company = :company AND r.publicField = true"),
 })
-public class RoutesCompany {
+public class RouteCompany {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "routes_company_id_gen")
     @SequenceGenerator(name = "routes_company_id_gen", sequenceName = "routes_company_route_id_seq", allocationSize = 1)

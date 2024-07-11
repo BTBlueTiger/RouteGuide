@@ -4,7 +4,7 @@ import dev.dubsky.advancedlog.AdvLogger;
 import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.model.Group;
 import dev.dubsky.routeguide.rest.model.Route;
-import dev.dubsky.routeguide.rest.model.RoutesCompany;
+import dev.dubsky.routeguide.rest.model.RouteCompany;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.RouteService;
 import dev.dubsky.routeguide.rest.service.UserService;
@@ -93,15 +93,39 @@ public class RouteController {
 
     @PostMapping("create_company_route")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> createCompanyRoute(@RequestHeader("Authorization") String authorizationToken, @RequestBody RoutesCompany route) {
+    public ResponseEntity<?> createCompanyRoute(@RequestHeader("Authorization") String authorizationToken, @RequestBody RouteCompany route) {
         AdvLogger.output(Color.GREEN, "[ROUTES] Creating company route for token: " + authorizationToken);
         if (routeService.getCompanyRouteByName(route.getName()) != null) {
             return ResponseEntity.badRequest().body("Route with name: " + route.getName() + " already exists");
         }
-        RoutesCompany newRoute = routeService.createCompanyRoute(authorizationToken, route);
+        RouteCompany newRoute = routeService.createCompanyRoute(authorizationToken, route);
         if (newRoute == null) {
             return ResponseEntity.badRequest().body("Route creation failed");
         }
         return ResponseEntity.ok(newRoute);
+    }
+
+    @GetMapping("get_routes_company")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getCompanyRoutes(@RequestHeader("Authorization") String authorizationToken) {
+        AdvLogger.output(Color.GREEN, "[ROUTES] Getting personal company routes for token: " + authorizationToken);
+        User user = userService.getCurrentUser(authorizationToken);
+        List<RouteCompany> routes = routeService.getCompanyRoutes(user);
+        if (routes.isEmpty()) {
+            return ResponseEntity.badRequest().body("No routes found");
+        }
+        return ResponseEntity.ok(routes);
+    }
+
+    @GetMapping("get_routes_company_public")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getCompanyRoutesPublic(@RequestHeader("Authorization") String authorizationToken) {
+        AdvLogger.output(Color.GREEN, "[ROUTES] Getting public company routes for token: " + authorizationToken);
+        User user = userService.getCurrentUser(authorizationToken);
+        List<RouteCompany> routes = routeService.getCompanyRoutesPublic(user);
+        if (routes.isEmpty()) {
+            return ResponseEntity.badRequest().body("No routes found");
+        }
+        return ResponseEntity.ok(routes);
     }
 }
