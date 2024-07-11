@@ -118,9 +118,9 @@ void UserModel::getRoutes(int type)
     if(m_email_t == PRIVATE)
     {
         if(type == 0) {
-            route = "/route/get_routes_auto";
-        } else {
             route = "/route/get";
+        } else {
+            route = "/route/get_routes_auto";
         }
 
     } else {

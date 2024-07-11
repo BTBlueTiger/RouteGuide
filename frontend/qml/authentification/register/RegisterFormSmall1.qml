@@ -43,64 +43,59 @@ Item {
 
             Button {
                 font.pointSize: fontPointSize
-                id: button1
+                id: buttonHiker
                 height: 70
                 x: xPos
-                y: columnLayout.height * 0.1
+                y: parent.height * 0.1
                 width: textfieldWidth
                 text: qsTr("Hiker")
-                property bool isClicked: false
+                property bool isClicked: true
+
 
                 enabled: UserModel.email_t === UserModel.PRIVATE
 
                 onClicked: {
-                   isClicked = buttonClicked(button1, 0, isClicked)
+                   isClicked = buttonClicked(buttonHiker, 1, isClicked)
                 }
             }
 
 
             Button {
                 font.pointSize: fontPointSize
-                id: button2
+                id: buttonSportler
                 height: 70
                 x: xPos
-                y: columnLayout.height * 0.25
+                y: parent.height * 0.25
                 width: textfieldWidth
                 text: qsTr("Sportler")
                 property bool isClicked: false
 
-
                 enabled: UserModel.email_t === UserModel.PRIVATE
 
-                onClicked: {
-                   isClicked = buttonClicked(button2, 1, isClicked)
-                }
+                onClicked: isClicked = buttonClicked(buttonSportler, 2, isClicked)
             }
 
             Button {
                 font.pointSize: fontPointSize
-                id: button3
+                id: buttonTourist
                 height: 70
                 x: xPos
-                y: columnLayout.height * 0.4
+                y: parent.height * 0.4
                 width: textfieldWidth
                 text: qsTr("Tourist")
                 property bool isClicked: false
 
-
                 enabled: UserModel.email_t === UserModel.PRIVATE
 
-                onClicked: {
-                   isClicked = buttonClicked(button2, 1, isClicked)
-                }
+                onClicked: isClicked = buttonClicked(buttonTourist, 3, isClicked)
             }
 
             Button {
                 font.pointSize: fontPointSize
-                id: button4
+                id: buttonCompany
                 height: 70
                 x: xPos
-                y: columnLayout.height * 0.55
+                y: parent.height * 0.55
                 width: textfieldWidth
                 text: qsTr("Company")
                 enabled: UserModel.email_t === UserModel.COMPANY
@@ -120,12 +115,31 @@ Item {
             Button {
                 font.pointSize: fontPointSize
                 id: button5
-                height: textfieldHeight
+                height: 70
                 x: xPos
-                y: columnLayout.height * 0.7
+                y: parent.height * 0.7
                 width: textfieldWidth
                 text: qsTr("Register")
+                enabled: {
+                    textFieldPasswordReEntered.isValid &&
+                    textfieldEmail.isValid
+                }
+                onClicked: {
+
+
+                    UserModel.registerAttempt(
+                            {
+                                "email": UserModel.email_t.text,
+                                "username": textfieldUserName.text,
+                                "password": textFieldPassword.text,
+                                "group": {
+                                        "id": UserModel.groupID
+                                    }
+                            }
+                        )
+                }
             }
+
         }
     }
 }
