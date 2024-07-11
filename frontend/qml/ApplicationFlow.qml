@@ -28,6 +28,8 @@ Item {
 
     property int tabbarHeight: 56
 
+    property int pageIndex
+
     width : parent.width
     height: parent.height
 
@@ -45,6 +47,8 @@ Item {
             }
         }
     }
+
+
 
 
     // Our Main View
@@ -187,7 +191,7 @@ Item {
             TabButton {
                 text: {
                     if(bigscreen){
-                        if(UserModel.email_t === UserModel.PRIVATE) {
+                        if(UserModel.email_t === 1) {
                             return "Community"
                         } else {
                             return "Company"
@@ -196,7 +200,7 @@ Item {
                 }
 
                 icon.source: {
-                    if(UserModel.email_t === UserModel.PRIVATE) {
+                    if(UserModel.email_t === 1) {
                         "/res/btn/community.svg"
                     } else {
                         "/res/btn/bully.svg"

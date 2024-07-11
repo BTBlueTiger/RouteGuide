@@ -88,7 +88,7 @@ private:
     QVector<QString> m_companyMailAdresses;
     int m_email_t;
     bool m_registerSuccess;
-    int m_groupID = 1;
+    int m_groupID = 4;
 
     std::shared_ptr<QUrl> m_userServiceURL;
     std::shared_ptr<QHttpHeaders> m_userServiceHttpHeaders;

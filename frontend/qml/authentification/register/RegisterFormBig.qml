@@ -177,7 +177,7 @@ Item {
                     enabled: UserModel.emailType(textfieldEmail.text) === UserModel.PRIVATE
 
                     onClicked: {
-                       isClicked = buttonClicked(button1, 1, isClicked)
+                       isClicked = buttonClicked(buttonHiker, 1, isClicked)
                     }
                 }
 
@@ -194,7 +194,7 @@ Item {
 
                     enabled: UserModel.emailType(textfieldEmail.text) === UserModel.PRIVATE
 
-                    onClicked: isClicked = buttonClicked(button2, 2, isClicked)
+                    onClicked: isClicked = buttonClicked(buttonSportler, 2, isClicked)
                 }
 
                 Button {
@@ -209,7 +209,7 @@ Item {
 
                     enabled: UserModel.emailType(textfieldEmail.text) === UserModel.PRIVATE
 
-                    onClicked: isClicked = buttonClicked(button2, 3, isClicked)
+                    onClicked: isClicked = buttonClicked(buttonTourist, 3, isClicked)
                 }
 
                 Button {

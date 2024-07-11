@@ -13,6 +13,10 @@ UserProfilForm {
     // Clicked will call a menu to change the group
     group.onClicked: changeGroupMenu.visible = true
 
+    routes.onClicked: {
+
+    }
+
     //routes:
 
 }

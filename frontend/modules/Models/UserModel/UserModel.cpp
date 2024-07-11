@@ -51,14 +51,14 @@ QString UserModel::group() const
 {
     if(m_user.has_value())
     {
-        switch (m_user.value().gr) {
-        case HIKER:
+        switch (m_groupID) {
+        case HIKER + 1:
             return "Hiker";
-        case SPORTLER:
+        case SPORTLER + 1:
             return "Sportler";
-        case TOURIST:
+        case TOURIST + 1:
             return "Tourist";
-        case P_COMPANY:
+        case P_COMPANY + 1:
             return "Company";
         default:
             return "Error";
@@ -160,6 +160,12 @@ void UserModel::getRoutes(int type)
     });
 }
 
+
+/**
+ * Dont know why this dont work like it used to be
+ * @brief UserModel::loginAttempt
+ * @param data
+ */
 void UserModel::loginAttempt(const QVariantMap& data)
 {
     if(WITH_API)
@@ -182,6 +188,7 @@ void UserModel::loginAttempt(const QVariantMap& data)
                 //Verbinden der des Users mit den mit den Daten aus dem Reply
                 QObject::connect(secondResponse, &QNetworkReply::finished, this, [=]()
                                  {
+
                                      QByteArray jsonData = secondResponse->readAll();
                                      QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
                                      QJsonObject jsonObj = jsonDoc.object();
@@ -196,14 +203,18 @@ void UserModel::loginAttempt(const QVariantMap& data)
                                      {
                                          m_email_t = EMAIL_T::PRIVATE;
                                          m_user->emailT = EMAIL_T::PRIVATE;
+                                         emit email_tChanged(1);
                                      }
                                      else
                                      {
                                          m_email_t = EMAIL_T::COMPANY;
                                          m_user->emailT = EMAIL_T::COMPANY;
+                                         emit email_tChanged(0);
                                      }
-
-
+                                     QJsonObject jsonGroup = jsonObj["group"].toObject();
+                                     m_groupID = jsonGroup["id"].toInt();
+                                     qDebug() << m_groupID;
+                                     emit groupIDChanged();
                                      emit userChanged();
                                  });
             } else {
@@ -292,7 +303,6 @@ void UserModel::registerAttempt(const QVariantMap& data)
 
         // Step 2: Modify the id value
         nestedGroup["id"] = 2; // Change the id to the desired value
-
         // Step 3: Reassign the modified nested map back to the original QVariantMap
         data["group"] = nestedGroup;
     }
