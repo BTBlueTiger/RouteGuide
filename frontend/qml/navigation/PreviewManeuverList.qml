@@ -1,5 +1,9 @@
 import QtQuick
+import QtQuick.Controls
 
-Item {
+ListView {
+    property string totalTravelTime
+    property string totalDistance
+    model: ListModel{ id: routeInfoModel }
 
 }

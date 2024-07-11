@@ -19,6 +19,7 @@ DefaultMap {
         model: defaultRouteModel.defaultRouteQuery.waypoints
     }
 
+    property SaveARoute saveARoute: SaveARoute {}
 
 
     Button {
@@ -41,11 +42,14 @@ DefaultMap {
                 MenuItem {
                     text: "New..."
                     onClicked: {
-                        routeQuery.clearWaypoints()
-                        routeModel.update()
+                        defaultRouteModel.defaultRouteQuery.clearWaypoints()
+                        defaultRouteModel.reset()
                         if(waypointManager.getWaypointModel(potentialWaypointModelName) !== null) {
                             waypointManager.getWaypointModel(potentialWaypointModelName).clearCoordinates()
                         }
+
+                        defaultRouteModel.update()
+
                         markerRepeater.update()
                         map.update()
                     }
@@ -53,9 +57,6 @@ DefaultMap {
                 MenuItem {
                     text: "Save"
                     onClicked: saveARoute.open()
-                }
-                MenuItem {
-                    text: "Delete"
                 }
             }
     }
@@ -117,8 +118,16 @@ DefaultMap {
 
 
     // our simple blue route
-    BlueRoute{ model: defaultRouteModel }
-
+    MapItemView {
+        id: mapRoute
+        model: defaultRouteModel
+        delegate: MapRoute {
+            route: routeData
+            line.color: "blue"
+            line.width: 5
+            smooth: true
+        }
+    }
 
 
     // Start Marker
