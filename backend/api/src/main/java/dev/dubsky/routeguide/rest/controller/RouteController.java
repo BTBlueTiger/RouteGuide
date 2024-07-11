@@ -4,6 +4,7 @@ import dev.dubsky.advancedlog.AdvLogger;
 import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.model.Group;
 import dev.dubsky.routeguide.rest.model.Route;
+import dev.dubsky.routeguide.rest.model.RoutesCompany;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.RouteService;
 import dev.dubsky.routeguide.rest.service.UserService;
@@ -29,6 +30,9 @@ public class RouteController {
     public ResponseEntity<?> createRoute(@RequestHeader("Authorization") String authorizationToken, @RequestBody Route route) {
         AdvLogger.output(Color.GREEN, "[ROUTES] Creating route for token: " + authorizationToken);
         AdvLogger.output(Color.GREEN, "[ROUTES] Route: " + "User: " + userService.getCurrentUser(authorizationToken).getUsername());
+        if (routeService.getRouteByName(route.getName()) != null) {
+            return ResponseEntity.badRequest().body("Route with name: " + route.getName() + " already exists");
+        }
         Route newRoute = routeService.createRoute(authorizationToken, route);
         if (newRoute == null) {
             return ResponseEntity.badRequest().body("Route creation failed");
@@ -85,5 +89,19 @@ public class RouteController {
             return ResponseEntity.badRequest().body("No routes found for group: " + group.getName());
         }
         return ResponseEntity.ok(routes);
+    }
+
+    @PostMapping("create_company_route")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> createCompanyRoute(@RequestHeader("Authorization") String authorizationToken, @RequestBody RoutesCompany route) {
+        AdvLogger.output(Color.GREEN, "[ROUTES] Creating company route for token: " + authorizationToken);
+        if (routeService.getCompanyRouteByName(route.getName()) != null) {
+            return ResponseEntity.badRequest().body("Route with name: " + route.getName() + " already exists");
+        }
+        RoutesCompany newRoute = routeService.createCompanyRoute(authorizationToken, route);
+        if (newRoute == null) {
+            return ResponseEntity.badRequest().body("Route creation failed");
+        }
+        return ResponseEntity.ok(newRoute);
     }
 }
