@@ -69,7 +69,7 @@ Flickable {
                             DefaultMapPlugin {
                             id: littlePreviewMapPlugin
                         }
-                        center: QtPositioning.coordinate(modelData["adresses"][0]["lat"], modelData["adresses"][0]["long"])
+                        center: QtPositioning.coordinate(modelData["adresses"][0]["latitude"], modelData["adresses"][0]["longitude"])
 
                         property alias flickableRouteModel : flickableRouteModel
 
@@ -88,8 +88,8 @@ Flickable {
                                         for(var i = 0; i < adresses.length; i++) {
                                             flickableRouteModelquery.addWaypoint(
                                                         QtPositioning.coordinate(
-                                                           adresses[i]["lat"],
-                                                            adresses[i]["long"]
+                                                           adresses[i]["latitude"],
+                                                            adresses[i]["longitude"]
                                                                    ))
                                         }
                                         flickableRouteModel.update()

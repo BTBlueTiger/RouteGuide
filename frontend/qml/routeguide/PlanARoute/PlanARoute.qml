@@ -78,7 +78,6 @@ Item {
                         TabButton { text: qsTr("Preview") }
                     }
                 }
-
             Rectangle {
                 id: swipeViewRoot
                 color: "black"

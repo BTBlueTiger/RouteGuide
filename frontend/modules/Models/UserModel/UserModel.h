@@ -11,6 +11,7 @@ class UserModel : public AbstractRessource {
     Q_OBJECT
     Q_PROPERTY(QString user READ user NOTIFY userChanged)
     Q_PROPERTY(QString group READ group NOTIFY groupChanged)
+    Q_PROPERTY(int groupID READ groupID WRITE setGroupID NOTIFY groupIDChanged FINAL)
     Q_PROPERTY(bool loggedIn READ loggedIn NOTIFY userChanged)
     Q_PROPERTY(bool registerSuccess READ registerSuccess NOTIFY registerSuccessChanged)
 
@@ -47,7 +48,8 @@ public:
     bool loggedIn() const;
     bool registerSuccess() const;
     int email_t() const;
-
+    int groupID() const;
+    void setGroupID(int);
     void setEmail_t(int);
 
 
@@ -74,6 +76,7 @@ private:
     QVector<QString> m_companyMailAdresses;
     int m_email_t;
     bool m_registerSuccess;
+    int m_groupID;
 
     std::shared_ptr<QUrl> m_userServiceURL;
     std::shared_ptr<QHttpHeaders> m_userServiceHttpHeaders;
@@ -82,6 +85,7 @@ private:
 signals:
     void userChanged();
     void groupChanged();
+    void groupIDChanged();
     void registerSuccessChanged();
     void premiumGroupsChanged(QVector<int>);
     void email_tChanged(int);

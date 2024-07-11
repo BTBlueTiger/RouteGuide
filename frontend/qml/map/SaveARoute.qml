@@ -63,28 +63,7 @@ Dialog {
                 id: buttonHiker
                 height: 30
                 Layout.fillWidth: true
-                text: qsTr("Hiker")
-                property bool isClicked: false
-                Material.background : isClicked ? Material.primary : Material.rippleColor
-            }
-
-
-            Button {
-                font.pointSize: fontPointSize
-                id: buttonSportler
-                height: 30
-                Layout.fillWidth: true
-                text: qsTr("Sportler")
-                property bool isClicked: false
-                Material.background : isClicked ? Material.primary : Material.rippleColor
-            }
-
-            Button {
-                font.pointSize: fontPointSize
-                id: buttonTourist
-                height: 30
-                Layout.fillWidth: true
-                text: qsTr("Tourist")
+                text: UserModel.group
                 property bool isClicked: false
                 Material.background : isClicked ? Material.primary : Material.rippleColor
             }
@@ -95,6 +74,7 @@ Dialog {
                 id: buttonPrivate
                 height: 30
                 Layout.fillWidth: true
+                onClicked: isClicked = !isClicked
                 text: isClicked ?  qsTr("Private Route") : qsTr("Public Route")
                 Material.background : isClicked ? Material.primary : Material.rippleColor
 
@@ -130,13 +110,13 @@ Dialog {
     onAccepted: {
 
         var waypointModel = waypointManager.getWaypointModel(potentialWaypointModelName)
-        var addresses = waypointModel.getWayPointInformations()
-        var group_id = ["1"];
+        var addresses = waypointModel.waypointInformations
+        var group_id = UserModel.group;
 
         routeApiRessource.createRoute
                 (
                     {
-                        ["name"] : textfieldRouteName.text,
+                        ["identifier"] : textfieldRouteName.text,
                         ["adresses"] : addresses,
                         ["group"] : group_id,
                         ["public"] : buttonPrivate.isClicked ? "true" : "false"

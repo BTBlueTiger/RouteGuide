@@ -16,7 +16,12 @@ Rectangle {
 
     id: planARoutePreviewPage
 
-    property var coordinates
+    gradient: Gradient {
+        GradientStop { position: 0.0; color: "lightslategray" }
+        GradientStop { position: 1.0; color: "black" }
+    }
+
+    property var routeListModel
 
     height: parent.height
     width: parent.width
@@ -37,24 +42,9 @@ Rectangle {
 
     signal toNavigation()
 
-    Rectangle {
-
-        id: prevMap
-        width: parent.width * .9
-        height: parent.height * .9
-
-        x : parent.width / 2 - prevMap.width / 2
-        y : parent.height / 2 - prevMap.height / 2
-
-        RouteGuideMap {
-            center: defaultRouteModel.defaultRouteQuery.waypoints.length === 0 ?
-                        QtPositioning.coordinate(52.2125431, 8.7179206)
-                      :
-                        defaultRouteModel.defaultRouteQuery.waypoints[0]
-            MarkerRepeater {
-                id: markerRepeater
-                model: defaultRouteModel.defaultRouteQuery.waypoints
-            }
-        }
+    PreviewManeuverList{
+        width: parent.width
+        height: parent.height
     }
+
 }

@@ -18,8 +18,8 @@ QString GetRandomString(int length)
 void TestUserModel::test_LoginAttempt()
 {
     QVariantMap map;
-    map["username"] = "TestUser";
-    map["password"] = "TestUsersSecretPassword";
+    map["username"] = "TestUsers";
+    map["password"] = "TestUsersSecretPasswords";
     loginAttempt(map);
     QCOMPARE(loggedIn(), false);
 }

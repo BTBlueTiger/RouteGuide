@@ -226,4 +226,15 @@ void UserModel::setEmail_t(int type)
     emit email_tChanged(m_email_t);
 }
 
+int UserModel::groupID() const
+{
+    return m_groupID;
+}
+
+void UserModel::setGroupID(int groupID)
+{
+    if(m_groupID != groupID)
+        m_groupID = groupID;
+    emit groupIDChanged();
+}
 

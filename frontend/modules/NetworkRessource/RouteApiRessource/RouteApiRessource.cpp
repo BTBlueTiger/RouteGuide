@@ -25,6 +25,7 @@ RouteApiRessource::RouteApiRessource(QObject *parent)
 
 bool RouteApiRessource::createRoute(const QVariantMap& data)
 {
+
         QNetworkReply* response = postRequest(
             *qVariantMapToQByteArray(data),
             m_api->createRequest("/route/create")
@@ -34,6 +35,7 @@ bool RouteApiRessource::createRoute(const QVariantMap& data)
         QObject::connect(response, &QNetworkReply::finished, [=](){
             if(response->error() == QNetworkReply::NoError)
             {
+
                 return true;
             }
             else
@@ -61,15 +63,15 @@ QVariantList RouteApiRessource::getFakeRoutes()
 
     // First fake route
     group["group_id"] = 1;
-    fakeAddress["display_string"] = "Drabertstraße, Westhafen, Nordstadt, Minden, Kreis Minden-Lübbecke, North Rhine – Westphalia, 32425, Germany";
-    fakeAddress["long"] = "8.8991998";
-    fakeAddress["lat"] = "52.3010161";
+    fakeAddress["identifier"] = "Drabertstraße, Westhafen, Nordstadt, Minden, Kreis Minden-Lübbecke, North Rhine – Westphalia, 32425, Germany";
+    fakeAddress["longitude"] = "8.8991998";
+    fakeAddress["latitude"] = "52.3010161";
     addresses.append(fakeAddress);
 
     fakeAddress.clear();
-    fakeAddress["display_string"] = "";
-    fakeAddress["long"] = "8.9083147";
-    fakeAddress["lat"] = "52.296182";
+    fakeAddress["identifier"] = "";
+    fakeAddress["longitude"] = "8.9083147";
+    fakeAddress["latitude"] = "52.296182";
     addresses.append(fakeAddress);
 
     fakeRoute["name"] = "My parcing slot Uni way";
@@ -78,9 +80,9 @@ QVariantList RouteApiRessource::getFakeRoutes()
     addresses.append(fakeAddress);
 
     fakeAddress.clear();
-    fakeAddress["display_string"] = "Porta Markt, Flurweg, Barkhausen, Porta Westfalica, Kreis Minden-Lübbecke, North Rhine – Westphalia, 32457, Germany";
-    fakeAddress["long"] = "8.9012467869";
-    fakeAddress["lat"] = "52.2593197";
+    fakeAddress["identifier"] = "Porta Markt, Flurweg, Barkhausen, Porta Westfalica, Kreis Minden-Lübbecke, North Rhine – Westphalia, 32457, Germany";
+    fakeAddress["longitude"] = "8.9012467869";
+    fakeAddress["latitude"] = "52.2593197";
     addresses.append(fakeAddress);
 
     fakeRoute["adresses"] = addresses;
@@ -98,15 +100,15 @@ QVariantList RouteApiRessource::getFakeRoutes()
     // 2.
 
     group["group_id"] = 1;
-    fakeAddress["display_string"] = "Löhne, Kreis Herford, North Rhine – Westphalia, 32584, Germany";
-    fakeAddress["long"] = "8.7141587";
-    fakeAddress["lat"] = "52.1990346";
+    fakeAddress["identifier"] = "Löhne, Kreis Herford, North Rhine – Westphalia, 32584, Germany";
+    fakeAddress["longitude"] = "8.7141587";
+    fakeAddress["latitude"] = "52.1990346";
     addresses.append(fakeAddress);
 
     fakeAddress.clear();
-    fakeAddress["display_string"] = "Marktkauf Löhne, 13, Albert-Schweitzer-Straße, Ulenburg, Löhne, Kreis Herford, North Rhine – Westphalia, 32584, Germany";
-    fakeAddress["long"] = "8.7202042";
-    fakeAddress["lat"] = "52.2070195";
+    fakeAddress["identifier"] = "Marktkauf Löhne, 13, Albert-Schweitzer-Straße, Ulenburg, Löhne, Kreis Herford, North Rhine – Westphalia, 32584, Germany";
+    fakeAddress["longitude"] = "8.7202042";
+    fakeAddress["latitude"] = "52.2070195";
     addresses.append(fakeAddress);
 
     fakeRoute["name"] = "Jogger Way";
