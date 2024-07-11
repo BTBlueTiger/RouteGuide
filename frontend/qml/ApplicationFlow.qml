@@ -165,7 +165,7 @@ Item {
                 icon.source: "/res/btn/map.svg"
                 onClicked: {
                     stackLayout.clear()
-                    stackLayout.push(navigation)
+                    stackLayout.push(routeguideMap)
                 }
             }
 

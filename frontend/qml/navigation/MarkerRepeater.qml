@@ -3,12 +3,10 @@ import QtQuick.Controls
 import QtLocation
 import QtPositioning
 
-Repeater {
-    property alias model: model
-    delegate: MapQuickItem{
-        property alias markers: markers
-        id: markers
-        coordinate: model.modelData
+// Simply repeating "marked" locations
+MapItemView {
+    delegate: MapQuickItem {
+        coordinate: modelData
         anchorPoint.x: icon.width / 2
         anchorPoint.y: icon.height
         sourceItem: Image {
