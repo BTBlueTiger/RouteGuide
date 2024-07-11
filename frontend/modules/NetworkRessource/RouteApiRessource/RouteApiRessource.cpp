@@ -12,7 +12,7 @@ RouteApiRessource::RouteApiRessource(QObject *parent)
 {
     // Base url
     m_url->setScheme("http");
-    //m_url->setHost("94.16.31.72");
+    m_url->setHost("94.16.31.72");
     m_url->setPort(8080);
 
     // setting to abstract ressource
@@ -36,10 +36,12 @@ bool RouteApiRessource::createRoute(const QVariantMap& data)
             if(response->error() == QNetworkReply::NoError)
             {
 
+                qDebug() << "Success";
                 return true;
             }
             else
             {
+                qDebug() << "Failure";
                 return false;
             }
         }

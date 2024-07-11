@@ -48,7 +48,6 @@ int main(int argc, char *argv[])
     case Qt::PermissionStatus::Undetermined:
         qDebug() << "Untermined";
         qApp->requestPermission(locationPermission, [] {
-
         });
         break;
     case Qt::PermissionStatus::Denied:
@@ -60,7 +59,6 @@ int main(int argc, char *argv[])
         qDebug() << "Default";
         break;
     }
-    qDebug() << "Test";
     qDebug() << "Device supports OpenSSL: " << QSslSocket::supportsSsl();
 
     qmlRegisterSingletonType<UserModel>("UserModel", 1, 0, "UserModel", UserModel::createSingletonInstance);
