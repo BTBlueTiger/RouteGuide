@@ -3,6 +3,7 @@ package dev.dubsky.routeguide.rest.controller;
 import dev.dubsky.advancedlog.AdvLogger;
 import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.dto.UserDTO;
+import dev.dubsky.routeguide.rest.model.Group;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,18 @@ public class UserController {
     public ResponseEntity<?> setPassword(@RequestHeader("Authorization") String token, @RequestBody String password) {
         User user = userService.getCurrentUser(token);
         user.setPassword(password);
+        return ResponseEntity.ok(userService.save(user));
+    }
+
+    @PutMapping("/me/setGroup")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> setGroup(@RequestHeader("Authorization") String token, @RequestBody Long group) {
+        User user = userService.getCurrentUser(token);
+        Group g = userService.getGroupByGroupID(group);
+        if (g == null) {
+            return ResponseEntity.badRequest().body("Group not found");
+        }
+        user.setGroup(g);
         return ResponseEntity.ok(userService.save(user));
     }
 

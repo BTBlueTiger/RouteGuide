@@ -1,5 +1,6 @@
 package dev.dubsky.routeguide.rest.service;
 
+import dev.dubsky.routeguide.rest.model.Group;
 import dev.dubsky.routeguide.rest.model.User;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface UserService {
     User saveMail(User user);
     void deleteById(Long id);
     List<User> findByCompany(Long companyId);
+    Group getGroupByGroupID(Long group_id);
 }

@@ -4,7 +4,9 @@ import dev.dubsky.advancedlog.AdvLogger;
 import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.jwt.JwtTokenUtil;
 import dev.dubsky.routeguide.rest.model.Company;
+import dev.dubsky.routeguide.rest.model.Group;
 import dev.dubsky.routeguide.rest.model.User;
+import dev.dubsky.routeguide.rest.persistence.GroupRepository;
 import dev.dubsky.routeguide.rest.persistence.UserRepository;
 import dev.dubsky.routeguide.rest.service.UserService;
 
@@ -19,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private GroupRepository groupRepository;
 
     @Autowired
     private CompanyServiceImpl companyService;
@@ -105,5 +110,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findByCompany(Long companyId) {
         return userRepository.findByCompanyId(companyId).orElse(null);
+    }
+
+    @Override
+    public Group getGroupByGroupID(Long group_id) {
+        return groupRepository.findById(group_id).orElse(null);
     }
 }
