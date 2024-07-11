@@ -7,7 +7,9 @@ import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.CompanyService;
 
+import dev.dubsky.routeguide.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +26,10 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    @GetMapping
+    @Autowired
+    private UserService userService;
+
+    @GetMapping(("/{id}"))
     @PreAuthorize("hasRole('ADMIN')")
     public Company getCompany(@PathVariable Long id) {
         return companyService.getCompanyById(id);
@@ -33,20 +38,25 @@ public class CompanyController {
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public List<Company> getAllCompanies() {
+        AdvLogger.output(Color.GREEN, "[ADMIN] Getting all companies");
         return companyService.getAllCompanies();
     }
 
     @GetMapping("/get_owner/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public User getOwner(@PathVariable Long id) {
-        AdvLogger.output(Color.GREEN, "Getting owner for company: " + companyService.getCompanyById(id).getName());
+        AdvLogger.output(Color.GREEN, "[ADMIN] Getting owner for company: " + companyService.getCompanyById(id).getName());
         return companyService.getCompanyById(id).getOwner();
     }
 
     @GetMapping("/get_users")
     @PreAuthorize("hasRole('USER')")
-    public List<UserDTO> getUsers(@RequestHeader("Authorization") String token) {
-        return companyService.getUsers(token);
+    public ResponseEntity<?> getUsers(@RequestHeader("Authorization") String token) {
+        User user = userService.getCurrentUser(token);
+        List<UserDTO> users = companyService.getUsers(userService, user);
+        if (users == null) {
+            return ResponseEntity.badRequest().body("Invalid token");
+        }
+        return ResponseEntity.ok(users);
     }
-
 }

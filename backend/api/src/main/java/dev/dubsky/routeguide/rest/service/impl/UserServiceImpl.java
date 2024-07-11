@@ -5,8 +5,6 @@ import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.jwt.JwtTokenUtil;
 import dev.dubsky.routeguide.rest.model.Company;
 import dev.dubsky.routeguide.rest.model.User;
-import dev.dubsky.routeguide.rest.model.UserGroup;
-import dev.dubsky.routeguide.rest.persistence.UserGroupRepository;
 import dev.dubsky.routeguide.rest.persistence.UserRepository;
 import dev.dubsky.routeguide.rest.service.UserService;
 
@@ -21,9 +19,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private UserGroupRepository userGroupRepository;
 
     @Autowired
     private CompanyServiceImpl companyService;
@@ -56,6 +51,17 @@ public class UserServiceImpl implements UserService {
     }
 
     public User create(User user) {
+
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            AdvLogger.output(Color.RED, "Username already exists: " + user.getUsername());
+            return null;
+        }
+
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            AdvLogger.output(Color.RED, "Email already exists: " + user.getEmail());
+            return null;
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreation(java.time.Instant.now());
         if (user.getRole() == null) {
@@ -99,13 +105,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findByCompany(Long companyId) {
         return userRepository.findByCompanyId(companyId).orElse(null);
-    }
-
-    @Override
-    public UserGroup findGroupByUser(User user) {
-        AdvLogger.output(Color.GREEN, "Finding group for user: " + user.getUsername());
-        UserGroup group = userGroupRepository.findByUser(user);
-        AdvLogger.output(Color.GREEN, "Group found: " + group.getGroup().getName());
-        return userGroupRepository.findByUser(user);
     }
 }

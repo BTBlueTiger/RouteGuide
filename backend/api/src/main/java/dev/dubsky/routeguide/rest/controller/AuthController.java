@@ -7,6 +7,8 @@ import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,13 +34,15 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/register")
-    public String registerUser(@RequestBody User user) {
-        userService.create(user);
-        return "User registered successfully";
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        if (userService.create(user) == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User already exists");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body("User created");
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody Map<String, String> user) {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> user) {
         AdvLogger.output(Color.GREEN, "Login method called with username: " + user.get("username"));
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.get("username"), user.get("password"))
@@ -46,7 +50,7 @@ public class AuthController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user.get("username"));
         String token = jwtTokenUtil.generateToken(userDetails);
         AdvLogger.output(Color.GREEN, "Generated Token: " + token + " for user: " + user.get("username"));
-        return token;
+        return ResponseEntity.ok(token);
     }
 
 }

@@ -36,7 +36,10 @@ create table "user"
     creation   date                                      not null,
     company_id integer
         constraint company_fk
-            references companies
+            references companies,
+    group_id   integer default 1
+        constraint user_group_group_id_fk
+            references "group"
 );
 
 alter table "user"
@@ -96,3 +99,39 @@ create table addresses
 
 alter table addresses
     owner to admin;
+
+create table routes_company
+(
+    route_id   serial
+        constraint id
+            primary key,
+    user_id    integer               not null
+        constraint routes_company_user_user_id_fk
+            references "user",
+    company_id integer               not null
+        constraint routes_company_companies_company_id_fk
+            references companies,
+    name       varchar,
+    public     boolean default false not null
+);
+
+alter table routes_company
+    owner to admin;
+
+create table addresses_company
+(
+    id         integer default nextval('adresses_company_id_seq'::regclass) not null
+        constraint addresses_company_pk
+            primary key,
+    identifier varchar                                                      not null,
+    longitude  double precision                                             not null,
+    latitude   double precision                                             not null,
+    route_id   integer                                                      not null
+        constraint addresses_company_routes_company_route_id_fk
+            references routes_company
+);
+
+alter table addresses_company
+    owner to admin;
+
+

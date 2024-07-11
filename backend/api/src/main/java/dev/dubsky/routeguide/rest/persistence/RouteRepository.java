@@ -19,4 +19,5 @@ public interface RouteRepository extends JpaRepository<Route, Long> {
     @Query("SELECT r FROM Route r WHERE r.isPublic = true")
     List<Route> getPublicRoutes();
 
+    Route getRouteByName(String name);
 }

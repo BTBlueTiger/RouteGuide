@@ -4,6 +4,7 @@ import dev.dubsky.advancedlog.AdvLogger;
 import dev.dubsky.advancedlog.Color;
 import dev.dubsky.routeguide.rest.dto.UserDTO;
 import dev.dubsky.routeguide.rest.model.Company;
+import dev.dubsky.routeguide.rest.model.User;
 import dev.dubsky.routeguide.rest.persistence.CompanyRepository;
 import dev.dubsky.routeguide.rest.service.CompanyService;
 import dev.dubsky.routeguide.rest.service.UserService;
@@ -19,10 +20,6 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private CompanyRepository companyRepository;
-
-    @Autowired
-    @Lazy
-    private UserService userService;
 
     @Override
     public List<Company> getAllCompanies() {
@@ -56,9 +53,10 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<UserDTO> getUsers(String token) {
-        Company company = getCompanyByOwner(userService.getCurrentUser(token).getId());
-        AdvLogger.output(Color.GREEN, "Getting users for company: " + company.getName());
+    public List<UserDTO> getUsers(UserService userService, User user) {
+        Company company = getCompanyByOwner(user.getId());
+        AdvLogger.output(Color.GREEN, "[COMPANY] Getting users for company: " + company.getName() + " by user: " + user.getUsername());
+        // Ugly, but I don't want to change the whole structure
         return userService.findByCompany(company.getId().longValue()).stream().map(UserDTO::new).toList();
     }
 }

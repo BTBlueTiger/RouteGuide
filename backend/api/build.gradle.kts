@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "dev.dubsky.routeguide"
-version = "1.6"
+version = "1.6.4"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

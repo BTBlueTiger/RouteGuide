@@ -16,7 +16,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name = "routes")
 @NamedQueries({
         @NamedQuery(name = "Route.getRoutesByUser", query = "SELECT r FROM Route r WHERE r.user.username = :username"),
-        @NamedQuery(name = "Route.getRouteById", query = "SELECT r FROM Route r WHERE r.id = :id")
+        @NamedQuery(name = "Route.getRouteById", query = "SELECT r FROM Route r WHERE r.id = :id"),
+        @NamedQuery(name = "Route.getRouteByName", query = "SELECT r FROM Route r WHERE r.name = :name")
 })
 public class Route {
     @Id
