@@ -79,11 +79,18 @@ bool UserModel::registerSuccess() const
 
 bool UserModel::createRoute(const QVariantMap& data)
 {
-
-
+    QString route;
+    if(m_email_t == PRIVATE)
+    {
+        route = "/route/create";
+    }
+    else
+    {
+        route = "/route/create_company_route";
+    }
     QNetworkReply* response = postRequest(
         *qVariantMapToQByteArray(data),
-        m_api->createRequest("/route/create_company_route")
+        m_api->createRequest(route)
         );
     // Verbinden von der angekommenen Nachricht
     qDebug() << data;
@@ -108,11 +115,22 @@ bool UserModel::createRoute(const QVariantMap& data)
 void UserModel::getRoutes(int type)
 {
     QString route;
-    if(type == 0) {
-        route = "/route/get_routes_company";
+    if(m_email_t == PRIVATE)
+    {
+        if(type == 0) {
+            route = "/route/get_routes_auto";
+        } else {
+            route = "/route/get";
+        }
+
     } else {
-        route = "/route/get_routes_company_public";
+        if(type == 0) {
+            route = "/route/get_routes_company";
+        } else {
+            route = "/route/get_routes_company_public";
+        }
     }
+
     QNetworkReply * secondResponse = getRequest(m_api->createRequest(route));
     QVariantList routes;
     m_routes.clear();
