@@ -9,26 +9,18 @@ import GeoPositionRessource
 
 import UserModel
 
+import "../navigation"
+
 Map {
     id: map
 
 
     property SaveARoute saveARoute : SaveARoute {}
 
-    Repeater {
+    MarkerRepeater {
+        id: markerRepeater
         model: waypointManager.getWaypointModel(potentialWaypointModelName) === null
-               ? [] :  waypointManager.getWaypointModel(potentialWaypointModelName).getCoordinates()
-        delegate: MapQuickItem{
-            coordinate: model.modelData
-            anchorPoint.x: icon.width / 2
-            anchorPoint.y: icon.height
-            sourceItem: Image {
-                id: icon
-                source: "/res/btn/map.svg"  // Path to your marker icon
-                width: 40
-                height: 40
-            }
-        }
+                       ? [] :  waypointManager.getWaypointModel(potentialWaypointModelName).coordinates
     }
 
 
@@ -57,6 +49,7 @@ Map {
                         if(waypointManager.getWaypointModel(potentialWaypointModelName) !== null) {
                             waypointManager.getWaypointModel(potentialWaypointModelName).clearCoordinates()
                         }
+                        markerRepeater.update()
                         map.update()
                     }
                 }
@@ -95,10 +88,8 @@ Map {
         target: GeoPositionRessource
         function onCoordinateChanged () {
             if(followGPS) {
-                console.log(center)
                 lastCenter = center
                 center = GeoPositionRessource.coordinate
-                console.log(center)
             }
         }
     }
@@ -128,15 +119,11 @@ Map {
     }
 
 
-    MapItemView {
+    BlueRoute{
         model: routeModel
-        delegate: MapRoute {
-            route: routeData
-            line.color: "blue"
-            line.width: 5
-            smooth: true
-        }
     }
+
+
 
 
 

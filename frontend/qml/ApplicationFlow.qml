@@ -115,7 +115,7 @@ Item {
     Component {
         id: savedRoutes
         SavedRoutes{
-
+            anchors.fill: parent
         }
     }
 

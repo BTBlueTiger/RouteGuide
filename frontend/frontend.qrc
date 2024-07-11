@@ -46,5 +46,8 @@
         <file>qml/group/SavedRoutesForm.ui.qml</file>
         <file>qml/group/SavedRoutes.qml</file>
         <file>qml/group/SavedRoutesFlickableForm.ui.qml</file>
+        <file>qml/group/SavedRoutesFlickable.qml</file>
+        <file>qml/navigation/MarkerRepeater.qml</file>
+        <file>qml/navigation/BlueRoute.qml</file>
     </qresource>
 </RCC>

@@ -4,7 +4,7 @@
 #include <QJsonArray>
 
 namespace Waypoint
-{
+{   
 
     void Waypoint::WaypointModel::setJsonData(const QJsonArray& array)
     {
@@ -45,7 +45,13 @@ namespace Waypoint
     {
         beginResetModel();
         WaypointModelItem* m = new WaypointModelItem(item->displayName(), item->coordinate());
-        qDebug() << item->displayName();
+
+        m_waypointInformations.append(QVariant::fromValue(m));
+        emit waypointInformationsChanged();
+
+        m_coordinates.append(QVariant::fromValue(item->coordinate()));
+        emit coordinatesChanged();
+
         beginInsertRows(QModelIndex(), rowCount(), rowCount());
         m_waypointModelItems.append(m);
         endResetModel();
@@ -118,6 +124,14 @@ namespace Waypoint
     void Waypoint::WaypointModel::remove(int index)
     {
         beginRemoveRows(QModelIndex(), index, index);
+
+        m_waypointInformations.remove(index);
+        emit waypointInformationsChanged();
+
+        m_coordinates.append(index);
+        emit coordinatesChanged();
+
+
         m_waypointModelItems.removeAt(index);
         endRemoveRows();
     }
@@ -143,15 +157,6 @@ namespace Waypoint
         return m_waypointModelItems[index];
     }
 
-    QList<QGeoCoordinate> WaypointModel::getCoordinates() const
-    {
-        QList<QGeoCoordinate> coordinates;
-        for(const WaypointModelItem* item: m_waypointModelItems)
-        {
-            coordinates.append(item->coordinate());
-        }
-        return coordinates;
-    }
 
     bool WaypointModel::isConnectedToLocationRessource() const
     {
@@ -166,20 +171,20 @@ namespace Waypoint
     void WaypointModel::clearCoordinates()
     {
         m_waypointModelItems.clear();
+        m_coordinates.clear();
+        emit coordinatesChanged();
+        m_waypointInformations.clear();
+        emit waypointInformationsChanged();
     }
 
-    QVariantList WaypointModel::getWayPointInformations() const
+    QVariantList WaypointModel::waypointInformations() const
     {
-        QVariantList townNames;
-        for(const WaypointModelItem* item: m_waypointModelItems)
-        {
-            QVariantMap mapInfos;
-            mapInfos["town"] = item->displayName();
-            mapInfos["street"] = "";
-            mapInfos["number"] = "";
-            townNames.append(mapInfos);
-        }
-        return townNames;
+        return m_waypointInformations;
+    }
+
+    QVariantList WaypointModel::coordinates() const
+    {
+        return m_coordinates;
     }
 
 }

@@ -3,13 +3,24 @@ import QtQuick.Controls
 import QtLocation
 import QtPositioning
 
+import WaypointModel
+
+
+
+
 Flickable {
 
     id: flickableRoot
+    property var savedRoutesModel: savedRoutesModel
+    property string buttonSource
+    property string buttonColor
+    property string onClickedMessage
 
+    anchors.fill: parent
 
-    property var savedRoutesModel
-
+    flickableDirection: Flickable.VerticalFlick
+    contentWidth: flickableRoot.width
+    contentHeight: flickableRoot.height * .4 * cardRepeater.count + 56 * 2
 
     Flow {
         anchors.fill: parent
@@ -24,20 +35,15 @@ Flickable {
             delegate: Rectangle {
                 id: card
                 width: flickableRoot.width / 2
-                height: mapVisible ? waypointFlickable.height * .4 : displayNameLabel.height * 1.2
+                height: flickableRoot.height * .4
 
                 MouseArea{
                     anchors.fill: parent
                 }
 
-                Text {
-                    id: display_string
-                    text: qsTr("text")
-                }
-
                 Rectangle {
                     id: textRect
-                    width: mapVisible ? card.width * .45 : card.width * .95
+                    width: card.width * .45
                     height: card.height
 
                     Rectangle{
@@ -63,26 +69,67 @@ Flickable {
                 }
 
                 Rectangle {
-                    visible: mapVisible
                     id: mapRect
                     x: card.width * .45
-                    width: waypointFlickable.width * .6
+                    width: flickableRoot.width * .6
                     height: parent.height
                     radius: 20
                     Map {
                         id: map
                         zoomLevel: 20
 
+                        MapItemView {
+                            model:  RouteModel {
+                                id: flickableRouteModel
+                                query: RouteQuery{
+                                    id: flickableRouteModelquery
+                                    Component.onCompleted: {
+                                        var adresses = modelData["adresses"]
+                                        for(var i = 0; i < adresses.length; i++) {
+                                            flickableRouteModelquery.addWaypoint(
+                                                        QtPositioning.coordinate(
+                                                           adresses[i]["lat"],
+                                                            adresses[i]["long"]
+                                                                   ))
+                                        }
+                                        flickableRouteModel.update()
+                                    }
+                                }
+                                plugin: mapPlugin
+                            }
+
+                            delegate: MapRoute {
+                                route: routeData
+                                line.color: "blue"
+                                line.width: 5
+                                smooth: true
+                            }
+                        }
+
                         anchors.fill: mapRect
-                        plugin: mapPlugin
-                        center: model.coordinate
+                        plugin:     Plugin {
+                            id: mapPlugin
+                            name: "osm"
+
+                            PluginParameter {
+                                name: "osm.mapping.custom.host"
+
+                                // OSM plugin will auto-append if .png isn't suffix, and that screws up apikey which silently
+                                // fails authentication (only Wireshark revealed it)
+                                value: "http://tile.thunderforest.com/atlas/%z/%x/%y.png?apikey=5e174dbc86e5477b90da4369fabe46f5&fake=.png"
+
+                                //value: "http:192.168.178.23:7070/tile/%z/%x/%y.png"
+                            }
+                        }
+                        center: QtPositioning.coordinate(modelData["adresses"][0]["lat"], modelData["adresses"][0]["long"])
                         activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
+
 
                         MapQuickItem{
                             sourceItem: Image {
                                 source: "/res/btn/place.svg"
                             }
-                            coordinate: model.coordinate
+                            coordinate: QtPositioning.coordinate(modelData["adresses"][0]["lat"], modelData["adresses"][0]["long"])
                             anchorPoint.x: sourceItem.width / 2
                             anchorPoint.y: sourceItem.height
                         }
@@ -121,4 +168,5 @@ Flickable {
             }
         }
     }
+
 }

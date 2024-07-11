@@ -19,7 +19,18 @@ public:
      */
     Q_INVOKABLE bool createRoute(const QVariantMap&);
 
+    /**
+     * @brief getRoute gives a jsonarray of a certain group type, like hiker
+     * @param group the "id" int of the group
+     * @return a jsonarray of the routes
+     */
+    Q_INVOKABLE QVariantList getRoutes(int group);
 
+    /**
+     * @brief getFakeRoutes simple Fake Route composition to program functionality
+     * @return a jsonarray of 2 or 3 routes
+     */
+    Q_INVOKABLE QVariantList getFakeRoutes();
 
 };
 

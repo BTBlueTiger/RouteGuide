@@ -44,3 +44,77 @@ bool RouteApiRessource::createRoute(const QVariantMap& data)
     );
     return false;
 }
+
+QVariantList RouteApiRessource::getRoutes(int group)
+{
+    return QVariantList();
+}
+
+QVariantList RouteApiRessource::getFakeRoutes()
+{
+    QVariantList fakeRoutes;
+
+    QVariantMap fakeRoute;
+    QVariantMap group;
+    QVariantList addresses;
+    QVariantMap fakeAddress;
+
+    // First fake route
+    group["group_id"] = 1;
+    fakeAddress["display_string"] = "Drabertstraße, Westhafen, Nordstadt, Minden, Kreis Minden-Lübbecke, North Rhine – Westphalia, 32425, Germany";
+    fakeAddress["long"] = "8.8991998";
+    fakeAddress["lat"] = "52.3010161";
+    addresses.append(fakeAddress);
+
+    fakeAddress.clear();
+    fakeAddress["display_string"] = "";
+    fakeAddress["long"] = "8.9083147";
+    fakeAddress["lat"] = "52.296182";
+    addresses.append(fakeAddress);
+
+    fakeRoute["name"] = "My parcing slot Uni way";
+    fakeRoute["public"] = "true";
+    fakeRoute["group"] = group;
+    fakeRoute["adresses"] = addresses;
+
+    fakeAddress.clear();
+    fakeAddress["display_string"] = "Porta Markt, Flurweg, Barkhausen, Porta Westfalica, Kreis Minden-Lübbecke, North Rhine – Westphalia, 32457, Germany";
+    fakeAddress["long"] = "8.9012467869";
+    fakeAddress["lat"] = "52.2593197";
+    addresses.append(fakeAddress);
+
+    fakeRoutes.append(fakeRoute);
+
+
+    // Second fake route
+    // First clear
+    group.clear();
+    fakeAddress.clear();
+    addresses.clear();
+    fakeRoute.clear();
+
+    // 2.
+
+    group["group_id"] = 1;
+    fakeAddress["display_string"] = "Löhne, Kreis Herford, North Rhine – Westphalia, 32584, Germany";
+    fakeAddress["long"] = "8.7141587";
+    fakeAddress["lat"] = "52.1990346";
+    addresses.append(fakeAddress);
+
+    fakeAddress.clear();
+    fakeAddress["display_string"] = "Marktkauf Löhne, 13, Albert-Schweitzer-Straße, Ulenburg, Löhne, Kreis Herford, North Rhine – Westphalia, 32584, Germany";
+    fakeAddress["long"] = "8.7202042";
+    fakeAddress["lat"] = "52.2070195";
+    addresses.append(fakeAddress);
+
+    fakeRoute["name"] = "Jogger Way";
+    fakeRoute["public"] = "true";
+    fakeRoute["group"] = group;
+    fakeRoute["adresses"] = addresses;
+
+    fakeRoutes.append(fakeRoute);
+
+
+    return fakeRoutes;
+}
+

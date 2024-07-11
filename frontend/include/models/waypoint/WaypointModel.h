@@ -18,8 +18,9 @@ namespace Waypoint
         Q_INVOKABLE void remove(int);
         Q_INVOKABLE void appendModelItem(WaypointModelItem*);
         Q_INVOKABLE WaypointModelItem* getModelItem(int index);
-        Q_INVOKABLE QVariantList getWayPointInformations() const;
-        Q_INVOKABLE QList<QGeoCoordinate> getCoordinates() const;
+
+        Q_PROPERTY(QVariantList waypointInformations READ waypointInformations NOTIFY waypointInformationsChanged)
+        Q_PROPERTY(QVariantList coordinates READ coordinates NOTIFY coordinatesChanged)
         Q_INVOKABLE void clearCoordinates();
 
 
@@ -34,6 +35,17 @@ namespace Waypoint
         int rowCount(const QModelIndex &parent = QModelIndex()) const override;
         QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
+        /**
+         * @brief // All coordinates + displayname in this model, simply the waypointmodelitem as QVariant
+         * @return All coordinates in this model
+         */
+        QVariantList waypointInformations() const;
+        /**
+         * @brief All coordinates in this model
+         * @return All coordinates in this model
+         */
+        QVariantList coordinates() const;
+
         bool isConnectedToLocationRessource() const;
         void setIsConnectedToLocationRessource();
 
@@ -41,9 +53,18 @@ namespace Waypoint
         QHash<int, QByteArray> roleNames() const override;
 
     private:
+
+        // All WaypointModelItems
         QVector<WaypointModelItem*> m_waypointModelItems;
+        // All coordinates + displayname in this model
+        QVariantList m_waypointInformations;
+        // All coordinates in this model
+        QVariantList m_coordinates;
         bool m_isConnected;
 
+    signals:
+        void waypointInformationsChanged();
+        void coordinatesChanged();
 
     public slots:
         void onNominatimRessourceResponse(ResponseType responseType, const QJsonArray& data);

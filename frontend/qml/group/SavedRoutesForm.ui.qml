@@ -3,13 +3,17 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Dialogs
 import QtPositioning
-
+import RouteApiRessource
 
 Rectangle {
     id: rectangle
     anchors.fill: parent
 
+    property RouteApiRessource ressource: RouteApiRessource {}
+    property alias swipeView : swipeView
+    property alias tabbarHeader : tabbarHeader
 
+    property var pageMyRoutesRoutes
 
         Rectangle {
             anchors.fill: parent
@@ -55,21 +59,22 @@ Rectangle {
             width: parent.width
 
             SwipeView {
+                id: swipeView
                 anchors.fill: parent
                 currentIndex: pageIndex
 
 
                 Page {
-
+                    SavedRoutesFlickable{
+                        anchors.fill: parent
+                        savedRoutesModel: pageMyRoutesRoutes
+                    }
                 }
 
                 Page {
 
                 }
 
-                Page {
-
-                }
             }
         }
 
