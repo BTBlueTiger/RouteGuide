@@ -18,16 +18,8 @@ public class Address {
     private Integer id;
 
     @NotNull
-    @Column(name = "town", nullable = false, length = Integer.MAX_VALUE)
-    private String town;
-
-    @NotNull
-    @Column(name = "street", nullable = false, length = Integer.MAX_VALUE)
-    private String street;
-
-    @NotNull
-    @Column(name = "number", nullable = false, length = Integer.MAX_VALUE)
-    private String number;
+    @Column(name = "identifier", nullable = false, length = Integer.MAX_VALUE)
+    private String identifier;
 
     @NotNull
     @Column(name = "longitude", nullable = false)

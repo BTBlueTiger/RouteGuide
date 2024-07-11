@@ -11,11 +11,4 @@ import java.util.List;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
-    Address findByTownAndStreetAndNumber(String town, String street, String number);
-
-    @Query("SELECT a FROM Address a WHERE CONCAT(a.street, ', ', a.number, ', ', a.town) = :fullAddress")
-    List<Address> findFirstByFullAddress(@Param("fullAddress") String fullAddress);
-
-    @Query("SELECT a FROM Address a WHERE CONCAT(a.street, ', ', a.number, ', ', a.town) = :fullAddress")
-    Address findFirstByOrderByFullAddress(@Param("fullAddress") String fullAddress);
 }
