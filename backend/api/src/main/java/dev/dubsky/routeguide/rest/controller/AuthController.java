@@ -33,6 +33,11 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Register a new user
+     * @param user User object
+     * @return ResponseEntity with status code and message
+     */
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         if (userService.create(user) == null) {
@@ -41,6 +46,11 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body("User created");
     }
 
+    /**
+     * Login a user
+     * @param user Map with username and password
+     * @return ResponseEntity with status code and token
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> user) {
         AdvLogger.output(Color.GREEN, "Login method called with username: " + user.get("username"));

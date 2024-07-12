@@ -24,6 +24,12 @@ public class RouteController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Create a new route in the community routes
+     * @param authorizationToken Authorization token
+     * @param route Route object
+     * @return ResponseEntity with route object
+     */
     @PostMapping("/create")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createRoute(@RequestHeader("Authorization") String authorizationToken, @RequestBody Route route) {
@@ -39,6 +45,11 @@ public class RouteController {
         return ResponseEntity.ok(newRoute);
     }
 
+    /**
+     * Get all routes for the user
+     * @param authorizationToken Authorization token
+     * @return ResponseEntity with list of the users routes
+     */
     @GetMapping("/get")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getRoutes(@RequestHeader("Authorization") String authorizationToken) {
@@ -52,6 +63,11 @@ public class RouteController {
         return ResponseEntity.ok(routes);
     }
 
+    /**
+     * Get all public community routes for the given group
+     * @param authorizationToken Authorization token
+     * @return ResponseEntity with list of public routes for the group
+     */
     @GetMapping("/get_routes/{group_id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getPublicRoutes(@RequestHeader("Authorization") String authorizationToken, @PathVariable Long group_id) {
@@ -64,6 +80,11 @@ public class RouteController {
         return ResponseEntity.ok(routes.stream().map(CRouteDTO::new).toList());
     }
 
+    /**
+     * Get all public community routes
+     * @param authorizationToken Authorization token
+     * @return ResponseEntity with list of public routes
+     */
     @GetMapping("/get_routes")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getPublicRoutes(@RequestHeader("Authorization") String authorizationToken) {
@@ -76,6 +97,11 @@ public class RouteController {
         return ResponseEntity.ok(routes.stream().map(CRouteDTO::new).toList());
     }
 
+    /**
+     * Get all public community routes automatically for the user group
+     * @param authorizationToken Authorization token
+     * @return ResponseEntity with list of public routes for the group
+     */
     @GetMapping("/get_routes_auto")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getPublicRoutesAuto(@RequestHeader("Authorization") String authorizationToken) {
@@ -90,6 +116,12 @@ public class RouteController {
         return ResponseEntity.ok(routes.stream().map(CRouteDTO::new).toList());
     }
 
+    /**
+     * Create a new company route
+     * @param authorizationToken Authorization token
+     * @param route RouteCompany object
+     * @return ResponseEntity with route object
+     */
     @PostMapping("create_company_route")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createCompanyRoute(@RequestHeader("Authorization") String authorizationToken, @RequestBody RouteCompany route) {
@@ -106,6 +138,11 @@ public class RouteController {
         return ResponseEntity.ok(new RouteDTO(newRoute));
     }
 
+    /**
+     * Get all company routes for the user
+     * @param authorizationToken Authorization token
+     * @return ResponseEntity with list of the users company routes
+     */
     @GetMapping("get_routes_company")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getCompanyRoutes(@RequestHeader("Authorization") String authorizationToken) {
@@ -118,6 +155,11 @@ public class RouteController {
         return ResponseEntity.ok(routes.stream().map(RouteDTO::new).toList());
     }
 
+    /**
+     * Get all public company routes
+     * @param authorizationToken Authorization token
+     * @return ResponseEntity with list of public company routes
+     */
     @GetMapping("get_routes_company_public")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getCompanyRoutesPublic(@RequestHeader("Authorization") String authorizationToken) {

@@ -29,12 +29,21 @@ public class CompanyController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Get company by id
+     * @param id Company id
+     * @return Company object
+     */
     @GetMapping(("/{id}"))
     @PreAuthorize("hasRole('ADMIN')")
     public Company getCompany(@PathVariable Long id) {
         return companyService.getCompanyById(id);
     }
 
+    /**
+     * Get all companies
+     * @return List of companies
+     */
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public List<Company> getAllCompanies() {
@@ -42,6 +51,11 @@ public class CompanyController {
         return companyService.getAllCompanies();
     }
 
+    /**
+     * Get owner of the company
+     * @param id Company id
+     * @return User object
+     */
     @GetMapping("/get_owner/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public User getOwner(@PathVariable Long id) {
@@ -49,6 +63,11 @@ public class CompanyController {
         return companyService.getCompanyById(id).getOwner();
     }
 
+    /**
+     * Get users of the company
+     * @param token Authorization token
+     * @return List of UserDTO objects
+     */
     @GetMapping("/get_users")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getUsers(@RequestHeader("Authorization") String token) {
