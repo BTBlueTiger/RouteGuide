@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
+@Deprecated(since = "1.6.6", forRemoval = true)
 public class EnvReader {
 
     @Value("${GOOGLE_API_KEY}")

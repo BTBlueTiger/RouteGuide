@@ -46,7 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 AdvLogger.output(Color.RED,"Unable to get JWT Token");
             }
         } else {
-            AdvLogger.output(Color.RED,"JWT Token does not begin with Bearer String");
+            AdvLogger.output(Color.YELLOW,"JWT Token does not begin with Bearer String");
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

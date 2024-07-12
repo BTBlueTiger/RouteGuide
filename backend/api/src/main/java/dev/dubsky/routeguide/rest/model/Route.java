@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Setter
@@ -37,11 +38,13 @@ public class Route {
     @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses;
 
+    @ColumnDefault("false")
     @Column(name = "public", nullable = false)
-    private boolean isPublic;
+    private Boolean isPublic = false;
 
     @Nullable
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "group_id")
     private Group group;
+
 }

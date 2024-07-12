@@ -37,41 +37,14 @@ public class RouteServiceImpl implements RouteService {
     @Autowired
     private EnvReader envReader;
 
-    private GeoApiContext getGeoApiContext() {
-        return new GeoApiContext.Builder().apiKey(envReader.getGoogleApiKey()).build();
-    }
-
     @Override
     public Route createRoute(String authorizationToken, Route route) {
         User user = userService.getCurrentUser(authorizationToken);
         route.setUser(user);
         route.setGroup(user.getGroup());
 
-        GeoApiContext context = getGeoApiContext();
-
         for (Address address : route.getAddresses()) {
-            try {
-                String fullAddress = address.getStreet() + ", " + address.getNumber() + ", " + address.getTown();
-
-                List<Address> cachedAddresses = addressRepository.findFirstByFullAddress(fullAddress);
-                Address cachedAddress = !cachedAddresses.isEmpty() ? cachedAddresses.get(0) : null;
-                if (cachedAddress != null) {
-                    AdvLogger.output(Color.GREEN, "Using cached address for: " + fullAddress);
-                    address.setLatitude(cachedAddress.getLatitude());
-                    address.setLongitude(cachedAddress.getLongitude());
-                } else {
-                    AdvLogger.output(Color.YELLOW, "Geocoding address for: " + fullAddress);
-                    GeocodingResult[] results = GeocodingApi.geocode(context, fullAddress).await();
-                    if (results.length > 0) {
-                        address.setLatitude(results[0].geometry.location.lat);
-                        address.setLongitude(results[0].geometry.location.lng);
-                    }
-
-                }
-                address.setRoute(route);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            address.setRoute(route);
         }
 
         return routeRepository.save(route);

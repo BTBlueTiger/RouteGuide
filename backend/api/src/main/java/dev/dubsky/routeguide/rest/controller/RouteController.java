@@ -2,10 +2,9 @@ package dev.dubsky.routeguide.rest.controller;
 
 import dev.dubsky.advancedlog.AdvLogger;
 import dev.dubsky.advancedlog.Color;
-import dev.dubsky.routeguide.rest.model.Group;
-import dev.dubsky.routeguide.rest.model.Route;
-import dev.dubsky.routeguide.rest.model.RouteCompany;
-import dev.dubsky.routeguide.rest.model.User;
+import dev.dubsky.routeguide.rest.dto.CRouteDTO;
+import dev.dubsky.routeguide.rest.dto.RouteDTO;
+import dev.dubsky.routeguide.rest.model.*;
 import dev.dubsky.routeguide.rest.service.RouteService;
 import dev.dubsky.routeguide.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,12 @@ public class RouteController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Create a new route in the community routes
+     * @param authorizationToken Authorization token
+     * @param route Route object
+     * @return ResponseEntity with route object
+     */
     @PostMapping("/create")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createRoute(@RequestHeader("Authorization") String authorizationToken, @RequestBody Route route) {
@@ -40,6 +45,11 @@ public class RouteController {
         return ResponseEntity.ok(newRoute);
     }
 
+    /**
+     * Get all routes for the user
+     * @param authorizationToken Authorization token
+     * @return ResponseEntity with list of the users routes
+     */
     @GetMapping("/get")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getRoutes(@RequestHeader("Authorization") String authorizationToken) {
@@ -53,6 +63,11 @@ public class RouteController {
         return ResponseEntity.ok(routes);
     }
 
+    /**
+     * Get all public community routes for the given group
+     * @param authorizationToken Authorization token
+     * @return ResponseEntity with list of public routes for the group
+     */
     @GetMapping("/get_routes/{group_id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getPublicRoutes(@RequestHeader("Authorization") String authorizationToken, @PathVariable Long group_id) {
@@ -62,9 +77,14 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found for group: " + group_id);
         }
-        return ResponseEntity.ok(routes);
+        return ResponseEntity.ok(routes.stream().map(CRouteDTO::new).toList());
     }
 
+    /**
+     * Get all public community routes
+     * @param authorizationToken Authorization token
+     * @return ResponseEntity with list of public routes
+     */
     @GetMapping("/get_routes")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getPublicRoutes(@RequestHeader("Authorization") String authorizationToken) {
@@ -74,9 +94,14 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found");
         }
-        return ResponseEntity.ok(routes);
+        return ResponseEntity.ok(routes.stream().map(CRouteDTO::new).toList());
     }
 
+    /**
+     * Get all public community routes automatically for the user group
+     * @param authorizationToken Authorization token
+     * @return ResponseEntity with list of public routes for the group
+     */
     @GetMapping("/get_routes_auto")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getPublicRoutesAuto(@RequestHeader("Authorization") String authorizationToken) {
@@ -88,23 +113,36 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found for group: " + group.getName());
         }
-        return ResponseEntity.ok(routes);
+        return ResponseEntity.ok(routes.stream().map(CRouteDTO::new).toList());
     }
 
+    /**
+     * Create a new company route
+     * @param authorizationToken Authorization token
+     * @param route RouteCompany object
+     * @return ResponseEntity with route object
+     */
     @PostMapping("create_company_route")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createCompanyRoute(@RequestHeader("Authorization") String authorizationToken, @RequestBody RouteCompany route) {
         AdvLogger.output(Color.GREEN, "[ROUTES] Creating company route for token: " + authorizationToken);
         if (routeService.getCompanyRouteByName(route.getName()) != null) {
             return ResponseEntity.badRequest().body("Route with name: " + route.getName() + " already exists");
+        } else if (route.getAddresses().isEmpty()) {
+            return ResponseEntity.badRequest().body("Route must have at least one address");
         }
         RouteCompany newRoute = routeService.createCompanyRoute(authorizationToken, route);
         if (newRoute == null) {
             return ResponseEntity.badRequest().body("Route creation failed");
         }
-        return ResponseEntity.ok(newRoute);
+        return ResponseEntity.ok(new RouteDTO(newRoute));
     }
 
+    /**
+     * Get all company routes for the user
+     * @param authorizationToken Authorization token
+     * @return ResponseEntity with list of the users company routes
+     */
     @GetMapping("get_routes_company")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getCompanyRoutes(@RequestHeader("Authorization") String authorizationToken) {
@@ -114,9 +152,14 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found");
         }
-        return ResponseEntity.ok(routes);
+        return ResponseEntity.ok(routes.stream().map(RouteDTO::new).toList());
     }
 
+    /**
+     * Get all public company routes
+     * @param authorizationToken Authorization token
+     * @return ResponseEntity with list of public company routes
+     */
     @GetMapping("get_routes_company_public")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getCompanyRoutesPublic(@RequestHeader("Authorization") String authorizationToken) {
@@ -126,6 +169,6 @@ public class RouteController {
         if (routes.isEmpty()) {
             return ResponseEntity.badRequest().body("No routes found");
         }
-        return ResponseEntity.ok(routes);
+        return ResponseEntity.ok(routes.stream().map(RouteDTO::new).toList());
     }
 }

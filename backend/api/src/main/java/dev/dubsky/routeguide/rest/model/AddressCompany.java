@@ -16,8 +16,8 @@ import lombok.Setter;
 })
 public class AddressCompany {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "adresses_company_id_gen")
-    @SequenceGenerator(name = "adresses_company_id_gen", sequenceName = "adresses_company_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addresses_company_id_gen")
+    @SequenceGenerator(name = "addresses_company_id_gen", sequenceName = "addresses_company_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Integer id;
 

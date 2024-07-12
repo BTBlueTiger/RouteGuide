@@ -55,6 +55,9 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public List<UserDTO> getUsers(UserService userService, User user) {
         Company company = getCompanyByOwner(user.getId());
+        if (company == null) {
+            return null;
+        }
         AdvLogger.output(Color.GREEN, "[COMPANY] Getting users for company: " + company.getName() + " by user: " + user.getUsername());
         // Ugly, but I don't want to change the whole structure
         return userService.findByCompany(company.getId().longValue()).stream().map(UserDTO::new).toList();

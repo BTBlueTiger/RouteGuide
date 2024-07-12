@@ -15,10 +15,10 @@ import java.util.List;
 @Table(name = "routes_company")
 @NamedQueries({
         @NamedQuery(name = "RouteCompany.getCompanyRoutes", query = "SELECT r FROM RouteCompany r WHERE r.user = :user"),
-        @NamedQuery(name = "RouteCompany.getCompanyRoutesPublic", query = "SELECT r FROM RouteCompany r WHERE r.user = :user AND r.publicField = true"),
+        @NamedQuery(name = "RouteCompany.getCompanyRoutesPublic", query = "SELECT r FROM RouteCompany r WHERE r.user = :user AND r.isPublic = true"),
         @NamedQuery(name = "RouteCompany.getCompanyRouteByName", query = "SELECT r FROM RouteCompany r WHERE r.name = :name"),
         @NamedQuery(name = "RouteCompany.getCompanyRouteByCompanyAndUser", query = "SELECT r FROM RouteCompany r WHERE r.company = :company AND r.user = :user"),
-        @NamedQuery(name = "RouteCompany.getCompanyRouteByCompanyAndPublic", query = "SELECT r FROM RouteCompany r WHERE r.company = :company AND r.publicField = true"),
+        @NamedQuery(name = "RouteCompany.getCompanyRouteByCompanyAndPublic", query = "SELECT r FROM RouteCompany r WHERE r.company = :company AND r.isPublic = true"),
 })
 public class RouteCompany {
     @Id
@@ -47,5 +47,5 @@ public class RouteCompany {
     @NotNull
     @ColumnDefault("false")
     @Column(name = "public", nullable = false)
-    private Boolean publicField = false;
+    private Boolean isPublic = false;
 }
