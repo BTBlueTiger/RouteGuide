@@ -1,0 +1,29 @@
+name: Windows Build
+
+on: [push]
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Ninja
+      run: choco install ninja
+    
+    - name: Setup MSVC
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Install Qt for Windows
+      uses: jurplel/install-qt-action@v4
+      with:
+        aqtversion: '==3.1.*'
+        version: '6.7.0'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_msvc2019_64'
+        modules: 'qtpositioning qtlocation qtconnectivity qtimageformats qtnetworkauth qtsensors qt5compat'
+
+    - name: Build
+      run: cmake -S ./frontend -B build -G "Ninja Multi-Config" && cmake --build build --config Debug

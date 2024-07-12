@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=RouteGuide
+Comment=RouteGuide ci-cd
+Exec=RouteGuide
+Icon=RouteGuide
+Categories=Office;

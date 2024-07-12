@@ -1,8 +1,9 @@
 #ifndef SQLITEDATABASE_H
 #define SQLITEDATABASE_H
 
+/*
+
 #include <QSqlDatabase>
-#include "include/models/plan_a_route/PlanARouteModel.h"
 
 class SqliteDatabase
 {
@@ -26,5 +27,7 @@ public:
 private:
     QSqlDatabase m_db;
 };
-
+*/
 #endif // SQLITEDATABASE_H
+
+

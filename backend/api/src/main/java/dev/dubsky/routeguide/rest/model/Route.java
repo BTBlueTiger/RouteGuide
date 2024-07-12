@@ -1,5 +1,6 @@
 package dev.dubsky.routeguide.rest.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -7,13 +8,17 @@ import lombok.Setter;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.ColumnDefault;
+
 @Getter
 @Setter
 @Entity
 @Table(name = "routes")
 @NamedQueries({
         @NamedQuery(name = "Route.getRoutesByUser", query = "SELECT r FROM Route r WHERE r.user.username = :username"),
-        @NamedQuery(name = "Route.getRouteById", query = "SELECT r FROM Route r WHERE r.id = :id")
+        @NamedQuery(name = "Route.getRouteById", query = "SELECT r FROM Route r WHERE r.id = :id"),
+        @NamedQuery(name = "Route.getRouteByName", query = "SELECT r FROM Route r WHERE r.name = :name")
 })
 public class Route {
     @Id
@@ -32,4 +37,14 @@ public class Route {
 
     @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses;
+
+    @ColumnDefault("false")
+    @Column(name = "public", nullable = false)
+    private Boolean isPublic = false;
+
+    @Nullable
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "group_id")
+    private Group group;
+
 }

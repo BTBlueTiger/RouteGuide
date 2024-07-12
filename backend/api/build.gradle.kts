@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "dev.dubsky.routeguide"
-version = "1.4"
+version = "1.6.8"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -19,6 +19,17 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://projectlombok.org/edge-releases")
+    }
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/DubskySteam/AdvancedLog")
+        credentials {
+            username = System.getenv("USERNAME")
+            password = System.getenv("TOKEN")
+        }
+    }
 }
 
 dependencies {
@@ -35,8 +46,8 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
 
     // Lombok
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
+    compileOnly("org.projectlombok:lombok:edge-SNAPSHOT")
+    annotationProcessor("org.projectlombok:lombok:edge-SNAPSHOT")
 
     // RabbitMQ
     testImplementation("org.springframework.amqp:spring-rabbit-test")
@@ -53,6 +64,9 @@ dependencies {
     // Google
     implementation("com.google.maps:google-maps-services:2.2.0")
     implementation("org.slf4j:slf4j-simple:1.7.25")
+
+    // AdvancedLog
+    implementation("dev.dubsky:advancedlog:0.1.3")
 }
 
 tasks.withType<Test> {

@@ -13,14 +13,11 @@
 *.d
 *.json
 *.lock
-*.txt
 *.gen
-*.qrc
 *.prev
 *.log
 *.qmltypes
 *.cmake
-*.qrc
 *.timestamp
 
 
@@ -56,6 +53,8 @@ target_wrapper.*
 *.qmlproject.user
 *.qmlproject.user.*
 
+/frontend-refactor*
+
 # QtCreator CMake
 CMakeLists.txt.user*
 
@@ -71,7 +70,6 @@ build*
 .cmake*
 .qt*
 .rcc*
-.qrc
 .ninja_deps
 .ninja_log
 CMakeFiles*

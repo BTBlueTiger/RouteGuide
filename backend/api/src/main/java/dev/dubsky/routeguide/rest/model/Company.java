@@ -1,5 +1,7 @@
 package dev.dubsky.routeguide.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -22,5 +24,11 @@ public class Company {
 
     @Column(name = "mail_ending", length = Integer.MAX_VALUE)
     private String mailEnding;
+
+    @JsonManagedReference
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
 
 }

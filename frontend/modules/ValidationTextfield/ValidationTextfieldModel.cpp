@@ -1,8 +1,18 @@
 #include "ValidationTextfieldModel.h"
 
-    ValidationTextfieldModel::ValidationTextfieldModel(QObject* parent) : QObject(parent)
+ValidationTextfieldModel::ValidationTextfieldModel(QObject* parent) : QObject(parent)
 {
+    // Wir brauchen einen Sender, das ist in diesem Fall diese Klasse this
+    // Wir brauchen eine Funktion die Sendet, also ein SIGNAL das ist stateChanged
+    // Wir braucehn einen Empfänger, wieder wir thist
+    // Wir brauchen einen SLOT der das Signal annimt
 
+    // Mit dieser Syntax nehmen wir statische Methoden
+    connect(this, &ValidationTextfieldModel::stateChanged, this, &ValidationTextfieldModel::changeBorderColorOnStateChanged);
+
+    // Mit dieser Syntax könnten wir zum Beispiel auch Parameter weitergeben
+    connect(this, SIGNAL(stateChanged()), this, SLOT(changeColorOnStateChanged()));
+    connect(this, SIGNAL(stateChanged()), this, SLOT(changeOpacityOnStateChanged()));
 }
 
 int ValidationTextfieldModel::type() const
@@ -79,15 +89,28 @@ void ValidationTextfieldModel::setState(const int state)
     if(m_state == state)
         return;
     m_state = state;
+    emit stateChanged();
+}
+
+
+void ValidationTextfieldModel::changeBorderColorOnStateChanged()
+{
     m_borderColor = getNewBorderColor();
+    emit borderColorChanged(m_borderColor);
+}
+
+void ValidationTextfieldModel::changeColorOnStateChanged()
+{
     m_color = getNewColor();
+    emit colorChanged(m_color);
+}
+
+void ValidationTextfieldModel::changeOpacityOnStateChanged()
+{
     float newOpacity = getNewOpacity();
     if(m_opacity != newOpacity)
     {
         m_opacity = getNewOpacity();
         emit opacityChanged(m_opacity);
     }
-    emit borderColorChanged(m_borderColor);
-    emit colorChanged(m_color);
-    emit stateChanged();
 }

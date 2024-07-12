@@ -1,89 +1,125 @@
-create table "group"
+-- Drop and create the sequence to avoid conflicts
+DROP SEQUENCE IF EXISTS addresses_company_id_seq;
+CREATE SEQUENCE addresses_company_id_seq;
+
+-- Create the tables
+CREATE TABLE "group"
 (
     group_id serial
-        constraint group_pk
-            primary key,
-    name     varchar not null
+        CONSTRAINT group_pk
+            PRIMARY KEY,
+    name     varchar NOT NULL
 );
 
-alter table "group"
-    owner to admin;
+ALTER TABLE "group"
+    OWNER TO admin;
 
-create table companies
+CREATE TABLE companies
 (
     company_id  serial
-        constraint companies_pk
-            primary key,
-    name        varchar not null
-        constraint companies_pk_2
-            unique,
-    mail_ending varchar
+        CONSTRAINT companies_pk
+            PRIMARY KEY,
+    name        varchar NOT NULL
+        CONSTRAINT companies_pk_2
+            UNIQUE,
+    mail_ending varchar,
+    owner_id    integer NOT NULL
 );
 
-alter table companies
-    owner to admin;
+ALTER TABLE companies
+    OWNER TO admin;
 
-create table "user"
+CREATE TABLE "user"
 (
     user_id    serial
-        constraint user_pk
-            primary key,
-    email      varchar                                   not null,
-    username   varchar                                   not null,
+        CONSTRAINT user_pk
+            PRIMARY KEY,
+    email      varchar                                   NOT NULL,
+    username   varchar                                   NOT NULL,
     password   varchar,
-    role       varchar default 'USER'::character varying not null,
-    creation   date                                      not null,
+    role       varchar DEFAULT 'USER'::character varying NOT NULL,
+    creation   date                                      NOT NULL,
     company_id integer
-        constraint company_fk
-            references companies
+        CONSTRAINT company_fk
+            REFERENCES companies,
+    group_id   integer DEFAULT 1
+        CONSTRAINT user_group_group_id_fk
+            REFERENCES "group"
 );
 
-alter table "user"
-    owner to admin;
+ALTER TABLE "user"
+    OWNER TO admin;
 
-create table user_group
-(
-    user_id  integer not null
-        constraint user_group_user_user_id_fk
-            references "user",
-    group_id integer not null
-        constraint user_group_group_group_id_fk
-            references "group",
-    constraint user_group_pk
-        primary key (user_id, group_id)
-);
+ALTER TABLE companies
+    ADD CONSTRAINT companies_user_user_id_fk
+        FOREIGN KEY (owner_id) REFERENCES "user";
 
-alter table user_group
-    owner to admin;
-
-create table routes
+CREATE TABLE routes
 (
     routes_id serial
-        constraint routes_pk
-            primary key,
-    user_id   integer not null
-        constraint routes_user_user_id_fk
-            references "user",
-    name      varchar
+        CONSTRAINT routes_pk
+            PRIMARY KEY,
+    user_id   integer               NOT NULL
+        CONSTRAINT routes_user_user_id_fk
+            REFERENCES "user",
+    name      varchar,
+    public    boolean DEFAULT false NOT NULL,
+    group_id  integer
+        CONSTRAINT routes_group_group_id_fk
+            REFERENCES "group"
 );
 
-alter table routes
-    owner to admin;
+ALTER TABLE routes
+    OWNER TO admin;
 
-create table addresses
+CREATE TABLE addresses
 (
     id        serial
-        constraint addresses_pk
-            primary key,
-    town      varchar          not null,
-    street    varchar          not null,
-    number    varchar          not null,
-    longitude double precision not null,
-    latitude  double precision not null,
-    route_id  integer          not null
-        constraint addresses_routes_routes_id_fk
-            references routes
+        CONSTRAINT addresses_pk
+            PRIMARY KEY,
+    town      varchar          NOT NULL,
+    street    varchar          NOT NULL,
+    number    varchar          NOT NULL,
+    longitude double precision NOT NULL,
+    latitude  double precision NOT NULL,
+    route_id  integer          NOT NULL
+        CONSTRAINT addresses_routes_routes_id_fk
+            REFERENCES routes
 );
 
-alter table addresses
-    owner to admin;
+ALTER TABLE addresses
+    OWNER TO admin;
+
+CREATE TABLE routes_company
+(
+    route_id   serial
+        CONSTRAINT id
+            PRIMARY KEY,
+    user_id    integer               NOT NULL
+        CONSTRAINT routes_company_user_user_id_fk
+            REFERENCES "user",
+    company_id integer               NOT NULL
+        CONSTRAINT routes_company_companies_company_id_fk
+            REFERENCES companies,
+    name       varchar,
+    public     boolean DEFAULT false NOT NULL
+);
+
+ALTER TABLE routes_company
+    OWNER TO admin;
+
+CREATE TABLE addresses_company
+(
+    id         integer DEFAULT nextval('addresses_company_id_seq'::regclass) NOT NULL
+        CONSTRAINT addresses_company_pk
+            PRIMARY KEY,
+    identifier varchar                                                      NOT NULL,
+    longitude  double precision                                             NOT NULL,
+    latitude   double precision                                             NOT NULL,
+    route_id   integer                                                      NOT NULL
+        CONSTRAINT addresses_company_routes_company_route_id_fk
+            REFERENCES routes_company
+);
+
+ALTER TABLE addresses_company
+    OWNER TO admin;

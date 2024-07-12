@@ -1,48 +1,25 @@
-import QtQuick
-import QtQuick.Controls
-import QtTest
+import QtQuick 2.15
 import ValidationTextfieldModel
 
+ValidationTextfieldForm {
 
-TextField {
 
-    enum ValidationType{
-        None,
-        Email
-    }
+    ValidationTextfieldModel{ id: model }
 
-    enum ValidationState{
-        Default,
-        Error,
-        Valid
-    }
+    // Unsere propertys aus dem Model
+    property alias state : model.state
+    property alias m_opacity : model.opacity
+    property alias m_color : model.color
 
-    ValidationTextfieldModel{
-        id: model
-    }
-
-    id: validationTextField
-    property int state : 0
-    property int validationType: 0
+    // Default its not Valid
+    property bool isValid: state === 2
     property string errorMsg : ""
     property string placeholderDefault: ""
 
-
-    placeholderText: placeholderDefault
-
-    background: Rectangle {
-
-        color: model.color
-        border.width: 1
-        radius: 4
-        opacity: model.opacity
-        border.color: "darkGrey"
-
-    }
-
     onStateChanged: {
-        model.state = state
+        if(state === 1) {
+            m_toolTip.visible = true
+            m_errorMsgToolTip.start()
+        }
     }
-
-    property bool isValid: state === 2
 }

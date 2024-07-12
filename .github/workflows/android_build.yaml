@@ -1,0 +1,59 @@
+name: 📱  Android Build
+
+on: [push]
+
+env:
+  BUILD_DIR: 'build'
+  EXECUTABLE: "RouteGuide"
+  APPLICATION: "RouteGuide"
+  UNIXNAME: "RouteGuide"
+  QMAKE_PROJECT: "QOwnNotes.pro"
+  PUBLISHER: "Malte Kanders"
+  QT_VERSION: 6.6.0
+  REPO_DIR: "/home/runner/work/RouteGuide/"
+  QT_MODULES: 'qtpositioning qtlocation qtconnectivity qtimageformats qtsensors qt5compat'
+  CORES: 16
+
+jobs:
+  android:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: '🧰 Checkout repository'
+      uses: actions/checkout@v4
+
+    - name: '⚙️ Install dependencies'
+      run: |
+        sudo apt-get update
+        sudo apt install ninja-build
+    
+    - name: '⚙️ Install Linux QT'
+      uses: jurplel/install-qt-action@v3
+      with:
+        aqtversion: '==3.1.*'
+        version: '6.6.0'
+        host: 'linux'
+        target: 'desktop'
+        arch: 'gcc_64'
+        modules: 'qtconnectivity qtimageformats qtlocation qtnetworkauth qtpositioning qtsensors qt5compat'
+        
+    - name: '⚙️ Install Android QT'
+      uses: jurplel/install-qt-action@v3
+      with:
+        aqtversion: '==3.1.*'
+        version: '6.6.0'
+        host: 'linux'
+        target: 'android'
+        arch: 'android_arm64_v8a'
+        modules: 'qtconnectivity qtimageformats qtlocation qtnetworkauth qtpositioning qtsensors qt5compat'
+
+    - name: '👷 Compile'
+      env: 
+        QTDIR: ${{ env.QT_PATH }}
+        LD_LIBRARY_PATH: ${{ env.QT_PATH }}/lib:$LD_LIBRARY_PATH
+        QT_HOST_PATH: ${{ github.workspace }}/Qt/6.6.0/gcc_64/
+      run: | 
+       cmake -S ./frontend -B build -G "Ninja Multi-Config" -qt-host-path ${{ github.workspace }}/Qt/6.6.0/gcc_64/
+       cmake --build build --config Release 
+       export PATH=${{ github.workspace }}/Qt/6.6.0/gcc_64/libexec:$PATH
+       export PATH=${{ github.workspace }}/Qt/6.6.0/gcc_64/bin:$PATH
+       export EXTRA_QT_PLUGINS="svg;"

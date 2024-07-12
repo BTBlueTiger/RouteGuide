@@ -35,14 +35,8 @@ public:
     {
         url = std::make_shared<QUrl>();
         headers = std::make_shared<QHttpHeaders>();
-        url->setScheme("http");
-        url->setHost("94.16.31.72");
-        url->setPort(8080);
         setAccessManager(std::make_shared<QNetworkAccessManager>());
         setServiceApi(std::make_shared<QNetworkRequestFactory>());
-        headers->append("Content-Type", "application/json");
-        m_api->setBaseUrl(*url);
-        m_api->setCommonHeaders(*headers);
     }
 
     virtual ~AbstractResource() = default;
@@ -71,7 +65,6 @@ public:
 
    QNetworkReply* getRequest(const QNetworkRequest& request)
     {
-
         return m_manager->get(request);
     }
 
